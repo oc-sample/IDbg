@@ -32,7 +32,6 @@
 		11511A1725314E5000B83FAC /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 11511A0F25314E5000B83FAC /* KSDynamicLinker.c */; };
 		11511A1825314E5000B83FAC /* ThreadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A1025314E5000B83FAC /* ThreadInfo.m */; };
 		11511A1925314E5000B83FAC /* MiniDumpFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 11511A1125314E5000B83FAC /* MiniDumpFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		11511A652531621000B83FAC /* IDbg.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 11511A642531621000B83FAC /* IDbg.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		11511A0F25314E5000B83FAC /* KSDynamicLinker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSDynamicLinker.c; sourceTree = "<group>"; };
 		11511A1025314E5000B83FAC /* ThreadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadInfo.m; sourceTree = "<group>"; };
 		11511A1125314E5000B83FAC /* MiniDumpFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniDumpFile.h; sourceTree = "<group>"; };
-		11511A642531621000B83FAC /* IDbg.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IDbg.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +83,6 @@
 		115119E625314DB500B83FAC = {
 			isa = PBXGroup;
 			children = (
-				11511A642531621000B83FAC /* IDbg.podspec */,
 				115119F225314DB500B83FAC /* IDbg */,
 				115119FD25314DB500B83FAC /* IDbgTests */,
 				115119F125314DB500B83FAC /* Products */,
@@ -228,7 +225,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11511A652531621000B83FAC /* IDbg.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

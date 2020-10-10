@@ -1,0 +1,38 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/mjzheng/Documents/studyios/IDbg/IDbg/build/Release-iphonesimulator/IDbg.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "IDbg-Swift.h",
+          'external-contents': "/Users/mjzheng/Documents/studyios/IDbg/IDbg/build/Release-iphonesimulator/IDbg.framework/Headers/IDbg-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "IDbg.h",
+          'external-contents': "/Users/mjzheng/Documents/studyios/IDbg/IDbg/IDbg/IDbg.h"
+        },
+        {
+          'type': 'file',
+          'name': "MiniDumpFile.h",
+          'external-contents': "/Users/mjzheng/Documents/studyios/IDbg/IDbg/IDbg/MiniDumpFile.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mjzheng/Documents/studyios/IDbg/IDbg/build/Release-iphonesimulator/IDbg.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/mjzheng/Documents/studyios/IDbg/IDbg/build/IDbg.build/Release-iphonesimulator/IDbg.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

@@ -22,8 +22,10 @@
 
 
 - (IBAction)onBtnClick:(id)sender {
-    MiniDumpFile* file = [[MiniDumpFile alloc] init];
-    NSString* dump = [file generateMiniDump];
-    NSLog(@"%@", dump);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MiniDumpFile* file = [[MiniDumpFile alloc] init];
+        NSString* dump = [file generateMiniDump: (DPOptions_STACK | DPOptions_FILES)];
+        NSLog(@"%@", dump);
+    });
 }
 @end

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "MiniDumpFile.h"
+#import "AFNetworking.h"
 
 @interface ViewController ()
 

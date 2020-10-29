@@ -14,23 +14,49 @@
 
 @implementation MiniDumpFile
 
--(NSString*) generateMiniDump
+-(instancetype) init {
+    self = [super init];
+    if (self != nil) {
+        [self createFileDirectories];
+    }
+    return self;
+}
+
+-(NSString*) generateMiniDump:(DPOptions) options
 {
     NSLog(@"begin generate live report");
 
     // header
-    NSMutableString* pData = [self writeAppleFmtHeader];
+    NSMutableString* pData = nil;
+    
+    if (options & DPOptions_HEADER) {
+        pData = [self writeAppleFmtHeader];
+    }
+    if (pData == nil) {
+        pData = [[NSMutableString alloc] init];
+    }
 
     // thread backtrace
-    NSString* threads = [self writeThreadStatck];
-    [pData appendFormat:@"%@", threads];
+    float totalCpu = 0;
+    if (options & DPOptions_STACK) {
+        NSString* threads = [self writeThreadStatck:&totalCpu];
+        [pData appendFormat:@"%@", threads];
+    }
+
     
     // binary images
-    NSString* images = [self writeAppleFmtBinaryImages];
-    [pData appendFormat:@"%@", images];
+    if (options & DPOptions_IMAGE) {
+        NSString* images = [self writeAppleFmtBinaryImages];
+        [pData appendFormat:@"%@", images];
+    }
     
-    [self createFileDirectories];
-    [self saveToFile:pData];
+    if (options & DPOptions_STACK) {
+        [pData appendFormat:@"\napplication cpu{ %.2f}\n", totalCpu];
+    }
+    
+    if (options & DPOptions_FILES) {
+        [self saveToFile:pData];
+    }
     
     return [pData copy];
 }
@@ -59,10 +85,9 @@
     return str;
 }
 
--(NSString*) writeThreadStatck
+-(NSString*) writeThreadStatck:(float*)totalCpu
 {
-    float totalCpu = 0;
-    return [ThreadInfo getAllThreadStack:&totalCpu];
+    return getAllThreadStack(totalCpu);
 }
 
 -(NSString*) writeAppleFmtBinaryImages
@@ -133,5 +158,6 @@
         
     }
 }
+
 
 @end

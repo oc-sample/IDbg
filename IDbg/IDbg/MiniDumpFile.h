@@ -12,9 +12,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_OPTIONS(NSUInteger, DPOptions) {
+    DPOptions_HEADER           =  1 << 0,   // 0000 0001
+    DPOptions_STACK            =  1 << 1,   // 0000 0010
+    DPOptions_IMAGE            =  1 << 2,   // 0000 0100
+    DPOptions_FILES            =  1 << 3,   // 0000 1000
+};
+
+
 @interface MiniDumpFile : NSObject
 
--(NSString*) generateMiniDump;
+-(NSString*) generateMiniDump:(DPOptions) options;
+
+-(NSArray*) getAllThreadBasicInfo;
+
+-(instancetype) init;
 
 @end
 

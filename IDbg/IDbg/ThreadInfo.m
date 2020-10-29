@@ -67,7 +67,8 @@ typedef struct StackFrameEntry
 
 @implementation ThreadInfo
 
-+(NSString*) getAllThreadStack:(float*) appCpu
+
+NSString* getAllThreadStack(float* appCpu)
 {
     thread_act_array_t threads;
     mach_msg_type_number_t thread_count = 0;
@@ -78,19 +79,53 @@ typedef struct StackFrameEntry
         return @"Fail to enum threads";
     }
     
+    // 功能
     *appCpu = 0;
-    NSMutableString *resultString = [[NSMutableString alloc] init];
+    NSMutableArray* ls = [[NSMutableArray alloc] init];
     for (int i=0; i<thread_count; i++)
     {
         thread_t thread = threads[i];
         NSString* threadName = nil;
         float threadCpu = getThreadCpuEx(thread, &threadName);
-        [resultString appendFormat:@"\nThread %d Name :[%@] Cpu:[%.2f]\n", i, threadName, threadCpu];
-        [resultString appendFormat:@"Thread %d:\n", i];
+        ThreadInfo* info = [[ThreadInfo alloc] init];
+        info.cpu = [NSNumber numberWithFloat:threadCpu];
+        info.name = threadName;
+      
         NSString* stack = getThreadStack(i, thread);
-        [resultString appendFormat:@"%@", stack];
+        info.stack = stack;
+        [ls addObject:info];
         *appCpu += threadCpu;
     }
+    
+    // 排序
+    NSArray *ls1 = [ls sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        ThreadInfo* info1 = (ThreadInfo*)obj1;
+        ThreadInfo* info2 = (ThreadInfo*)obj2;
+        
+        float value1 = [info1.cpu floatValue];
+        float value2 = [info2.cpu floatValue];
+        if (value1 < value2) {
+           return NSOrderedDescending;
+        }else if (value1 == value2){
+           return NSOrderedSame;
+        }else{
+           return NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
+    
+    // 后处理
+    NSMutableString *resultString = [[NSMutableString alloc] init];
+    for (int i=0; i< ls.count; i++)
+    {
+        ThreadInfo* info = (ThreadInfo*)ls[i];
+        [resultString appendFormat:@"\nThread %d Name :[%@] Cpu:[%.2f]\n", i, info.name, [info.cpu floatValue]];
+        [resultString appendFormat:@"Thread %d:\n", i];
+        [resultString appendFormat:@"%@", info.stack];
+    }
+    
+    
+    
     NSString* allThreadStack = [resultString copy];
     NSLog(@"%@", allThreadStack);
     NSLog(@"app cpu %.2f", *appCpu);
@@ -127,6 +162,7 @@ NSString* getThreadStack(int index, thread_t thread)
 
     if(framePtr == 0 || mach_copyMem((void *)framePtr, &frame, sizeof(frame)) != KERN_SUCCESS)
     {
+        NSLog(@"fail to get frame pointer");
         return @"Fail to get frame pointer";
     }
 
@@ -247,5 +283,33 @@ const char* bs_lastPathEntry(const char* const path)
     char* lastFile = strrchr(path, '/');
     return lastFile == NULL ? path : lastFile + 1;
 }
+
+NSArray* getAllThreadBasicInfo(float* appCpu) {
+    thread_act_array_t threads;
+    mach_msg_type_number_t thread_count = 0;
+    const task_t this_task = mach_task_self();
+    kern_return_t kr = task_threads(this_task, &threads, &thread_count);
+    if(kr != KERN_SUCCESS)
+    {
+        return nil;
+        //return @"Fail to enum threads";
+    }
+    
+    *appCpu = 0;
+    NSMutableArray* ls = [[NSMutableArray alloc] init];
+    for (int i=0; i<thread_count; i++)
+    {
+        thread_t thread = threads[i];
+        NSString* threadName = nil;
+        float threadCpu = getThreadCpuEx(thread, &threadName);
+        ThreadInfo* info = [[ThreadInfo alloc] init];
+        info.cpu = [NSNumber numberWithFloat:threadCpu];
+        info.name = threadName;
+        [ls addObject:info];
+        *appCpu += threadCpu;
+    }
+    return ls;
+}
+
 
 @end

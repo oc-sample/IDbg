@@ -53,7 +53,7 @@
 		11511A922531AD1100B83FAC /* IDbgPodsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDbgPodsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11511A962531AD1100B83FAC /* IDbgPodsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDbgPodsUITests.m; sourceTree = "<group>"; };
 		11511A982531AD1100B83FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11511AAA2531AEA300B83FAC /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		11511AAA2531AEA300B83FAC /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		80F854A1FD350C91906A78F3 /* Pods-IDbgPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IDbgPods.release.xcconfig"; path = "Target Support Files/Pods-IDbgPods/Pods-IDbgPods.release.xcconfig"; sourceTree = "<group>"; };
 		B647281D822FBF2340231430 /* libPods-IDbgPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IDbgPods.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD9D975836608D23D5E97002 /* Pods-IDbgPods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IDbgPods.debug.xcconfig"; path = "Target Support Files/Pods-IDbgPods/Pods-IDbgPods.debug.xcconfig"; sourceTree = "<group>"; };

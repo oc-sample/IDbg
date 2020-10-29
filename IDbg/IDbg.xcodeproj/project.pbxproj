@@ -27,7 +27,7 @@
 		11511A1225314E5000B83FAC /* SysUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 11511A0A25314E5000B83FAC /* SysUtil.h */; };
 		11511A1325314E5000B83FAC /* MiniDumpFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A0B25314E5000B83FAC /* MiniDumpFile.m */; };
 		11511A1425314E5000B83FAC /* SysUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A0C25314E5000B83FAC /* SysUtil.m */; };
-		11511A1525314E5000B83FAC /* ThreadInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 11511A0D25314E5000B83FAC /* ThreadInfo.h */; };
+		11511A1525314E5000B83FAC /* ThreadInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 11511A0D25314E5000B83FAC /* ThreadInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11511A1625314E5000B83FAC /* KSDynamicLinker.h in Headers */ = {isa = PBXBuildFile; fileRef = 11511A0E25314E5000B83FAC /* KSDynamicLinker.h */; };
 		11511A1725314E5000B83FAC /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 11511A0F25314E5000B83FAC /* KSDynamicLinker.c */; };
 		11511A1825314E5000B83FAC /* ThreadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A1025314E5000B83FAC /* ThreadInfo.m */; };
@@ -131,8 +131,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11511A1525314E5000B83FAC /* ThreadInfo.h in Headers */,
 				11511A1925314E5000B83FAC /* MiniDumpFile.h in Headers */,
+				11511A1525314E5000B83FAC /* ThreadInfo.h in Headers */,
 				11511A1225314E5000B83FAC /* SysUtil.h in Headers */,
 				11511A0125314DB500B83FAC /* IDbg.h in Headers */,
 				11511A1625314E5000B83FAC /* KSDynamicLinker.h in Headers */,

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <mach/mach.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,13 +19,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSNumber* cpu;
 @property(nonatomic, copy) NSString* name;
 @property(nonatomic, copy) NSString* stack;
+//@property(nonatomic, assign) thread_t th;
+@property(nonatomic, assign)NSNumber* th;
 
 NSString* getAllThreadStack(float* appCpu);
 
 NSArray* getAllThreadBasicInfo(float* appCpu);
 
+NSString* getAllThreadStr();
+
+float getSysCpu();
+
 @end
-
-
 
 NS_ASSUME_NONNULL_END

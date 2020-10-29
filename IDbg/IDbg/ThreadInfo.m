@@ -67,6 +67,24 @@ typedef struct StackFrameEntry
 
 @implementation ThreadInfo
 
+NSArray* sortThread(NSArray* ls) {
+    NSArray *ls1 = [ls sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        ThreadInfo* info1 = (ThreadInfo*)obj1;
+        ThreadInfo* info2 = (ThreadInfo*)obj2;
+        
+        float value1 = [info1.cpu floatValue];
+        float value2 = [info2.cpu floatValue];
+        if (value1 < value2) {
+           return NSOrderedDescending;
+        }else if (value1 == value2){
+           return NSOrderedSame;
+        }else{
+           return NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
+    return ls1;
+}
 
 NSString* getAllThreadStack(float* appCpu)
 {
@@ -90,6 +108,7 @@ NSString* getAllThreadStack(float* appCpu)
         ThreadInfo* info = [[ThreadInfo alloc] init];
         info.cpu = [NSNumber numberWithFloat:threadCpu];
         info.name = threadName;
+        info.th = [NSNumber numberWithLong:(long)thread];
       
         NSString* stack = getThreadStack(i, thread);
         info.stack = stack;
@@ -98,33 +117,17 @@ NSString* getAllThreadStack(float* appCpu)
     }
     
     // 排序
-    NSArray *ls1 = [ls sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        ThreadInfo* info1 = (ThreadInfo*)obj1;
-        ThreadInfo* info2 = (ThreadInfo*)obj2;
-        
-        float value1 = [info1.cpu floatValue];
-        float value2 = [info2.cpu floatValue];
-        if (value1 < value2) {
-           return NSOrderedDescending;
-        }else if (value1 == value2){
-           return NSOrderedSame;
-        }else{
-           return NSOrderedAscending;
-        }
-        return NSOrderedSame;
-    }];
+    NSArray *ls1 = sortThread(ls);
     
     // 后处理
     NSMutableString *resultString = [[NSMutableString alloc] init];
-    for (int i=0; i< ls.count; i++)
+    for (int i=0; i< ls1.count; i++)
     {
-        ThreadInfo* info = (ThreadInfo*)ls[i];
+        ThreadInfo* info = (ThreadInfo*)ls1[i];
         [resultString appendFormat:@"\nThread %d Name :[%@] Cpu:[%.2f]\n", i, info.name, [info.cpu floatValue]];
         [resultString appendFormat:@"Thread %d:\n", i];
         [resultString appendFormat:@"%@", info.stack];
     }
-    
-    
     
     NSString* allThreadStack = [resultString copy];
     NSLog(@"%@", allThreadStack);
@@ -284,6 +287,7 @@ const char* bs_lastPathEntry(const char* const path)
     return lastFile == NULL ? path : lastFile + 1;
 }
 
+
 NSArray* getAllThreadBasicInfo(float* appCpu) {
     thread_act_array_t threads;
     mach_msg_type_number_t thread_count = 0;
@@ -302,13 +306,166 @@ NSArray* getAllThreadBasicInfo(float* appCpu) {
         thread_t thread = threads[i];
         NSString* threadName = nil;
         float threadCpu = getThreadCpuEx(thread, &threadName);
-        ThreadInfo* info = [[ThreadInfo alloc] init];
-        info.cpu = [NSNumber numberWithFloat:threadCpu];
-        info.name = threadName;
-        [ls addObject:info];
-        *appCpu += threadCpu;
+        if (threadCpu > 0 ) {
+            ThreadInfo* info = [[ThreadInfo alloc] init];
+            info.cpu = [NSNumber numberWithFloat:threadCpu];
+            info.th = [NSNumber numberWithLong:(long)thread];
+            info.name = threadName;
+            [ls addObject:info];
+            *appCpu += threadCpu;
+        }
     }
-    return ls;
+    
+    // 排序
+    NSArray *ls1 = sortThread(ls);
+    
+    NSMutableArray* ls2 = updateHistory(ls1);
+    
+    return ls2;
+}
+
+NSNumber* getIndex(ThreadInfo* item) {
+    static NSMutableDictionary* dic = nil;
+    static int count = 0;
+    if (dic == nil) {
+        dic = [[NSMutableDictionary alloc]init];
+    }
+    
+    if ([dic objectForKey: item.th] == nil) {
+        dic[item.th] = [NSNumber numberWithInt:count];
+        count++;
+    }
+    return dic[item.th];
+}
+
+BOOL isFound(NSArray* ls, ThreadInfo* item) {
+    for (ThreadInfo* info in ls) {
+        if (item.th == info.th) {
+            item.cpu = info.cpu;
+            item.stack = info.stack;
+            return TRUE;
+        }
+    }
+    return false;
+}
+
+NSArray* updateHistory(NSArray* ls) {
+    static NSMutableArray* history = nil;
+    if (history == nil) {
+        history = [[NSMutableArray alloc] init];
+    }
+    
+    // update history thread
+    for (int i=0; i<history.count; i++) {
+        ThreadInfo* info = history[i];
+        if (isFound(ls, info)) {
+            // exist, update
+            history[i] = info;
+        } else {
+            //no exist, reset
+            info.cpu = [NSNumber numberWithLong:0];
+            info.stack = @"";
+            history[i] = info;
+        }
+    }
+    
+    // add new thread
+    for (int i=0; i<ls.count; i++) {
+        ThreadInfo* info = ls[i];
+        if (!isFound(history, info)) {
+            [history addObject:info];
+        }
+    }
+    return history;
+}
+
+typedef struct ana_cpu_load_info {
+    
+    natural_t cpu_user;
+    natural_t cpu_system;
+    natural_t cpu_idle;
+    natural_t cpu_nice;
+}ana_cpu_load_info;
+
+float getSysCpu()
+{
+    ana_cpu_load_info cpuloadinfo;
+    static struct ana_cpu_load_info lastcpuloadinfo = {0, 0, 0, 0};
+    mach_port_t host_port;
+    mach_msg_type_number_t host_size;
+    host_cpu_load_info_data_t host_load;
+    host_port = mach_host_self();
+    host_size = sizeof(host_cpu_load_info_data_t) / sizeof(integer_t);
+    int ret = host_statistics(host_port, HOST_CPU_LOAD_INFO, (host_info_t)&host_load, &host_size);
+    if (KERN_SUCCESS != ret) {
+        
+        return -1;
+    }
+    else {
+        cpuloadinfo.cpu_user = host_load.cpu_ticks[0] - lastcpuloadinfo.cpu_user;
+        cpuloadinfo.cpu_system = host_load.cpu_ticks[1] - lastcpuloadinfo.cpu_system;
+        cpuloadinfo.cpu_idle = host_load.cpu_ticks[2] - lastcpuloadinfo.cpu_idle;
+        cpuloadinfo.cpu_nice = host_load.cpu_ticks[3] - lastcpuloadinfo.cpu_nice;
+        memcpy(&lastcpuloadinfo, &host_load, sizeof(lastcpuloadinfo));
+    }
+    
+    return 100.0*((float)(cpuloadinfo.cpu_user + cpuloadinfo.cpu_system)/(float)(cpuloadinfo.cpu_user + cpuloadinfo.cpu_system+cpuloadinfo.cpu_idle + cpuloadinfo.cpu_nice));
+    
+}
+
+NSString* getAllThreadStr()
+{
+    float appCpu = 0;
+    NSArray* ls = getAllThreadBasicInfo(&appCpu);
+    NSMutableString* header = [[NSMutableString alloc] init];
+    [header appendString:@"header\tsys\tapp\t"];
+    for (int i=0; i<ls.count; i++) {
+        ThreadInfo* info = (ThreadInfo*)ls[i];
+        NSString* threadName = @"";
+        if (info != nil) {
+            if (info.name != nil && ![info.name isEqual:@""]) {
+                threadName = info.name;
+            } else {
+                threadName = [NSString stringWithFormat:@"%lu", [info.th longValue]];
+            }
+        }
+        [header appendFormat:@"%@\t", threadName];
+    }
+    
+    float sysCpu = getSysCpu();
+    NSMutableString* line = [[NSMutableString alloc] init];
+    [line appendFormat:@"line\t%0.2f\t%0.2f\t", sysCpu, appCpu];
+    for (int i=0; i<ls.count; i++) {
+        ThreadInfo* info = (ThreadInfo*)ls[i];
+        [line appendFormat:@"%@\t", info.cpu];
+    }
+    
+    [header appendFormat:@"\n%@\n", line];
+    
+    saveToFile(header);
+    
+    return header;
+}
+
+void saveToFile(NSString*pData)
+{
+    static NSFileHandle *fileHandle = nil;
+    if (fileHandle == nil) {
+        NSString* tmpPath = NSTemporaryDirectory();
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyMMddHHmmssSSS"];
+        NSString* dateTime = [formatter stringFromDate:[NSDate date]];
+        NSString* fileName = [NSString stringWithFormat:@"%@manual_stack/%@_cpu.txt", tmpPath, dateTime];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager createFileAtPath:fileName contents:nil attributes:nil];
+        fileHandle = [NSFileHandle fileHandleForWritingAtPath:fileName];
+        NSLog(@"create file handle %@", fileHandle);
+    }
+
+    NSData* stringData  = [pData dataUsingEncoding:NSUTF8StringEncoding];
+    [fileHandle writeData:stringData];
+    NSLog(@"write data %@", fileHandle);
+
 }
 
 

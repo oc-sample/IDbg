@@ -138,6 +138,7 @@
     NSString* fileName = [NSString stringWithFormat:@"%@manual_stack/%@_ori.crash", tmpPath, dateTime];
     
     [pData writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+
 }
 
 - (void)createFileDirectories
@@ -155,9 +156,7 @@
         {
             NSLog(@"fail to create manual_stack direction");
         }
-        
     }
 }
-
 
 @end

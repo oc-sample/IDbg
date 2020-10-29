@@ -12,11 +12,13 @@
 
 @interface ViewController ()
 
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
+    [[NSThread currentThread] setName:@"main"];
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -28,12 +30,35 @@
 //        NSString* dump = [file generateMiniDump: (DPOptions_STACK | DPOptions_FILES)];
 //        NSLog(@"%@", dump);
         
-        float appCpu = 0;
-        NSArray* ls = getAllThreadBasicInfo(&appCpu);
-        for (int i=0; i<ls.count; i++) {
-            ThreadInfo* info = (ThreadInfo*)ls[i];
-            NSLog(@"thread index %d %@ %@", i, info.name, info.cpu);
-        }
+//        float appCpu = 0;
+//        NSArray* ls = getAllThreadBasicInfo(&appCpu);
+//        NSMutableString* header = [[NSMutableString alloc] init];
+//        [header appendString:@"sys app "];
+//        for (int i=0; i<ls.count; i++) {
+//            ThreadInfo* info = (ThreadInfo*)ls[i];
+//            NSString* threadName = @"";
+//            if (info != nil) {
+//                if (info.name != nil && ![info.name isEqual:@""]) {
+//                    threadName = info.name;
+//                } else {
+//                    threadName = [NSString stringWithFormat:@"%lu", [info.th longValue]];
+//                }
+//            }
+//            [header appendFormat:@"%@ ", threadName];
+//        }
+//        NSLog(@"header %@", header);
+//
+//        NSMutableString* line = [[NSMutableString alloc] init];
+//        for (int i=0; i<ls.count; i++) {
+//            ThreadInfo* info = (ThreadInfo*)ls[i];
+//            [line appendFormat:@"%@ ", info.cpu];
+//        }
+//        
+//        float sysCpu = getSysCpu();
+//        NSLog(@"line %0.2f %0.2f %@", sysCpu, appCpu, line);
+        
+        NSLog(@"%@", getAllThreadStr());
+        
     });
 }
 @end

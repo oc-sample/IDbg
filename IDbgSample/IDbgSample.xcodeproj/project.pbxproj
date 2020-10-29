@@ -15,7 +15,7 @@
 		11511A3A25315A3A00B83FAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A3925315A3A00B83FAC /* main.m */; };
 		11511A4425315A3A00B83FAC /* IDbgSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A4325315A3A00B83FAC /* IDbgSampleTests.m */; };
 		11511A4F25315A3A00B83FAC /* IDbgSampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A4E25315A3A00B83FAC /* IDbgSampleUITests.m */; };
-		11511A5E25315BE500B83FAC /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11511A5D25315BE500B83FAC /* IDbg.framework */; };
+		11D22D80254A6133001FB97F /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D22D7F254A6133001FB97F /* IDbg.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		11511A4A25315A3A00B83FAC /* IDbgSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDbgSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11511A4E25315A3A00B83FAC /* IDbgSampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDbgSampleUITests.m; sourceTree = "<group>"; };
 		11511A5025315A3A00B83FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11511A5D25315BE500B83FAC /* IDbg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDbg.framework; path = ThirdParty/IDbg.framework; sourceTree = "<group>"; };
+		11D22D7F254A6133001FB97F /* IDbg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDbg.framework; path = ThirdParty/IDbg/IDbg.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11511A5E25315BE500B83FAC /* IDbg.framework in Frameworks */,
+				11D22D80254A6133001FB97F /* IDbg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +139,7 @@
 		11511A5C25315BE500B83FAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				11511A5D25315BE500B83FAC /* IDbg.framework */,
+				11D22D7F254A6133001FB97F /* IDbg.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -452,6 +452,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdParty",
+					"$(PROJECT_DIR)/ThirdParty/IDbg",
 				);
 				INFOPLIST_FILE = IDbgSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -474,6 +475,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdParty",
+					"$(PROJECT_DIR)/ThirdParty/IDbg",
 				);
 				INFOPLIST_FILE = IDbgSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

@@ -24,6 +24,8 @@ typedef NS_OPTIONS(NSUInteger, DPOptions) {
 
 -(NSString*) generateMiniDump:(DPOptions) options;
 
+-(NSArray*) getAllThreadBasicInfo;
+
 -(instancetype) init;
 
 @end

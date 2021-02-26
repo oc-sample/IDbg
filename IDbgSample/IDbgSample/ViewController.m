@@ -7,10 +7,11 @@
 //
 
 #import "ViewController.h"
-#import <IDbg/MiniDumpFile.h>
-#import <IDbg/ThreadInfo.h>
+#import "Heartbeat.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) Heartbeat* hb;
 
 
 @end
@@ -23,13 +24,29 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void)stopHeartbeat {
+  [self.hb stop];
+}
+
+- (void)startHeartbeat{
+  self.hb = [[Heartbeat alloc] init];
+  [self.hb start];
+}
+
+- (IBAction)onStop:(id)sender {
+  [self stopHeartbeat];
+  //NSLog(@"onStop");
+}
 
 - (IBAction)onBtnClick:(id)sender {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+  [self startHeartbeat];
+}
+
+//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        MiniDumpFile* file = [[MiniDumpFile alloc] init];
 //        NSString* dump = [file generateMiniDump: (DPOptions_STACK | DPOptions_FILES)];
 //        NSLog(@"%@", dump);
-        
+    
 //        float appCpu = 0;
 //        NSArray* ls = getAllThreadBasicInfo(&appCpu);
 //        NSMutableString* header = [[NSMutableString alloc] init];
@@ -53,12 +70,9 @@
 //            ThreadInfo* info = (ThreadInfo*)ls[i];
 //            [line appendFormat:@"%@ ", info.cpu];
 //        }
-//        
+//
 //        float sysCpu = getSysCpu();
 //        NSLog(@"line %0.2f %0.2f %@", sysCpu, appCpu, line);
-        
-        NSLog(@"%@", getAllThreadStr());
-        
-    });
-}
+//  NSLog(@"%@", getAllThreadStr());
+//});
 @end

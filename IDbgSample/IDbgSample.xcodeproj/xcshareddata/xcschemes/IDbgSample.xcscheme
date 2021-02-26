@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1240"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "115119EF25314DB500B83FAC"
-               BuildableName = "IDbg.framework"
-               BlueprintName = "IDbg"
-               ReferencedContainer = "container:IDbg.xcodeproj">
+               BlueprintIdentifier = "11511A2625315A3A00B83FAC"
+               BuildableName = "IDbgSample.app"
+               BlueprintName = "IDbgSample"
+               ReferencedContainer = "container:IDbgSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,24 +27,25 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "115119EF25314DB500B83FAC"
-            BuildableName = "IDbg.framework"
-            BlueprintName = "IDbg"
-            ReferencedContainer = "container:IDbg.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "115119F825314DB500B83FAC"
-               BuildableName = "IDbgTests.xctest"
-               BlueprintName = "IDbgTests"
-               ReferencedContainer = "container:IDbg.xcodeproj">
+               BlueprintIdentifier = "11511A3E25315A3A00B83FAC"
+               BuildableName = "IDbgSampleTests.xctest"
+               BlueprintName = "IDbgSampleTests"
+               ReferencedContainer = "container:IDbgSample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "11511A4925315A3A00B83FAC"
+               BuildableName = "IDbgSampleUITests.xctest"
+               BlueprintName = "IDbgSampleUITests"
+               ReferencedContainer = "container:IDbgSample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,15 +60,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "115119EF25314DB500B83FAC"
-            BuildableName = "IDbg.framework"
-            BlueprintName = "IDbg"
-            ReferencedContainer = "container:IDbg.xcodeproj">
+            BlueprintIdentifier = "11511A2625315A3A00B83FAC"
+            BuildableName = "IDbgSample.app"
+            BlueprintName = "IDbgSample"
+            ReferencedContainer = "container:IDbgSample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -75,15 +77,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "115119EF25314DB500B83FAC"
-            BuildableName = "IDbg.framework"
-            BlueprintName = "IDbg"
-            ReferencedContainer = "container:IDbg.xcodeproj">
+            BlueprintIdentifier = "11511A2625315A3A00B83FAC"
+            BuildableName = "IDbgSample.app"
+            BlueprintName = "IDbgSample"
+            ReferencedContainer = "container:IDbgSample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

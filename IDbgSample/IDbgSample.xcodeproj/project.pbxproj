@@ -15,6 +15,7 @@
 		11511A3A25315A3A00B83FAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A3925315A3A00B83FAC /* main.m */; };
 		11511A4425315A3A00B83FAC /* IDbgSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A4325315A3A00B83FAC /* IDbgSampleTests.m */; };
 		11511A4F25315A3A00B83FAC /* IDbgSampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11511A4E25315A3A00B83FAC /* IDbgSampleUITests.m */; };
+		118B17A225E88A0100325803 /* Heartbeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 118B17A125E88A0100325803 /* Heartbeat.m */; };
 		11D22D80254A6133001FB97F /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D22D7F254A6133001FB97F /* IDbg.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,8 @@
 		11511A4A25315A3A00B83FAC /* IDbgSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDbgSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11511A4E25315A3A00B83FAC /* IDbgSampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDbgSampleUITests.m; sourceTree = "<group>"; };
 		11511A5025315A3A00B83FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		118B17A025E88A0100325803 /* Heartbeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heartbeat.h; sourceTree = "<group>"; };
+		118B17A125E88A0100325803 /* Heartbeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Heartbeat.m; sourceTree = "<group>"; };
 		11D22D7F254A6133001FB97F /* IDbg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDbg.framework; path = ThirdParty/IDbg/IDbg.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +108,8 @@
 		11511A2925315A3A00B83FAC /* IDbgSample */ = {
 			isa = PBXGroup;
 			children = (
+				118B17A025E88A0100325803 /* Heartbeat.h */,
+				118B17A125E88A0100325803 /* Heartbeat.m */,
 				11511A2A25315A3A00B83FAC /* AppDelegate.h */,
 				11511A2B25315A3A00B83FAC /* AppDelegate.m */,
 				11511A2D25315A3A00B83FAC /* ViewController.h */,
@@ -276,6 +281,7 @@
 			files = (
 				11511A2F25315A3A00B83FAC /* ViewController.m in Sources */,
 				11511A3A25315A3A00B83FAC /* main.m in Sources */,
+				118B17A225E88A0100325803 /* Heartbeat.m in Sources */,
 				11511A2C25315A3A00B83FAC /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

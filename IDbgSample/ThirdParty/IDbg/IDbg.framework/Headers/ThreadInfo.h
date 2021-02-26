@@ -30,6 +30,8 @@ NSString* getAllThreadStr();
 
 float getSysCpu();
 
+void createFileDirectories();
+
 @end
 
 NS_ASSUME_NONNULL_END

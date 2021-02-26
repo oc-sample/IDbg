@@ -17,7 +17,7 @@
 -(instancetype) init {
     self = [super init];
     if (self != nil) {
-        [self createFileDirectories];
+        createFileDirectories();
     }
     return self;
 }
@@ -139,24 +139,6 @@
     
     [pData writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
-}
-
-- (void)createFileDirectories
-{
-    NSString* tmpPath = NSTemporaryDirectory();
-    NSString *picPath = [tmpPath stringByAppendingPathComponent:@"manual_stack"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = FALSE;
-    BOOL isDirExist = [fileManager fileExistsAtPath:picPath isDirectory:&isDir];
-    if(!(isDirExist && isDir))
-    {
-        BOOL bCreateDir = [fileManager createDirectoryAtPath: picPath withIntermediateDirectories:YES attributes:nil error:nil];
-        if(!bCreateDir)
-        {
-            NSLog(@"fail to create manual_stack direction");
-        }
-    }
 }
 
 @end

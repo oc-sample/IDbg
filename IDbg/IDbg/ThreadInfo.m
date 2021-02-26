@@ -9,6 +9,7 @@
 #import "ThreadInfo.h"
 #import <mach/mach.h>
 #import "KSDynamicLinker.h"
+#import <pthread/pthread.h>
 
 #pragma -mark DEFINE MACRO FOR DIFFERENT CPU ARCHITECTURE
 #if defined(__arm64__)
@@ -258,6 +259,12 @@ NSString* getFrameEntry(const int entryNum, const uintptr_t address)
 
 float getThreadCpuEx(thread_t thread, NSString** pThreadName)
 {
+    if (numbers == 0) {
+        numbers = [NSProcessInfo processInfo].activeProcessorCount;
+        NSLog(@"system cpu core %d", numbers);
+    }
+    
+    
     float cpu = 0;
     mach_msg_type_number_t thread_info_count = THREAD_INFO_MAX;
     thread_info_data_t thinfo;
@@ -270,7 +277,7 @@ float getThreadCpuEx(thread_t thread, NSString** pThreadName)
     thread_extended_info_t basic_info_th = (thread_extended_info_t)thinfo;
     if (!(basic_info_th->pth_flags & TH_FLAGS_IDLE))
     {
-        cpu = basic_info_th->pth_cpu_usage / (float)TH_USAGE_SCALE * 100.0;
+        cpu = basic_info_th->pth_cpu_usage / (float)TH_USAGE_SCALE * 100.0 / numbers;
     }
     *pThreadName = [NSString stringWithUTF8String:basic_info_th->pth_name];
     return cpu;
@@ -287,6 +294,8 @@ const char* bs_lastPathEntry(const char* const path)
     return lastFile == NULL ? path : lastFile + 1;
 }
 
+
+static NSUInteger numbers = 0;
 
 NSArray* getAllThreadBasicInfo(float* appCpu) {
     thread_act_array_t threads;
@@ -306,6 +315,9 @@ NSArray* getAllThreadBasicInfo(float* appCpu) {
         thread_t thread = threads[i];
         NSString* threadName = nil;
         float threadCpu = getThreadCpuEx(thread, &threadName);
+//        const char* tmp = "mj";
+//        thread_set_thread_name(thread, tmp);
+        //thread_set_thread_name(thread, "mj");
         if (threadCpu > 0 ) {
             ThreadInfo* info = [[ThreadInfo alloc] init];
             info.cpu = [NSNumber numberWithFloat:threadCpu];
@@ -416,6 +428,7 @@ float getSysCpu()
 NSString* getAllThreadStr()
 {
     float appCpu = 0;
+    float sysCpu = getSysCpu();
     NSArray* ls = getAllThreadBasicInfo(&appCpu);
     NSMutableString* header = [[NSMutableString alloc] init];
     [header appendString:@"header\tsys\tapp\t"];
@@ -432,7 +445,6 @@ NSString* getAllThreadStr()
         [header appendFormat:@"%@\t", threadName];
     }
     
-    float sysCpu = getSysCpu();
     NSMutableString* line = [[NSMutableString alloc] init];
     [line appendFormat:@"line\t%0.2f\t%0.2f\t", sysCpu, appCpu];
     for (int i=0; i<ls.count; i++) {
@@ -464,9 +476,25 @@ void saveToFile(NSString*pData)
 
     NSData* stringData  = [pData dataUsingEncoding:NSUTF8StringEncoding];
     [fileHandle writeData:stringData];
-    NSLog(@"write data %@", fileHandle);
-
+    NSLog(@"write data %@", stringData);
 }
 
+void createFileDirectories()
+{
+    NSString* tmpPath = NSTemporaryDirectory();
+    NSString *picPath = [tmpPath stringByAppendingPathComponent:@"manual_stack"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = FALSE;
+    BOOL isDirExist = [fileManager fileExistsAtPath:picPath isDirectory:&isDir];
+    if(!(isDirExist && isDir))
+    {
+        BOOL bCreateDir = [fileManager createDirectoryAtPath: picPath withIntermediateDirectories:YES attributes:nil error:nil];
+        if(!bCreateDir)
+        {
+            NSLog(@"fail to create manual_stack direction");
+        }
+    }
+}
 
 @end

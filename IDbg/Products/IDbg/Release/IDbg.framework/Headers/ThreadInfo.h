@@ -6,32 +6,41 @@
 //  Copyright © 2019年 mjzheng. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <mach/mach.h>
+#ifndef THREAD_INFO_H
+#define THREAD_INFO_H
 
-NS_ASSUME_NONNULL_BEGIN
+#include <vector>
+#include <string>
+#include <map>
+#include <mach/mach.h>
 
+typedef std::vector<std::string> FrameList;
 
-// (NSString*) getAllThreadStack:(float*) appCpu;
+struct ThreadStack
+{
+  thread_t th;
+  float cpu;
+  std::string threadName;
+  FrameList frames;
+};
 
-@interface ThreadInfo : NSObject
+enum THOptions : uint32_t {
+  THOptions_basic = 1 << 0, // 0000 0001
+  THOptions_frames = 1 << 1,
+};
 
-@property(nonatomic, strong) NSNumber* cpu;
-@property(nonatomic, copy) NSString* name;
-@property(nonatomic, copy) NSString* stack;
-//@property(nonatomic, assign) thread_t th;
-@property(nonatomic, assign)NSNumber* th;
+typedef std::vector<ThreadStack> ThreadStackList;
+typedef std::map<thread_t, thread_t> IdToIdMap;
 
-NSString* getAllThreadStack(float* appCpu);
-
-NSArray* getAllThreadBasicInfo(float* appCpu);
-
-NSString* getAllThreadStr();
+float getAppCpu();
 
 float getSysCpu();
 
-void createFileDirectories();
+int getThreadInfo(ThreadStackList& ls, THOptions options);
 
-@end
+int getThreadStackListByID(const IdToIdMap& idMap, ThreadStackList& ls);
 
-NS_ASSUME_NONNULL_END
+int getCpuCore();
+
+#endif
+

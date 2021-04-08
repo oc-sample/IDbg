@@ -239,7 +239,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${ACTION}\" = \"build\" ]\nthen\n\n#编译模式  ${CONFIGURATION}   Release   Debug\nMY_BUILD_MODE=\"Release\"\n\n#要build的target名\ntarget_Name=${PROJECT_NAME}\n#build之后的文件夹路径\nbuild_DIR=${SRCROOT}/build\n#真机build生成的framework文件路径\nDEVICE_DIR_Framework=${build_DIR}/${MY_BUILD_MODE}-iphoneos/${PROJECT_NAME}.framework\n#模拟器build生成的framework文件路径\nSIMULATOR_DIR_Framework=${build_DIR}/${MY_BUILD_MODE}-iphonesimulator/${PROJECT_NAME}.framework\n#目标文件夹路径\nINSTALL_DIR=${SRCROOT}/Products/${PROJECT_NAME}/${MY_BUILD_MODE}\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${build_DIR}\" ]\nthen\nrm -rf \"${build_DIR}\"\nfi\n#判断目标文件夹是否存在，存在则删除该文件夹\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n#创建目标文件夹\nmkdir -p \"${INSTALL_DIR}\"\n#build之前clean一下\nxcodebuild -target ${target_Name} clean\n#真机build\nxcodebuild -target ${target_Name} -configuration ${MY_BUILD_MODE} -sdk iphoneos\n#模拟器build\nxcodebuild -target ${target_Name} -configuration ${MY_BUILD_MODE} -sdk iphonesimulator\n#复制头文件到目标文件夹\ncp -R \"${DEVICE_DIR_Framework}\" \"${INSTALL_DIR}\"\n#合成模拟器和真机包\nlipo -create \"${DEVICE_DIR_Framework}/${PROJECT_NAME}\" \"${SIMULATOR_DIR_Framework}/${PROJECT_NAME}\" -output \"${INSTALL_DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n#打开目标文件夹\nopen \"${INSTALL_DIR}\"\n\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${ACTION}\" = \"build\" ]\nthen\n\n#编译模式  ${CONFIGURATION}   Release   Debug\nMY_BUILD_MODE=\"Release\"\n\n#要build的target名\ntarget_Name=${PROJECT_NAME}\n#build之后的文件夹路径\nbuild_DIR=${SRCROOT}/build\n#真机build生成的framework文件路径\nDEVICE_DIR_Framework=${build_DIR}/${MY_BUILD_MODE}-iphoneos/${PROJECT_NAME}.framework\n#模拟器build生成的framework文件路径\nSIMULATOR_DIR_Framework=${build_DIR}/${MY_BUILD_MODE}-iphonesimulator/${PROJECT_NAME}.framework\n#目标文件夹路径\nINSTALL_DIR=${SRCROOT}/Products/${PROJECT_NAME}/${MY_BUILD_MODE}\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${build_DIR}\" ]\nthen\nrm -rf \"${build_DIR}\"\nfi\n#判断目标文件夹是否存在，存在则删除该文件夹\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n#创建目标文件夹\nmkdir -p \"${INSTALL_DIR}\"\n#build之前clean一下\nxcodebuild -target ${target_Name} clean\n#真机build\nxcodebuild -target ${target_Name} ONLY_ACTIVE_ARCH=NO -configuration ${MY_BUILD_MODE} -sdk iphoneos\n#模拟器build\nxcodebuild -target ${target_Name} ONLY_ACTIVE_ARCH=NO -configuration ${MY_BUILD_MODE} -sdk iphonesimulator\n#复制头文件到目标文件夹\ncp -R \"${DEVICE_DIR_Framework}\" \"${INSTALL_DIR}\"\n#合成模拟器和真机包\nlipo -create \"${DEVICE_DIR_Framework}/${PROJECT_NAME}\" \"${SIMULATOR_DIR_Framework}/${PROJECT_NAME}\" -output \"${INSTALL_DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n#打开目标文件夹\nopen \"${INSTALL_DIR}\"\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -394,9 +394,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3C948DA9P6;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -411,6 +411,8 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mj.IDbg;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -420,9 +422,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3C948DA9P6;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -438,6 +440,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mj.IDbg;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

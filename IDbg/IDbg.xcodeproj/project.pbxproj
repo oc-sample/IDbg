@@ -21,8 +21,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		1131B2E025F8DABC0091DC59 /* ThreadInfo.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1131B2DE25F8DABC0091DC59 /* ThreadInfo.cc */; };
-		1131B2FB25F8E4360091DC59 /* ThreadInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1131B2FA25F8E4360091DC59 /* ThreadInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1128FA59262477A600CB23DF /* thread_model.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1128FA57262477A600CB23DF /* thread_model.cc */; };
+		1128FA5A262477A600CB23DF /* thread_model.h in Headers */ = {isa = PBXBuildFile; fileRef = 1128FA58262477A600CB23DF /* thread_model.h */; };
+		1131B2E025F8DABC0091DC59 /* thread_info.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1131B2DE25F8DABC0091DC59 /* thread_info.cc */; };
+		1131B2FB25F8E4360091DC59 /* thread_info.h in Headers */ = {isa = PBXBuildFile; fileRef = 1131B2FA25F8E4360091DC59 /* thread_info.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		115119FA25314DB500B83FAC /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115119F025314DB500B83FAC /* IDbg.framework */; };
 		115119FF25314DB500B83FAC /* IDbgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115119FE25314DB500B83FAC /* IDbgTests.m */; };
 		11511A0125314DB500B83FAC /* IDbg.h in Headers */ = {isa = PBXBuildFile; fileRef = 115119F325314DB500B83FAC /* IDbg.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,8 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1131B2DE25F8DABC0091DC59 /* ThreadInfo.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadInfo.cc; sourceTree = "<group>"; };
-		1131B2FA25F8E4360091DC59 /* ThreadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadInfo.h; sourceTree = "<group>"; };
+		1128FA57262477A600CB23DF /* thread_model.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_model.cc; sourceTree = "<group>"; };
+		1128FA58262477A600CB23DF /* thread_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread_model.h; sourceTree = "<group>"; };
+		1131B2DE25F8DABC0091DC59 /* thread_info.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_info.cc; sourceTree = "<group>"; };
+		1131B2FA25F8E4360091DC59 /* thread_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread_info.h; sourceTree = "<group>"; };
 		115119F025314DB500B83FAC /* IDbg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IDbg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		115119F325314DB500B83FAC /* IDbg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDbg.h; sourceTree = "<group>"; };
 		115119F425314DB500B83FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,8 +97,10 @@
 		115119F225314DB500B83FAC /* IDbg */ = {
 			isa = PBXGroup;
 			children = (
-				1131B2FA25F8E4360091DC59 /* ThreadInfo.h */,
-				1131B2DE25F8DABC0091DC59 /* ThreadInfo.cc */,
+				1128FA57262477A600CB23DF /* thread_model.cc */,
+				1128FA58262477A600CB23DF /* thread_model.h */,
+				1131B2FA25F8E4360091DC59 /* thread_info.h */,
+				1131B2DE25F8DABC0091DC59 /* thread_info.cc */,
 				11511A0F25314E5000B83FAC /* KSDynamicLinker.c */,
 				11511A0E25314E5000B83FAC /* KSDynamicLinker.h */,
 				115119F325314DB500B83FAC /* IDbg.h */,
@@ -119,7 +125,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1131B2FB25F8E4360091DC59 /* ThreadInfo.h in Headers */,
+				1128FA5A262477A600CB23DF /* thread_model.h in Headers */,
+				1131B2FB25F8E4360091DC59 /* thread_info.h in Headers */,
 				11511A0125314DB500B83FAC /* IDbg.h in Headers */,
 				11511A1625314E5000B83FAC /* KSDynamicLinker.h in Headers */,
 			);
@@ -249,7 +256,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				11511A1725314E5000B83FAC /* KSDynamicLinker.c in Sources */,
-				1131B2E025F8DABC0091DC59 /* ThreadInfo.cc in Sources */,
+				1131B2E025F8DABC0091DC59 /* thread_info.cc in Sources */,
+				1128FA59262477A600CB23DF /* thread_model.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,8 @@
 #include <queue>
 #include <string>
 
+namespace IDbg {
+
 class ThreadModel {
 public:
   explicit ThreadModel(const std::string& thread_name);
@@ -43,5 +45,7 @@ private:
   std::unique_ptr<std::thread> th_;
   std::string thread_name_;
 };
+
+}
 
 #endif //C11_SAMPLE_THREADMODEL_H

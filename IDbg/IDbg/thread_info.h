@@ -16,31 +16,28 @@
 
 typedef std::vector<std::string> FrameList;
 
-struct ThreadStack
-{
-  thread_t th;
-  float cpu;
-  std::string threadName;
-  FrameList frames;
+struct ThreadStack {
+    thread_t th;
+    float cpu;
+    std::string thread_name;
+    FrameList frames;
 };
 
-enum THOptions : uint32_t {
-  THOptions_basic = 1 << 0, // 0000 0001
-  THOptions_frames = 1 << 1,
+enum ThreadOptions : uint32_t {
+    kBasic = 1 << 0, // 0000 0001
+    kFrames = 1 << 1,
 };
 
 typedef std::vector<ThreadStack> ThreadStackList;
 typedef std::map<thread_t, thread_t> IdToIdMap;
 
-float getAppCpu();
+float GetSysCpu();
 
-float getSysCpu();
+float GetAppCpu();
 
-int getThreadInfo(ThreadStackList& ls, THOptions options);
+int GetThreadInfo(const IdToIdMap& filter_map, const ThreadOptions options, ThreadStackList& ls);
 
-int getThreadStackListByID(const IdToIdMap& idMap, ThreadStackList& ls);
-
-int getCpuCore();
+int GetCpuCore();
 
 #endif
 

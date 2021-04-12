@@ -6,6 +6,7 @@
 
 #define LOG(...)
 
+namespace IDbg {
 ThreadModel::ThreadModel(const std::string& thread_name)
 : quited_(false), thread_name_(thread_name) {
   StartThread();
@@ -108,4 +109,5 @@ void ThreadModel::SetThreadName(const std::string& name) {
   } __except(EXCEPTION_CONTINUE_EXECUTION) {
   }
 #endif
+}
 }

@@ -14,12 +14,23 @@
 #include <map>
 #include <mach/mach.h>
 
-typedef std::vector<std::string> FrameList;
+namespace IDbg {
+
+struct FrameInfo {
+    std::string index;
+    std::string module_name;
+    uintptr_t moduel_base;
+    uintptr_t address;
+    uintptr_t offset;
+    std::string func_name;
+};
+
+typedef std::vector<FrameInfo> FrameList;
 
 struct ThreadStack {
     thread_t th;
     float cpu;
-    std::string thread_name;
+    std::string name;
     FrameList frames;
 };
 
@@ -28,19 +39,19 @@ enum ThreadOptions : uint32_t {
     kFrames = 1 << 1,
 };
 
-typedef std::vector<ThreadStack> ThreadStackList;
-typedef std::map<thread_t, thread_t> IdToIdMap;
-typedef std::vector<thread_t> ThreadIdList;
+typedef std::vector<ThreadStack> ThreadStackArray;
+typedef std::vector<thread_t> ThreadIdArray;
 
 float GetSysCpu();
 
 float GetAppCpu();
 
-int GetThreadInfo(const ThreadOptions options, const ThreadIdList& id_ls, ThreadStackList& ls);
+int GetThreadInfo(ThreadStackArray& ls, const ThreadIdArray& id_ls, const ThreadOptions options = ThreadOptions::kBasic);
 
-int GetAllThreadInfo(const ThreadOptions options, ThreadStackList& ls);
+int GetAllThreadInfo(ThreadStackArray& ls, const ThreadOptions options = ThreadOptions::kBasic);
 
 int GetCpuCore();
+} // namesapce IDbg
 
 #endif
 

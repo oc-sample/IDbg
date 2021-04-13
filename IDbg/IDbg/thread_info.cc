@@ -8,7 +8,7 @@
 
 #include "thread_info.h"
 #include <pthread/pthread.h>
-#include "KSDynamicLinker.h"
+#include "ks_dynamic_linker.h"
 #include <sys/sysctl.h>
 
 #pragma -mark DEFINE MACRO FOR DIFFERENT CPU ARCHITECTURE
@@ -70,8 +70,8 @@
 
 #define MAX_BACKTRACE 50
 
-
-std::string GetFrameEntry(const int entryNum, const uintptr_t address);
+namespace IDbg {
+void GetFrameEntry(const int entryNum, const uintptr_t address, FrameInfo& frame);
 
 int GetThreadCpuAndName(thread_t thread, float& cpu, std::string& threadName);
 
@@ -116,83 +116,121 @@ bool thread_get_state_ex(thread_t thread, _STRUCT_MCONTEXT *machineContext) {
     return (kr == KERN_SUCCESS);
 }
 
-uintptr_t mach_instructionAddress(mcontext_t const machineContext) {
-    return machineContext->__ss.INSTRUCTION_ADDRESS;
+uintptr_t mach_instructionAddress(mcontext_t const machine_context) {
+    return machine_context->__ss.INSTRUCTION_ADDRESS;
 }
 
-uintptr_t mach_linkRegister(mcontext_t const machineContext) {
+uintptr_t mach_linkRegister(mcontext_t const machine_context) {
 #if defined(__i386__) || defined(__x86_64__)
     return 0;
 #else
-    return machineContext->__ss.__lr;
+    return machine_context->__ss.__lr;
 #endif
 }
 
-uintptr_t mach_framePointer(mcontext_t const machineContext) {
-    return machineContext->__ss.FRAME_POINTER;
+uintptr_t mach_framePointer(mcontext_t const machine_context) {
+    return machine_context->__ss.FRAME_POINTER;
 }
 
-uintptr_t mach_stackPointer(mcontext_t const machineContext) {
-    return machineContext->__ss.STACK_POINTER;
+uintptr_t mach_stackPointer(mcontext_t const machine_context) {
+    return machine_context->__ss.STACK_POINTER;
 }
 
 kern_return_t mach_copyMem(const void *const src, void *const dst, const size_t numBytes) {
-    vm_size_t bytesCopied = 0;
-    return vm_read_overwrite(mach_task_self(), (vm_address_t)src, (vm_size_t)numBytes, (vm_address_t)dst, &bytesCopied);
+    vm_size_t bytes_copied = 0;
+    return vm_read_overwrite(mach_task_self(), (vm_address_t)src, (vm_size_t)numBytes, (vm_address_t)dst, &bytes_copied);
 }
 
 const char* bs_lastPathEntry(const char* const path) {
     if(path == NULL) {
         return NULL;
     }
-    const char* lastFile = strrchr(path, '/');
-    return lastFile == NULL ? path : lastFile + 1;
+    const char* last_file = strrchr(path, '/');
+    return last_file == NULL ? path : last_file + 1;
 }
 
 // C function
-int GetThreadStack(thread_t thread, FrameList& frameList) {
+int GetThreadStack(thread_t thread, FrameList& frame_list) {
     // 获取线程的ebp 和esp, 用于调用链重构
-    _STRUCT_MCONTEXT machineContext;
-    if(!thread_get_state_ex(thread, &machineContext)) {
+    _STRUCT_MCONTEXT machine_context;
+    if(!thread_get_state_ex(thread, &machine_context)) {
         return -1;
     }
-    const uintptr_t instructionAddress = mach_instructionAddress(&machineContext);
+    const uintptr_t instructionAddress = mach_instructionAddress(&machine_context);
     if(instructionAddress == 0) {
         return -1;
     }
 
     int i = 0;
-    uintptr_t backtraceBuffer[MAX_BACKTRACE];
-    memset(backtraceBuffer, 0, sizeof(backtraceBuffer));
-    backtraceBuffer[i++] = instructionAddress;
-    uintptr_t linkRegister = mach_linkRegister(&machineContext);
-    if (linkRegister) {
-      backtraceBuffer[i++] = linkRegister;
+    uintptr_t backtrace_buffer[MAX_BACKTRACE];
+    memset(backtrace_buffer, 0, sizeof(backtrace_buffer));
+    backtrace_buffer[i++] = instructionAddress;
+    uintptr_t link_register = mach_linkRegister(&machine_context);
+    if (link_register) {
+      backtrace_buffer[i++] = link_register;
     }
 
     StackFrameEntry frame = {0};
-    const uintptr_t framePtr = mach_framePointer(&machineContext);
+    const uintptr_t frame_ptr = mach_framePointer(&machine_context);
 
-    if(framePtr == 0 || mach_copyMem((void *)framePtr, &frame, sizeof(frame)) != KERN_SUCCESS) {
+    if(frame_ptr == 0 || mach_copyMem((void *)frame_ptr, &frame, sizeof(frame)) != KERN_SUCCESS) {
         return -1;
     }
 
     for(; i < MAX_BACKTRACE; i++) {
-      backtraceBuffer[i] = frame.return_address;
-      if(backtraceBuffer[i] == 0 || frame.previous == 0
+      backtrace_buffer[i] = frame.return_address;
+      if(backtrace_buffer[i] == 0 || frame.previous == 0
          || mach_copyMem(frame.previous, &frame,sizeof(frame)) != KERN_SUCCESS) {
           break;
       }
     }
 
     for (int j=0; j<i; j++) {
-        std::string frame = GetFrameEntry(j, backtraceBuffer[j]);
-        frameList.push_back(frame);
+        FrameInfo frame;
+        GetFrameEntry(j, backtrace_buffer[j], frame);
+        frame_list.push_back(frame);
     }
     return 0;
 }
 
-int GetAllThreadInfo(const ThreadOptions options, ThreadStackList& ls) {
+int GetThreadArray(const ThreadOptions options, const thread_act_array_t threads,
+                   const mach_msg_type_number_t thread_count, ThreadStackArray& ls) {
+    ThreadIdArray id_ls;
+    for (int i=0; i<thread_count; ++i) {
+        id_ls.push_back(threads[i]);
+    }
+    return GetThreadInfo(ls, id_ls, options);
+}
+
+int GetThreadInfo(ThreadStackArray& ls, const ThreadIdArray& id_ls, const ThreadOptions options) {
+    ls.clear();
+    if ((options&ThreadOptions::kFrames) == ThreadOptions::kFrames) {
+        for (auto& thread : id_ls) {
+            ThreadStack info;
+            info.th = thread;
+            int ret = GetThreadCpuAndName(thread, info.cpu, info.name);
+            if (ret != 0) {
+                continue;
+            }
+            GetThreadStack(thread, info.frames);
+            ls.push_back(info);
+        }
+    } else {
+        for (auto& thread : id_ls) {
+            ThreadStack info;
+            info.th = thread;
+            int ret = GetThreadCpuAndName(thread, info.cpu, info.name);
+            if (ret != 0) {
+                continue;
+            }
+            ls.push_back(info);
+        }
+    }
+   
+    return 0;
+}
+
+int GetAllThreadInfo(ThreadStackArray& ls, const ThreadOptions options) {
     thread_act_array_t threads;
     mach_msg_type_number_t thread_count = 0;
     const task_t this_task = mach_task_self();
@@ -200,54 +238,9 @@ int GetAllThreadInfo(const ThreadOptions options, ThreadStackList& ls) {
     if(kr != KERN_SUCCESS) {
         return -1;
     }
-  
-    // 功能
-    if ( (options & ThreadOptions::kBasic) == ThreadOptions::kBasic && (options&ThreadOptions::kFrames) == ThreadOptions::kFrames) {
-        for (int i=0; i<thread_count; i++) {
-            thread_t thread = threads[i];
-            ThreadStack info;
-            info.th = thread;
-            int ret = GetThreadCpuAndName(thread, info.cpu, info.thread_name);
-            if (ret != 0) {
-                continue;
-            }
-            
-            GetThreadStack(thread, info.frames);
-            ls.push_back(info);
-        }
-    } else {
-        for (int i=0; i<thread_count; i++) {
-            thread_t thread = threads[i];
-            ThreadStack info;
-            info.th = thread;
-            int ret = GetThreadCpuAndName(thread, info.cpu, info.thread_name);
-            if (ret != 0) {
-                continue;
-            }
-            ls.push_back(info);
-        }
-    }
+    GetThreadArray(options, threads, thread_count, ls);
     kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
     assert(kr == KERN_SUCCESS);
-    return 0;
-}
-
-int GetThreadInfo(const ThreadOptions options, const ThreadIdList& id_ls, ThreadStackList& ls) {
-    for (auto& thread : id_ls) {
-        ThreadStack info;
-        info.th = thread;
-        if ( (options & ThreadOptions::kBasic) == ThreadOptions::kBasic) {
-            int ret = GetThreadCpuAndName(thread, info.cpu, info.thread_name);
-            if (ret != 0) {
-                continue;
-            }
-        }
-        if ( (options & ThreadOptions::kFrames) == ThreadOptions::kFrames) {
-            GetThreadStack(thread, info.frames);
-        }
-        
-        ls.push_back(info);
-    }
     return 0;
 }
 
@@ -302,42 +295,34 @@ int GetThreadCpuAndName(const thread_t thread, float& cpu, std::string& thread_n
     return 0;
 }
 
-std::string GetFrameEntry(const int entryNum, const uintptr_t address) {
-    Dl_info dlInfo;
-    ksdl_dladdr(address, &dlInfo);
+void GetFrameEntry(const int entry_num, const uintptr_t address, FrameInfo& frame) {
+    Dl_info dl_info;
+    ksdl_dladdr(address, &dl_info);
     
-    char faddrBuff[20];
-    char saddrBuff[20];
-    const char* fname = bs_lastPathEntry(dlInfo.dli_fname);
-    if(fname == NULL) {
-        sprintf(faddrBuff, POINTER_FMT, (uintptr_t)dlInfo.dli_fbase);
-        fname = faddrBuff;
+    frame.index = entry_num;
+    frame.address = address;
+    frame.moduel_base = (uintptr_t)dl_info.dli_fbase;
+    
+    const char* fname = bs_lastPathEntry(dl_info.dli_fname);
+    frame.module_name = fname == NULL ? std::to_string((uintptr_t)dl_info.dli_fbase) : fname;
+    
+    frame.func_name = dl_info.dli_sname;
+    frame.offset = address - (uintptr_t)dl_info.dli_saddr;
+    if (frame.func_name == "" || frame.func_name == "<redacted>") {
+        frame.func_name = frame.module_name;
+        frame.offset = address - (uintptr_t)dl_info.dli_fbase;
     }
-    
-//    uintptr_t offset = address - (uintptr_t)dlInfo.dli_saddr;
-//    const char* sname = dlInfo.dli_sname;
-//    const char* pUnused = "<redacted>";
-//    if(sname == NULL || 0 == strcmp(sname, pUnused))
-//    {
-//        sprintf(saddrBuff, POINTER_FMT, (uintptr_t)dlInfo.dli_fbase);
-//        sname = saddrBuff;
-//        offset = address - (uintptr_t)dlInfo.dli_fbase;
-//    }
-  
-    sprintf(saddrBuff, POINTER_FMT, (uintptr_t)dlInfo.dli_fbase);
-    const char * sname = saddrBuff;
-    uintptr_t offset = address - (uintptr_t)dlInfo.dli_fbase;
-    char buf[2048];
-    snprintf(buf, 2048, TRACE_FMT, entryNum, fname, (uintptr_t)address, sname, offset);
-    return std::string(buf);
 }
 
 int GetCpuCore() {
-    int cpuCount = 1;
-    size_t len = sizeof(cpuCount);
-    int ret = sysctlbyname("hw.physicalcpu", &cpuCount, &len, NULL, 0);
+    int cpu_count = 1;
+    size_t len = sizeof(cpu_count);
+    int ret = sysctlbyname("hw.physicalcpu", &cpu_count, &len, NULL, 0);
     if (ret != 0) {
-        cpuCount = 1;
+        cpu_count = 1;
     }
-    return cpuCount;
+    return cpu_count;
 }
+
+} // namespace IDbg
+

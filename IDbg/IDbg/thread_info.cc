@@ -104,32 +104,6 @@ float GetSysCpu() {
     return 100.0*((float)(cpuloadinfo.cpu_user + cpuloadinfo.cpu_system)/(float)(cpuloadinfo.cpu_user + cpuloadinfo.cpu_system+cpuloadinfo.cpu_idle + cpuloadinfo.cpu_nice));
 }
 
-float GetAppCpu() {
-    thread_array_t         thread_list;
-    mach_msg_type_number_t thread_count;
-    kern_return_t          kr;
-    kr = task_threads(mach_task_self(), &thread_list, &thread_count);
-    if (kr != KERN_SUCCESS) {
-        return -1;
-    }
-
-    float tot_cpu = 0;
-    std::string thread_name;
-    for (int j = 0; j < thread_count; j++) {
-        float thread_cpu = 0;
-        int ret = GetThreadCpuAndName(thread_list[j], thread_cpu, thread_name);
-        if (ret != 0) {
-            kr = vm_deallocate(mach_task_self(), (vm_offset_t)thread_list, thread_count * sizeof(thread_t));
-            assert(kr == KERN_SUCCESS);
-            return -1;
-        }
-        tot_cpu += thread_cpu;
-    } // for each thread
-    kr = vm_deallocate(mach_task_self(), (vm_offset_t)thread_list, thread_count * sizeof(thread_t));
-    assert(kr == KERN_SUCCESS);
-    return tot_cpu;
-}
-
 typedef struct StackFrameEntry {
     const struct StackFrameEntry *const previous; // 低地址
     const uintptr_t return_address; // 高地址
@@ -176,50 +150,49 @@ const char* bs_lastPathEntry(const char* const path) {
 }
 
 // C function
-int GetThreadStack(int index, thread_t thread, FrameList& frameList) {
-  // 获取线程的ebp 和esp, 用于调用链重构
-  _STRUCT_MCONTEXT machineContext;
-  if(!thread_get_state_ex(thread, &machineContext)) {
-    return -1;
-  }
-  const uintptr_t instructionAddress = mach_instructionAddress(&machineContext);
-  if(instructionAddress == 0) {
-    return -1;
-  }
- 
-  int i = 0;
-  uintptr_t backtraceBuffer[MAX_BACKTRACE];
-  memset(backtraceBuffer, 0, sizeof(backtraceBuffer));
-  backtraceBuffer[i++] = instructionAddress;
-  uintptr_t linkRegister = mach_linkRegister(&machineContext);
-  if (linkRegister) {
+int GetThreadStack(thread_t thread, FrameList& frameList) {
+    // 获取线程的ebp 和esp, 用于调用链重构
+    _STRUCT_MCONTEXT machineContext;
+    if(!thread_get_state_ex(thread, &machineContext)) {
+        return -1;
+    }
+    const uintptr_t instructionAddress = mach_instructionAddress(&machineContext);
+    if(instructionAddress == 0) {
+        return -1;
+    }
+
+    int i = 0;
+    uintptr_t backtraceBuffer[MAX_BACKTRACE];
+    memset(backtraceBuffer, 0, sizeof(backtraceBuffer));
+    backtraceBuffer[i++] = instructionAddress;
+    uintptr_t linkRegister = mach_linkRegister(&machineContext);
+    if (linkRegister) {
       backtraceBuffer[i++] = linkRegister;
-  }
-  
-  StackFrameEntry frame = {0};
-  const uintptr_t framePtr = mach_framePointer(&machineContext);
+    }
 
-  if(framePtr == 0 || mach_copyMem((void *)framePtr, &frame, sizeof(frame)) != KERN_SUCCESS) {
-    return -1;
-  }
+    StackFrameEntry frame = {0};
+    const uintptr_t framePtr = mach_framePointer(&machineContext);
 
-  for(; i < MAX_BACKTRACE; i++) {
+    if(framePtr == 0 || mach_copyMem((void *)framePtr, &frame, sizeof(frame)) != KERN_SUCCESS) {
+        return -1;
+    }
+
+    for(; i < MAX_BACKTRACE; i++) {
       backtraceBuffer[i] = frame.return_address;
       if(backtraceBuffer[i] == 0 || frame.previous == 0
          || mach_copyMem(frame.previous, &frame,sizeof(frame)) != KERN_SUCCESS) {
           break;
       }
-  }
-  
-  for (int j=0; j<i; j++) {
-    std::string frame = GetFrameEntry(j, backtraceBuffer[j]);
-    frameList.push_back(frame);
-  }
-  return 0;
+    }
+
+    for (int j=0; j<i; j++) {
+        std::string frame = GetFrameEntry(j, backtraceBuffer[j]);
+        frameList.push_back(frame);
+    }
+    return 0;
 }
 
-
-int GetThreadInfo(const IdToIdMap& filter_map, const ThreadOptions options, ThreadStackList& ls) {
+int GetAllThreadInfo(const ThreadOptions options, ThreadStackList& ls) {
     thread_act_array_t threads;
     mach_msg_type_number_t thread_count = 0;
     const task_t this_task = mach_task_self();
@@ -228,24 +201,87 @@ int GetThreadInfo(const IdToIdMap& filter_map, const ThreadOptions options, Thre
         return -1;
     }
   
-  // 功能
-    for (int i=0; i<thread_count; i++) {
-        thread_t thread = threads[i];
-        if (!filter_map.empty() && filter_map.find(thread) == filter_map.end()) {
-            continue;
+    // 功能
+    if ( (options & ThreadOptions::kBasic) == ThreadOptions::kBasic && (options&ThreadOptions::kFrames) == ThreadOptions::kFrames) {
+        for (int i=0; i<thread_count; i++) {
+            thread_t thread = threads[i];
+            ThreadStack info;
+            info.th = thread;
+            int ret = GetThreadCpuAndName(thread, info.cpu, info.thread_name);
+            if (ret != 0) {
+                continue;
+            }
+            
+            GetThreadStack(thread, info.frames);
+            ls.push_back(info);
         }
-        
+    } else {
+        for (int i=0; i<thread_count; i++) {
+            thread_t thread = threads[i];
+            ThreadStack info;
+            info.th = thread;
+            int ret = GetThreadCpuAndName(thread, info.cpu, info.thread_name);
+            if (ret != 0) {
+                continue;
+            }
+            ls.push_back(info);
+        }
+    }
+    kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
+    assert(kr == KERN_SUCCESS);
+    return 0;
+}
+
+int GetThreadInfo(const ThreadOptions options, const ThreadIdList& id_ls, ThreadStackList& ls) {
+    for (auto& thread : id_ls) {
         ThreadStack info;
         info.th = thread;
         if ( (options & ThreadOptions::kBasic) == ThreadOptions::kBasic) {
-            GetThreadCpuAndName(thread, info.cpu, info.thread_name);
+            int ret = GetThreadCpuAndName(thread, info.cpu, info.thread_name);
+            if (ret != 0) {
+                continue;
+            }
         }
         if ( (options & ThreadOptions::kFrames) == ThreadOptions::kFrames) {
-            GetThreadStack(i, thread, info.frames);
+            GetThreadStack(thread, info.frames);
         }
+        
         ls.push_back(info);
     }
     return 0;
+}
+
+float GetAppCpu() {
+    float app_cpu = 0;
+    thread_act_array_t threads;
+    mach_msg_type_number_t thread_count = 0;
+    const task_t this_task = mach_task_self();
+    kern_return_t kr = task_threads(this_task, &threads, &thread_count);
+    if(kr != KERN_SUCCESS) {
+        return -1;
+    }
+    
+    for (int i=0; i<thread_count; i++) {
+        thread_t thread = threads[i];
+        float thread_cpu = 0;
+        mach_msg_type_number_t thread_info_count = THREAD_INFO_MAX;
+        thread_info_data_t thinfo;
+        kern_return_t kr = thread_info(thread, THREAD_EXTENDED_INFO, (thread_info_t)thinfo, &thread_info_count);
+        if (kr != KERN_SUCCESS) {
+            kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
+            assert(kr == KERN_SUCCESS);
+            return -1;
+        }
+        
+        thread_extended_info_t basic_info_th = (thread_extended_info_t)thinfo;
+        if (!(basic_info_th->pth_flags & TH_FLAGS_IDLE)) {
+            thread_cpu = basic_info_th->pth_cpu_usage / (float)TH_USAGE_SCALE * 100.0;
+            app_cpu += thread_cpu;
+        }
+    }
+    kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
+    assert(kr == KERN_SUCCESS);
+    return app_cpu;
 }
 
 int GetThreadCpuAndName(const thread_t thread, float& cpu, std::string& thread_name) {
@@ -297,11 +333,11 @@ std::string GetFrameEntry(const int entryNum, const uintptr_t address) {
 }
 
 int GetCpuCore() {
-  int cpuCount = 1;
-  size_t len = sizeof(cpuCount);
-  int ret = sysctlbyname("hw.physicalcpu", &cpuCount, &len, NULL, 0);
-  if (ret != 0) {
-    cpuCount = 1;
-  }
-  return cpuCount;
+    int cpuCount = 1;
+    size_t len = sizeof(cpuCount);
+    int ret = sysctlbyname("hw.physicalcpu", &cpuCount, &len, NULL, 0);
+    if (ret != 0) {
+        cpuCount = 1;
+    }
+    return cpuCount;
 }

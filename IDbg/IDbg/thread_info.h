@@ -30,12 +30,15 @@ enum ThreadOptions : uint32_t {
 
 typedef std::vector<ThreadStack> ThreadStackList;
 typedef std::map<thread_t, thread_t> IdToIdMap;
+typedef std::vector<thread_t> ThreadIdList;
 
 float GetSysCpu();
 
 float GetAppCpu();
 
-int GetThreadInfo(const IdToIdMap& filter_map, const ThreadOptions options, ThreadStackList& ls);
+int GetThreadInfo(const ThreadOptions options, const ThreadIdList& id_ls, ThreadStackList& ls);
+
+int GetAllThreadInfo(const ThreadOptions options, ThreadStackList& ls);
 
 int GetCpuCore();
 

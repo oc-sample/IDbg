@@ -46,6 +46,6 @@ private:
   std::string thread_name_;
 };
 
-}
+} // namscpace IDbg
 
 #endif //C11_SAMPLE_THREADMODEL_H

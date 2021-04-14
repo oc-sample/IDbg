@@ -85,7 +85,7 @@
 }
 
 -(void)onTimer{
-    std::string file = IDbg::GenerateMiniDump((IDbg::DumpOptions)(IDbg::DumpOptions::kImage | IDbg::DumpOptions::kHeader));
+    std::string file = IDbg::GenerateMiniDump();
     NSLog(@"%@", [NSString stringWithUTF8String:file.c_str()]);
 }
 

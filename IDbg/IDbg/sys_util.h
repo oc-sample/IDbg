@@ -42,4 +42,6 @@ std::string GetFullPath();
 
 int GetProcessId();
 
+std::string UuidToSting(const uint8_t* bytes);
+
 #endif /* sys_util_h */

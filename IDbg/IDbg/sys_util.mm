@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <AdSupport/AdSupport.h>
 #include <time.h>
+#import <UIKit/UIDevice.h>
 
 std::string StringWithUUID() {
     CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUI
@@ -22,9 +23,10 @@ std::string StringWithUUID() {
 }
 
 std::string GetIDFA() {
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    NSLog(@"%@", idfa);
-    return [idfa UTF8String];
+//    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//    NSLog(@"%@", idfa);
+//    return [idfa UTF8String];
+    return "";
 }
 
 std::string GetDevicePlatform() {
@@ -123,7 +125,7 @@ std::string GetCPUType(cpu_type_t majorCode, cpu_subtype_t minorCode){
 
 std::string GetAppVersion() {
     NSDictionary* info_dict = [[NSBundle mainBundle] infoDictionary];
-    NSString* app_version = [NSString stringWithFormat:@"%@ %@", info_dict[@"CFBundleVersion"], info_dict[@"CFBundleShortVersionString"]];
+    NSString* app_version = [NSString stringWithFormat:@"%@ (%@)", info_dict[@"CFBundleVersion"], info_dict[@"CFBundleShortVersionString"]];
     return [app_version UTF8String];
 }
 
@@ -145,5 +147,26 @@ std::string GetFullPath() {
     NSString* bundle_path = [[NSBundle mainBundle] bundlePath];
     NSString* full_path = [bundle_path stringByAppendingPathComponent:executable_name];
     return [full_path UTF8String];
+}
+
+
+std::string GetSystemName() {
+    NSString* sys_name = [[UIDevice currentDevice] systemName];
+    return [sys_name UTF8String];
+}
+
+std::string GetSystemVersion() {
+    return [ [[UIDevice currentDevice] systemVersion] UTF8String];
+}
+
+std::string UuidToSting(const uint8_t* bytes) {
+    CFUUIDRef uuid_ref = CFUUIDCreateFromUUIDBytes(NULL, *((CFUUIDBytes*)bytes));
+    if (uuid_ref != NULL) {
+        NSString* tmp = (__bridge_transfer NSString*)CFUUIDCreateString(NULL, uuid_ref);
+        std::string str_uuid = [tmp UTF8String];
+        CFRelease(uuid_ref);
+        return str_uuid;
+    }
+    return "";
 }
 

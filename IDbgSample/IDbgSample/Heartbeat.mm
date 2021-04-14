@@ -7,8 +7,7 @@
 //
 
 #import "Heartbeat.h"
-#import <IDbg/MiniDumpFile.h>
-#import <IDbg/ThreadInfo.h>
+#import <IDbg/mini_dump_file.h>
 
 @interface Heartbeat()
 
@@ -21,7 +20,6 @@
 - (instancetype)init {
   self = [super init];
   if (self) {
-    createFileDirectories();
   }
   return self;
 }
@@ -87,7 +85,8 @@
 }
 
 -(void)onTimer{
-  NSLog(@"%@", getAllThreadStr());
+    std::string file = IDbg::GenerateMiniDump((IDbg::DumpOptions)(IDbg::DumpOptions::kImage | IDbg::DumpOptions::kHeader));
+    NSLog(@"%@", [NSString stringWithUTF8String:file.c_str()]);
 }
 
 @end

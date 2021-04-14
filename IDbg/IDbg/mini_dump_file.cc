@@ -10,11 +10,39 @@
 #include "sys_util.h"
 #include "ks_dynamic_linker.h"
 #include <unistd.h>
+#include "thread_info.h"
 
 
+#if defined(__LP64__)
+#define TRACE_FMT         "%-4d%-31s 0x%016lx %s + %lu\n"
+#define POINTER_FMT       "0x%016lx"
+#define POINTER_SHORT_FMT "0x%lx"
+#else
+#define TRACE_FMT         "%-4d%-31s 0x%08lx %s + %lu\n"
+#define POINTER_FMT       "0x%08lx"
+#define POINTER_SHORT_FMT "0x%lx"
+#endif
+
+namespace IDbg {
 std::string GetAppleFmtHeader();
 
-std::string GetThreadStatck();
+std::string GetThreadStatck() {
+    ThreadStackArray ls;
+    GetAllThreadInfo(ls, IDbg::kFrames);
+    std::stringstream ss;
+    for (auto i=0; i<ls.size(); ++i) {
+        auto thread = ls[i];
+        ss << "\nThread " << i << " Name :[" << thread.name << "] Cpu:[" << thread.cpu << "]\n"
+           << "Thread " << i << "\n";
+        for (auto& frame : thread.frames) {
+            char buffer[1024];
+            snprintf(buffer, 1024, TRACE_FMT, frame.index, frame.module_name.c_str(),
+                     frame.address, frame.func_name.c_str(), frame.offset);
+            ss << std::string(buffer);
+        }
+    }
+    return ss.str();
+}
 
 std::string GetAppleFmtBinaryImages();
 
@@ -22,22 +50,25 @@ std::string GenerateMiniDump(DumpOptions options) {
     // header
     std::stringstream ss;
     
-    if (options & kHeader) {
+    if (options & DumpOptions::kHeader) {
         std::string header = GetAppleFmtHeader();
+        ss << header;
     }
 
     // thread backtrace
-    float totalCpu = 0;
-    if (options & kStack) {
+    //float totalCpu = 0;
+    if (options & DumpOptions::kStack) {
         std::string stack = GetThreadStatck();
+        ss << stack;
     }
 
     // binary images
-    if (options & kImage) {
+    if (options & DumpOptions::kImage) {
         std::string image = GetAppleFmtBinaryImages();
+        ss << image;
     }
     
-    if (options & kStack) {
+    if (options & DumpOptions::kStack) {
         std::string cpu = "application cpu";
         //[pData appendFormat:@"\napplication cpu{ %.2f}\n", totalCpu];
     }
@@ -58,45 +89,20 @@ std::string GetAppleFmtHeader() {
        << "Parent Process: " << getppid() << "\n"
        << "\n"
        << "Date/Time: " << GetDate() << "\n"
-       << "OS Version:" << GetSystemName() << " " << GetSystemVersion() << " (" << GetOSVersion() << ")\n"
+       << "OS Version: " << GetSystemName() << " " << GetSystemVersion() << " (" << GetOSVersion() << ")\n"
        << "Report Version: 104" << "\n\n";
     return ss.str();
 }
 
-std::string GetThreadStatck() {
-    return "";
-    //return getAllThreadStack(totalCpu);
-}
-
-struct BinaryImage {
-    uint64_t start_address;
-    uint64_t end_address;
-    std::string name;
-    std::string arch_name;
-    std::string uuid;
-    std::string full_path;
-};
-
-typedef std::vector<BinaryImage> BinaryImageArray;
-
-
+typedef std::vector<KSBinaryImage> BinaryImageArray;
 void GetBinaryImages(BinaryImageArray& ls) {
-    
     int count = ksdl_imageCount();
     for (int index=0; index<count; index++) {
         KSBinaryImage image = {0};
         if(!ksdl_getBinaryImage(index, &image)) {
             continue;
         }
-        
-        BinaryImage im;
-        im.start_address = image.address;
-        im.end_address = image.address + image.size - 1;
-        im.arch_name = GetCPUType(image.cpuType, image.cpuSubType);
-        im.full_path = image.name;
-        im.name = image.name;
-        im.uuid = std::string( (char*)image.uuid );
-        ls.push_back(im);
+        ls.push_back(image);
     }
 }
 
@@ -105,24 +111,17 @@ std::string GetAppleFmtBinaryImages() {
     ss << "\nBinary Images:\n";
     BinaryImageArray ls;
     GetBinaryImages(ls);
-    char buf[1024];
     for (auto& image : ls) {
-        snprintf(buf, 1024, "0x%llx - 0x%llx %s %s <%s> %s\n", image.start_address, image.end_address,
-                 image.name.c_str(), image.arch_name.c_str(), image.uuid.c_str(), image.full_path.c_str());
+        char buf[1024];
+        const char* last_file = strrchr(image.name, '/');
+        const char* name = (last_file == NULL ? image.name : last_file + 1);
+        std::string arch_name = GetCPUType(image.cpuType, image.cpuSubType);
+        snprintf(buf, 1024, "0x%llx - 0x%llx %s %s <%s> %s\n", image.address, image.address+image.size-1,
+                 name, arch_name.c_str(), UuidToSting(image.uuid).c_str(), image.name);
         ss << std::string(buf);
     }
     return ss.str();
 }
 
-//-(void) saveToFile:(NSString*) pData
-//{
-//    NSString* tmpPath = NSTemporaryDirectory();
-//    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"yyyMMddHHmmssSSS"];
-//    NSString* dateTime = [formatter stringFromDate:[NSDate date]];
-//
-//    NSString* fileName = [NSString stringWithFormat:@"%@manual_stack/%@_ori.crash", tmpPath, dateTime];
-//
-//    [pData writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
-//
-//}
+}
+

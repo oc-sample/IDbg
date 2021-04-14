@@ -12,7 +12,6 @@
 #include <unistd.h>
 #include "thread_info.h"
 
-
 #if defined(__LP64__)
 #define TRACE_FMT         "%-4d%-31s 0x%016lx %s + %lu\n"
 #define POINTER_FMT       "0x%016lx"
@@ -32,12 +31,14 @@ std::string GetThreadStatck() {
     std::stringstream ss;
     for (auto i=0; i<ls.size(); ++i) {
         auto thread = ls[i];
-        ss << "\nThread " << i << " Name :[" << thread.name << "] Cpu:[" << thread.cpu << "]\n"
+        ss << "\nThread " << i << " Name :[" << thread.name << "] Cpu:["
+           << thread.cpu << "]\n"
            << "Thread " << i << "\n";
         for (auto& frame : thread.frames) {
             char buffer[1024];
-            snprintf(buffer, 1024, TRACE_FMT, frame.index, frame.module_name.c_str(),
-                     frame.address, frame.func_name.c_str(), frame.offset);
+            snprintf(buffer, 1024, TRACE_FMT, frame.index,
+                     frame.module_name.c_str(), frame.address,
+                     frame.func_name.c_str(), frame.offset);
             ss << std::string(buffer);
         }
     }
@@ -89,7 +90,8 @@ std::string GetAppleFmtHeader() {
        << "Parent Process: " << getppid() << "\n"
        << "\n"
        << "Date/Time: " << GetDate() << "\n"
-       << "OS Version: " << GetSystemName() << " " << GetSystemVersion() << " (" << GetOSVersion() << ")\n"
+       << "OS Version: " << GetSystemName() << " "
+       << GetSystemVersion() << " (" << GetOSVersion() << ")\n"
        << "Report Version: 104" << "\n\n";
     return ss.str();
 }
@@ -116,8 +118,9 @@ std::string GetAppleFmtBinaryImages() {
         const char* last_file = strrchr(image.name, '/');
         const char* name = (last_file == NULL ? image.name : last_file + 1);
         std::string arch_name = GetCPUType(image.cpuType, image.cpuSubType);
-        snprintf(buf, 1024, "0x%llx - 0x%llx %s %s <%s> %s\n", image.address, image.address+image.size-1,
-                 name, arch_name.c_str(), UuidToSting(image.uuid).c_str(), image.name);
+        snprintf(buf, 1024, "0x%llx - 0x%llx %s %s <%s> %s\n", image.address,
+                 image.address+image.size-1, name, arch_name.c_str(),
+                 UuidToSting(image.uuid).c_str(), image.name);
         ss << std::string(buf);
     }
     return ss.str();

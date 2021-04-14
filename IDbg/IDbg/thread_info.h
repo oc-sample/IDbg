@@ -11,7 +11,6 @@
 
 #include <vector>
 #include <string>
-#include <map>
 #include <mach/mach.h>
 
 namespace IDbg {
@@ -46,11 +45,14 @@ float GetSysCpu();
 
 float GetAppCpu();
 
-int GetThreadInfo(ThreadStackArray& ls, const ThreadIdArray& id_ls, const ThreadOptions options = ThreadOptions::kBasic);
+int GetThreadInfoById(ThreadStackArray& ls, const ThreadIdArray& id_ls,
+                      const ThreadOptions options = ThreadOptions::kBasic);
 
-int GetAllThreadInfo(ThreadStackArray& ls, const ThreadOptions options = ThreadOptions::kBasic);
+int GetAllThreadInfo(ThreadStackArray& ls,
+                     const ThreadOptions options = ThreadOptions::kBasic);
 
 int GetCpuCore();
+
 } // namesapce IDbg
 
 #endif

@@ -23,7 +23,8 @@ std::string StringWithUUID() {
 }
 
 std::string GetIDFA() {
-//    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//    NSString *idfa = [[[ASIdentifierManager sharedManager]
+    //advertisingIdentifier] UUIDString];
 //    NSLog(@"%@", idfa);
 //    return [idfa UTF8String];
     return "";
@@ -125,12 +126,15 @@ std::string GetCPUType(cpu_type_t majorCode, cpu_subtype_t minorCode){
 
 std::string GetAppVersion() {
     NSDictionary* info_dict = [[NSBundle mainBundle] infoDictionary];
-    NSString* app_version = [NSString stringWithFormat:@"%@ (%@)", info_dict[@"CFBundleVersion"], info_dict[@"CFBundleShortVersionString"]];
+    NSString* app_version = [NSString stringWithFormat:@"%@ (%@)",
+                             info_dict[@"CFBundleVersion"],
+                             info_dict[@"CFBundleShortVersionString"]];
     return [app_version UTF8String];
 }
 
 std::string GetIndentifier() {
-    return [ [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"] UTF8String];
+    NSDictionary* info_dict = [[NSBundle mainBundle] infoDictionary];
+    return [ info_dict[@"CFBundleIdentifier"] UTF8String];
 }
 
 std::string GetProcessName() {
@@ -145,7 +149,8 @@ std::string GetFullPath() {
     NSDictionary* info_dict = [[NSBundle mainBundle] infoDictionary];
     NSString* executable_name = info_dict[@"CFBundleExecutable"];
     NSString* bundle_path = [[NSBundle mainBundle] bundlePath];
-    NSString* full_path = [bundle_path stringByAppendingPathComponent:executable_name];
+    NSString* full_path = [bundle_path stringByAppendingPathComponent:
+                           executable_name];
     return [full_path UTF8String];
 }
 

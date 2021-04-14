@@ -304,7 +304,6 @@ void GetFrameEntry(const int entry_num, const uintptr_t address,
     frame.moduel_base = (uintptr_t)dl_info.dli_fbase;
     
     const char* fname = bs_lastPathEntry(dl_info.dli_fname);
-    frame.module_name
     if (fname == NULL) {
         frame.module_name = std::to_string((uintptr_t)dl_info.dli_fbase);
     } else {

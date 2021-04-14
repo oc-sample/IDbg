@@ -23,7 +23,6 @@
 #endif
 
 namespace IDbg {
-std::string GetAppleFmtHeader();
 
 std::string GetThreadStatck() {
     ThreadStackArray ls;
@@ -42,38 +41,6 @@ std::string GetThreadStatck() {
             ss << std::string(buffer);
         }
     }
-    return ss.str();
-}
-
-std::string GetAppleFmtBinaryImages();
-
-std::string GenerateMiniDump(DumpOptions options) {
-    // header
-    std::stringstream ss;
-    
-    if (options & DumpOptions::kHeader) {
-        std::string header = GetAppleFmtHeader();
-        ss << header;
-    }
-
-    // thread backtrace
-    //float totalCpu = 0;
-    if (options & DumpOptions::kStack) {
-        std::string stack = GetThreadStatck();
-        ss << stack;
-    }
-
-    // binary images
-    if (options & DumpOptions::kImage) {
-        std::string image = GetAppleFmtBinaryImages();
-        ss << image;
-    }
-    
-    if (options & DumpOptions::kStack) {
-        std::string cpu = "application cpu";
-        //[pData appendFormat:@"\napplication cpu{ %.2f}\n", totalCpu];
-    }
-    
     return ss.str();
 }
 
@@ -123,6 +90,36 @@ std::string GetAppleFmtBinaryImages() {
                  UuidToSting(image.uuid).c_str(), image.name);
         ss << std::string(buf);
     }
+    return ss.str();
+}
+
+std::string GenerateMiniDump(DumpOptions options) {
+    // header
+    std::stringstream ss;
+    
+    if (options & DumpOptions::kHeader) {
+        std::string header = GetAppleFmtHeader();
+        ss << header;
+    }
+
+    // thread backtrace
+    //float totalCpu = 0;
+    if (options & DumpOptions::kStack) {
+        std::string stack = GetThreadStatck();
+        ss << stack;
+    }
+
+    // binary images
+    if (options & DumpOptions::kImage) {
+        std::string image = GetAppleFmtBinaryImages();
+        ss << image;
+    }
+    
+    if (options & DumpOptions::kStack) {
+        std::string cpu = "application cpu";
+        //[pData appendFormat:@"\napplication cpu{ %.2f}\n", totalCpu];
+    }
+    
     return ss.str();
 }
 

@@ -214,7 +214,7 @@ const uint8_t* ksdl_imageUUID(const char* const imageName, bool exactMatch)
 
 bool ksdl_dladdr(const uintptr_t address, Dl_info* const info)
 {
-    info->  dli_fname = NULL;
+    info->dli_fname = NULL;
     info->dli_fbase = NULL;
     info->dli_sname = NULL;
     info->dli_saddr = NULL;

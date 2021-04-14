@@ -105,7 +105,7 @@ std::string GenerateMiniDump(DumpOptions options) {
     // thread backtrace
     //float totalCpu = 0;
     if (options & DumpOptions::kStack) {
-        std::string stack = GetThreadStatck();
+        std::string&& stack = GetThreadStatck();
         ss << stack;
     }
 

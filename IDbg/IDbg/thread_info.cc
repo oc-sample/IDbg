@@ -44,6 +44,16 @@
 
 #define MAX_BACKTRACE 50
 
+#if defined(__LP64__)
+#define TRACE_FMT         @"%-4d%-31s 0x%016lx %s + %lu\n"
+#define POINTER_FMT       "0x%016lx"
+#define POINTER_SHORT_FMT "0x%lx"
+#else
+#define TRACE_FMT         @"%-4d%-31s 0x%08lx %s + %lu\n"
+#define POINTER_FMT       "0x%08lx"
+#define POINTER_SHORT_FMT "0x%lx"
+#endif
+
 namespace IDbg {
 
 void GetFrameEntry(const int entryNum, const uintptr_t address,
@@ -296,25 +306,36 @@ int GetThreadCpuAndName(const thread_t thread, float& cpu,
 
 void GetFrameEntry(const int entry_num, const uintptr_t address,
                    FrameInfo& frame) {
-    Dl_info dl_info;
-    ksdl_dladdr(address, &dl_info);
-    
     frame.index = entry_num;
     frame.address = address;
-    frame.moduel_base = (uintptr_t)dl_info.dli_fbase;
     
+    Dl_info dl_info = {0};
+    ksdl_dladdr(address, &dl_info);
+    
+    // set module base
+    frame.module_base = (uintptr_t)dl_info.dli_fbase;
+    
+    // set module name, use module base as module name if module name is empty
+    frame.module_name = "";
     const char* fname = bs_lastPathEntry(dl_info.dli_fname);
     if (fname == NULL) {
-        frame.module_name = std::to_string((uintptr_t)dl_info.dli_fbase);
+        if (dl_info.dli_fbase != NULL) {
+            frame.module_name = std::to_string((uintptr_t)dl_info.dli_fbase);
+        }
     } else {
         frame.module_name = fname;
     }
     
-    frame.func_name = dl_info.dli_sname;
-    frame.offset = address - (uintptr_t)dl_info.dli_saddr;
+    // set func_name and offset
+    if (dl_info.dli_sname != NULL && dl_info.dli_saddr != NULL) {
+        frame.func_name = dl_info.dli_sname;
+        frame.offset = address - (uintptr_t)dl_info.dli_saddr;
+    }
     if (frame.func_name == "" || frame.func_name == "<redacted>") {
-        frame.func_name = frame.module_name;
-        frame.offset = address - (uintptr_t)dl_info.dli_fbase;
+        char saddrBuff[20];
+        sprintf(saddrBuff, POINTER_FMT, frame.module_base);
+        frame.func_name = saddrBuff;
+        frame.offset = address - frame.module_base;
     }
 }
 

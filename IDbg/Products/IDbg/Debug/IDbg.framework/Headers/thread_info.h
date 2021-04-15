@@ -18,7 +18,7 @@ namespace IDbg {
 struct FrameInfo {
     int index;
     std::string module_name;
-    uintptr_t moduel_base;
+    uintptr_t module_base;
     uintptr_t address;
     uintptr_t offset;
     std::string func_name;

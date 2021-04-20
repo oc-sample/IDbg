@@ -24,15 +24,13 @@
 
 namespace IDbg {
 
-std::string GetThreadStatck() {
-    ThreadStackArray ls;
-    GetAllThreadInfo(ls, IDbg::kFrames);
+std::string FormatThreadStatck(const ThreadStackArray& ls) {
     std::stringstream ss;
     for (auto i=0; i<ls.size(); ++i) {
         auto thread = ls[i];
         ss << "\nThread " << i << " Name :[" << thread.name << "] Cpu:["
            << thread.cpu << "]\n"
-           << "Thread " << i << "\n";
+           << "Thread " << thread.th << "\n";
         for (auto& frame : thread.frames) {
             char buffer[1024];
             snprintf(buffer, 1024, TRACE_FMT, frame.index,
@@ -104,8 +102,11 @@ std::string GenerateMiniDump(DumpOptions options) {
 
     // thread backtrace
     //float totalCpu = 0;
+    
     if (options & DumpOptions::kStack) {
-        std::string&& stack = GetThreadStatck();
+        ThreadStackArray ls;
+        GetAllThreadInfo(ls, ThreadOptions::kFrames);
+        std::string&& stack = FormatThreadStatck(ls);
         ss << stack;
     }
 

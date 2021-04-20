@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include <string>
+#include "thread_info.h"
 
 namespace IDbg {
 
@@ -23,6 +24,12 @@ enum DumpOptions : uint32_t {
 };
 
 std::string GenerateMiniDump(DumpOptions options = DumpOptions::kDefault);
+
+void SaveToFile(std::string& data);
+
+void CreateFileDirectories();
+
+std::string FormatThreadStatck(const ThreadStackArray& ls);
 
 } // namespace IDbg
 

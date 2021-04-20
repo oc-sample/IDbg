@@ -24,6 +24,10 @@ enum DumpOptions : uint32_t {
 
 std::string GenerateMiniDump(DumpOptions options = DumpOptions::kDefault);
 
+void SaveToFile(std::string& data);
+
+void CreateFileDirectories();
+
 } // namespace IDbg
 
 #endif /* mini_dump_file_h */

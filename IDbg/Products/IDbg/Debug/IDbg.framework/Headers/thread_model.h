@@ -32,8 +32,6 @@ private:
   int StartThread();
 
   int StopThread();
-  
-  void SetThreadName(const std::string& name);
 
 private:
   bool quited_;

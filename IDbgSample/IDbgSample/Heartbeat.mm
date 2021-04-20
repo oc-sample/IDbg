@@ -86,6 +86,10 @@
 
 -(void)onTimer{
     std::string file = IDbg::GenerateMiniDump();
+    
+    IDbg::CreateFileDirectories();
+    
+    IDbg::SaveToFile(file);
     NSLog(@"%@", [NSString stringWithUTF8String:file.c_str()]);
 }
 

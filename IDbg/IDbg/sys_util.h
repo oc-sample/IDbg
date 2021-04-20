@@ -12,6 +12,8 @@
 #include <string>
 #import <mach/machine.h>
 
+namespace IDbg {
+
 std::string StringWithUUID();
 
 std::string GetIDFA();
@@ -43,5 +45,8 @@ std::string GetFullPath();
 int GetProcessId();
 
 std::string UuidToSting(const uint8_t* bytes);
+
+void SetThreadName(const std::string& name);
+}
 
 #endif /* sys_util_h */

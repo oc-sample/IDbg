@@ -14,6 +14,8 @@
 #include <time.h>
 #import <UIKit/UIDevice.h>
 
+namespace IDbg {
+
 std::string StringWithUUID() {
     CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUI
     NSString* uuidString = (__bridge NSString*)CFUUIDCreateString(nil, uuidObj);
@@ -173,5 +175,54 @@ std::string UuidToSting(const uint8_t* bytes) {
         return str_uuid;
     }
     return "";
+}
+
+void SaveToFile(std::string& data) {
+    NSString* pData = [NSString stringWithUTF8String:data.c_str()];
+    NSString* tmpPath = NSTemporaryDirectory();
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyMMddHHmmssSSS"];
+    NSString* dateTime = [formatter stringFromDate:[NSDate date]];
+    NSString* fileName = [NSString stringWithFormat:@"%@manual_stack/%@_ori.crash", tmpPath, dateTime];
+    [pData writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
+void CreateFileDirectories() {
+    NSString* tmpPath = NSTemporaryDirectory();
+    NSString *picPath = [tmpPath stringByAppendingPathComponent:@"manual_stack"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = FALSE;
+    BOOL isDirExist = [fileManager fileExistsAtPath:picPath isDirectory:&isDir];
+    if(!(isDirExist && isDir)) {
+        BOOL bCreateDir = [fileManager createDirectoryAtPath: picPath withIntermediateDirectories:YES attributes:nil error:nil];
+        if(!bCreateDir) {
+            NSLog(@"fail to create manual_stack direction");
+        }
+    }
+}
+
+void SetThreadName(const std::string& name) {
+  if (name.empty()) {
+    return;
+  }
+
+#if defined(OS_MACOSX) || defined(OS_IOS)
+  pthread_setname_np(name.c_str());
+#elif defined(OS_LINUX) || defined(OS_ANDROID)
+  pthread_setname_np(pthread_self(), name.c_str());
+#elif defined(OS_WIN)
+  THREADNAME_INFO info;
+  info.dwType = 0x1000;
+  info.szName = name.c_str();
+  info.dwThreadID = GetCurrentThreadId();
+  info.dwFlags = 0;
+  __try {
+    RaiseException(kVCThreadNameException, 0, sizeof(info) / sizeof(DWORD),
+      reinterpret_cast<DWORD_PTR*>(&info));
+  } __except(EXCEPTION_CONTINUE_EXECUTION) {
+  }
+#endif
+}
+
 }
 

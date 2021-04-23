@@ -33,10 +33,18 @@ struct ThreadStack {
     FrameList frames;
 };
 
-enum ThreadOptions : uint32_t {
+enum class ThreadOptions : uint32_t {
     kBasic = 1 << 0, // 0000 0001
     kFrames = 1 << 1,
 };
+
+constexpr ThreadOptions operator|(ThreadOptions a, ThreadOptions b) {
+    return static_cast<ThreadOptions>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+constexpr ThreadOptions operator&(ThreadOptions a, ThreadOptions b) {
+    return static_cast<ThreadOptions>(static_cast<int>(a) & static_cast<int>(b));
+}
 
 typedef std::vector<ThreadStack> ThreadStackArray;
 typedef std::vector<thread_t> ThreadIdArray;

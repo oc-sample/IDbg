@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include <string>
+#include "thread_cpu_info.h"
 
 namespace IDbg {
 
@@ -27,6 +28,8 @@ std::string GenerateMiniDump(DumpOptions options = DumpOptions::kDefault);
 void SaveToFile(std::string& data);
 
 void CreateFileDirectories();
+
+std::string FormatThreadStatck(const ThreadStackArray& ls);
 
 } // namespace IDbg
 

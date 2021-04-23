@@ -1,0 +1,6 @@
+framework module IDbg {
+  umbrella header "IDbg.h"
+
+  export *
+  module * { export * }
+}

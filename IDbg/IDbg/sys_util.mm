@@ -12,7 +12,9 @@
 #import <Foundation/Foundation.h>
 #import <AdSupport/AdSupport.h>
 #include <time.h>
+#if TARGET_OS_IOS
 #import <UIKit/UIDevice.h>
+#endif
 
 namespace IDbg {
 
@@ -158,12 +160,20 @@ std::string GetFullPath() {
 
 
 std::string GetSystemName() {
+#if TARGET_OS_IOS
     NSString* sys_name = [[UIDevice currentDevice] systemName];
     return [sys_name UTF8String];
+#else
+    return "";
+#endif
 }
 
 std::string GetSystemVersion() {
+#if TARGET_OS_IOS
     return [ [[UIDevice currentDevice] systemVersion] UTF8String];
+#else
+    return "";
+#endif
 }
 
 std::string UuidToSting(const uint8_t* bytes) {

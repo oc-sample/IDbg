@@ -18,6 +18,12 @@ add_library(IDbg STATIC
         thread_model.cc
         thread_model.h)
         
+set(HEADER_FILES
+mini_dump_file.h
+thread_model.h
+thread_cpu_info.h
+)
+        
 set_target_properties(IDbg PROPERTIES FRAMEWORK TRUE
-PUBLIC_HEADER mini_dump.file.h thread_model.h thread_cpu_info.h
+PUBLIC_HEADER "${HEADER_FILES}"
 )

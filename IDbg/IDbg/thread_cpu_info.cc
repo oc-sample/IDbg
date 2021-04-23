@@ -6,7 +6,7 @@
 //  Copyright © 2019年 mjzheng. All rights reserved.
 //
 
-#include "thread_info.h"
+#include "thread_cpu_info.h"
 #include <pthread/pthread.h>
 #include "ks_dynamic_linker.h"
 #include <sys/sysctl.h>

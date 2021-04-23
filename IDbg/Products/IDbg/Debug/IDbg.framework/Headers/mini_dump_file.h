@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 #include <string>
-#include "thread_info.h"
+#include "thread_cpu_info.h"
 
 namespace IDbg {
 

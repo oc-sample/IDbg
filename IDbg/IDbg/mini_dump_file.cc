@@ -10,7 +10,7 @@
 #include "sys_util.h"
 #include "ks_dynamic_linker.h"
 #include <unistd.h>
-#include "thread_info.h"
+#include "thread_cpu_info.h"
 
 #if defined(__LP64__)
 #define TRACE_FMT         "%-4d%-31s 0x%016lx %s + %lu\n"

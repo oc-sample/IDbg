@@ -1,6 +1,8 @@
 Products/*
 build/*
 xcuserdata
+platforms_project/ios/*
+platforms_project/osx/*
 
 
 

@@ -7,7 +7,6 @@
 
 #include "sys_util.h"
 
-
 void SetThreadName(const std::string& name) {
   if (name.empty()) {
     return;

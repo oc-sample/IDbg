@@ -6,9 +6,11 @@
 #define C11_SAMPLE_THREADMODEL_H
 
 #include <thread>
-#include <iostream>
 #include <queue>
 #include <string>
+#include <mutex>
+#include <condition_variable>
+#include <memory>
 
 namespace IDbg {
 

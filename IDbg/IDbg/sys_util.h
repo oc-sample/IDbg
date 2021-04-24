@@ -10,10 +10,14 @@
 #define sys_util_h
 
 #include <string>
+
+#ifdef OS_IOS
 #import <mach/machine.h>
+#endif
 
 namespace IDbg {
 
+#ifdef OS_IOS
 std::string StringWithUUID();
 
 std::string GetIDFA();
@@ -45,6 +49,8 @@ std::string GetFullPath();
 int GetProcessId();
 
 std::string UuidToSting(const uint8_t* bytes);
+
+#endif
 
 void SetThreadName(const std::string& name);
 }

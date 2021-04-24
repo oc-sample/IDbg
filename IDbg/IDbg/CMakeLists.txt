@@ -26,4 +26,14 @@ thread_cpu_info.h
         
 set_target_properties(IDbg PROPERTIES FRAMEWORK TRUE
 PUBLIC_HEADER "${HEADER_FILES}"
+XCODE_ATTRIBUTE_SKIP_INSTALL "YES"
+)
+
+ADD_CUSTOM_TARGET(IDbgAuto
+)
+
+ADD_CUSTOM_COMMAND(
+          TARGET IDbgAuto
+          COMMAND /bin/bash /${CMAKE_SOURCE_DIR}/merge_frame.sh
+
 )

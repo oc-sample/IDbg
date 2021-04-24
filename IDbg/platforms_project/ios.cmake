@@ -70,6 +70,7 @@ set (CMAKE_CXX_OSX_COMPATIBILITY_VERSION_FLAG "${CMAKE_C_OSX_COMPATIBILITY_VERSI
 set (CMAKE_CXX_OSX_CURRENT_VERSION_FLAG "${CMAKE_C_OSX_CURRENT_VERSION_FLAG}")
 
 
+
 # Additional flags for dynamic framework
 if (APPLE_FRAMEWORK AND BUILD_SHARED_LIBS)
   set (CMAKE_MODULE_LINKER_FLAGS "-rpath @executable_path/Frameworks -rpath @loader_path/Frameworks")
@@ -145,7 +146,9 @@ if (NOT DEFINED IOS_ARCH)
 else ()
     message (STATUS "Use defined IOS_ARCH " ${IOS_ARCH})
 endif (NOT DEFINED IOS_ARCH)
-set (CMAKE_OSX_ARCHITECTURES ${IOS_ARCH} CACHE string "Build architecture for iOS")
+#set (CMAKE_OSX_ARCHITECTURES ${IOS_ARCH} CACHE string "Build architecture for iOS")
+set (CMAKE_OSX_ARCHITECTURES ${ARCHS_STANDARD} CACHE string "Build architecture for iOS")
+
 
 
 # If user did not specify the SDK root to use, then query xcodebuild for it.
@@ -240,6 +243,7 @@ endif (IPHONEOS)
 set (CMAKE_MACOSX_BUNDLE YES)
 set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
 set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+set(CMAKE_XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64")
 #set(CMAKE_OSX_DEPLOYMENT_TARGET 7.0)
 
 # Setup iOS developer location unless specified manually with CMAKE_IOS_DEVELOPER_ROOT

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "hello"
+#env
 
 
 # Type a script or drag a script file from your workspace to insert its path.
@@ -14,13 +15,15 @@ echo ${ACTION}
 #要build的target名
 target_Name=${PROJECT_NAME}
 #build之后的文件夹路径
-build_DIR=${SRCROOT}/build
+#build_DIR=${SRCROOT}/build
+#build_DIR=${BUILD_DIR}
+#echo ${build_DIR}
 
 echo ${build_DIR}
 #真机build生成的framework文件路径
-DEVICE_DIR_Framework=${build_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework
+DEVICE_DIR_Framework=${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework
 #模拟器build生成的framework文件路径
-SIMULATOR_DIR_Framework=${build_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework
+SIMULATOR_DIR_Framework=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework
 #目标文件夹路径
 INSTALL_DIR=${SRCROOT}/Products/${PROJECT_NAME}/${CONFIGURATION}
 #判断build文件夹是否存在，存在则删除
@@ -38,7 +41,7 @@ mkdir -p "${INSTALL_DIR}"
 pwd
 cd ../
 #build之前clean一下
-xcodebuild -target ${target_Name} clean
+#xcodebuild -target ${target_Name} clean
 #真机build
 xcodebuild -target ${target_Name} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos
 #模拟器build

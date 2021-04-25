@@ -6,8 +6,8 @@
 //  Copyright © 2021 mjzheng. All rights reserved.
 //
 
-#ifndef mini_dump_file_h
-#define mini_dump_file_h
+#ifndef IDBG_IDBG_MINI_DUMP_FILE_H_
+#define IDBG_IDBG_MINI_DUMP_FILE_H_
 
 #include <stdint.h>
 #include <string>
@@ -31,6 +31,6 @@ void CreateFileDirectories();
 
 std::string FormatThreadStatck(const ThreadStackArray& ls);
 
-} // namespace IDbg
+}  // namespace IDbg
 
-#endif /* mini_dump_file_h */
+#endif  // IDBG_IDBG_MINI_DUMP_FILE_H_

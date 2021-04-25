@@ -34,8 +34,8 @@ std::string FormatThreadStatck(const ThreadStackArray& ls) {
     ss << "\nThread " << i << " Name :[" << thread.name << "] Cpu:["
        << thread.cpu << "]\n"
        << "Thread " << thread.th << "\n";
+    char buffer[1024];
     for (auto& frame : thread.frames) {
-      char buffer[1024];
       snprintf(buffer, sizeof(buffer), TRACE_FMT, frame.index,
                frame.module_name.c_str(), frame.address,
                frame.func_name.c_str(), frame.offset);
@@ -81,8 +81,8 @@ std::string GetAppleFmtBinaryImages() {
   ss << "\nBinary Images:\n";
   BinaryImageArray ls;
   GetBinaryImages(&ls);
+  char buf[1024];
   for (auto& image : ls) {
-    char buf[1024];
     const char* last_file = strrchr(image.name, '/');
     const char* name = (last_file == NULL ? image.name : last_file + 1);
     std::string arch_name = GetCPUType(image.cpuType, image.cpuSubType);

@@ -6,8 +6,8 @@
 //  Copyright © 2019年 mjzheng. All rights reserved.
 //
 
-#ifndef THREAD_INFO_H
-#define THREAD_INFO_H
+#ifndef IDBG_IDBG_THREAD_CPU_INFO_H_
+#define IDBG_IDBG_THREAD_CPU_INFO_H_
 
 #include <vector>
 #include <string>
@@ -61,5 +61,5 @@ int GetCpuCore();
 
 } // namesapce IDbg
 
-#endif
+#endif  // IDBG_IDBG_THREAD_CPU_INFO_H_
 

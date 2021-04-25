@@ -6,8 +6,8 @@
 //  Copyright © 2021 mjzheng. All rights reserved.
 //
 
-#ifndef sys_util_h
-#define sys_util_h
+#ifndef IDBG_IDBG_SYS_UTIL_H_
+#define IDBG_IDBG_SYS_UTIL_H_
 
 #include <string>
 #include "build_config.h"
@@ -56,4 +56,4 @@ std::string UuidToSting(const uint8_t* bytes);
 void SetThreadName(const std::string& name);
 }
 
-#endif /* sys_util_h */
+#endif  // IDBG_IDBG_SYS_UTIL_H_

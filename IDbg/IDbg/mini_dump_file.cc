@@ -105,7 +105,7 @@ std::string GenerateMiniDump(DumpOptions options) {
     
     if (options & DumpOptions::kStack) {
         ThreadStackArray ls;
-        GetAllThreadInfo(ls, ThreadOptions::kFrames);
+        GetAllThreadInfo(ThreadOptions::kFrames, &ls);
         std::string&& stack = FormatThreadStatck(ls);
         ss << stack;
     }

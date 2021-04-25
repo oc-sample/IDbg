@@ -53,9 +53,9 @@ float GetSysCpu();
 
 float GetAppCpu();
 
-int GetThreadInfoById(ThreadStackArray& ls, const ThreadIdArray& id_ls, const ThreadOptions options = ThreadOptions::kBasic);
+int GetThreadInfoById(const ThreadIdArray& id_ls, const ThreadOptions options, ThreadStackArray* ls);
 
-int GetAllThreadInfo(ThreadStackArray& ls, const ThreadOptions options = ThreadOptions::kBasic);
+int GetAllThreadInfo(const ThreadOptions options, ThreadStackArray* ls);
 
 int GetCpuCore();
 

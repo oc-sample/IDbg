@@ -136,7 +136,7 @@ const char* bs_lastPathEntry(const char* const path) {
 }
 
 // C function
-int GetThreadStack(thread_t thread, FrameList& frame_list) {
+int GetThreadStack(thread_t thread, FrameList* frame_list) {
   // 获取线程的ebp 和esp, 用于调用链重构
   _STRUCT_MCONTEXT ctx;
   if (!thread_get_state_ex(thread, &ctx)) {
@@ -173,21 +173,21 @@ int GetThreadStack(thread_t thread, FrameList& frame_list) {
   for (int j=0; j < i; j++) {
     FrameInfo frame;
     GetFrameEntry(j, backtrace_buffer[j], &frame);
-    frame_list.push_back(frame);
+    frame_list->push_back(frame);
   }
   return 0;
 }
 
-int GetThreadArray(const ThreadOptions options, const thread_act_array_t threads, const mach_msg_type_number_t thread_count, ThreadStackArray& ls) {
+int GetThreadArray(const ThreadOptions options, const thread_act_array_t threads, const mach_msg_type_number_t thread_count, ThreadStackArray* ls) {
   ThreadIdArray id_ls;
   for (int i=0; i < thread_count; ++i) {
     id_ls.push_back(threads[i]);
   }
-  return GetThreadInfoById(ls, id_ls, options);
+  return GetThreadInfoById(id_ls, options, ls);
 }
 
-int GetThreadInfoById(ThreadStackArray& ls, const ThreadIdArray& id_ls, const ThreadOptions options) {
-  ls.clear();
+int GetThreadInfoById(const ThreadIdArray& id_ls, const ThreadOptions options, ThreadStackArray* ls) {
+  ls->clear();
   if ((options&ThreadOptions::kFrames) == ThreadOptions::kFrames) {
     for (auto& thread : id_ls) {
       ThreadStack info;
@@ -196,8 +196,8 @@ int GetThreadInfoById(ThreadStackArray& ls, const ThreadIdArray& id_ls, const Th
       if (ret != 0) {
         continue;
       }
-      GetThreadStack(thread, info.frames);
-      ls.push_back(info);
+      GetThreadStack(thread, &info.frames);
+      ls->push_back(info);
     }
   } else {
     for (auto& thread : id_ls) {
@@ -207,13 +207,13 @@ int GetThreadInfoById(ThreadStackArray& ls, const ThreadIdArray& id_ls, const Th
       if (ret != 0) {
         continue;
       }
-      ls.push_back(info);
+      ls->push_back(info);
     }
   }
   return 0;
 }
 
-int GetAllThreadInfo(ThreadStackArray& ls, const ThreadOptions options) {
+int GetAllThreadInfo(const ThreadOptions options, ThreadStackArray* ls) {
   thread_act_array_t threads;
   mach_msg_type_number_t thread_count = 0;
   const task_t this_task = mach_task_self();

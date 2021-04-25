@@ -79,7 +79,7 @@ void ThreadModel::Run() {
       break;
     }
   }
-  LOG("leave....");
+  LOG("leave");
   return;
 }
 

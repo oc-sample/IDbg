@@ -7,9 +7,12 @@
 //
 
 #include "thread_cpu_info.h"
-#include <pthread/pthread.h>
-#include "ks_dynamic_linker.h"
+
 #include <sys/sysctl.h>
+#include <pthread/pthread.h>
+
+#include "ks_dynamic_linker.h"
+
 
 #pragma -mark DEFINE MACRO FOR DIFFERENT CPU ARCHITECTURE
 #if defined(__arm64__)
@@ -57,7 +60,7 @@
 namespace IDbg {
 
 void GetFrameEntry(const int entryNum, const uintptr_t address,
-                   FrameInfo& frame);
+                   FrameInfo* frame);
 
 int GetThreadCpuAndName(thread_t thread, float& cpu, std::string& threadName);
 
@@ -80,8 +83,7 @@ float GetSysCpu() {
                               (host_info_t)&host_load, &host_size);
     if (KERN_SUCCESS != ret) {
         return -1;
-    }
-    else {
+    } else {
         cpuinfo.cpu_user = host_load.cpu_ticks[0] - lastcpuinfo.cpu_user;
         cpuinfo.cpu_system = host_load.cpu_ticks[1] - lastcpuinfo.cpu_system;
         cpuinfo.cpu_idle = host_load.cpu_ticks[2] - lastcpuinfo.cpu_idle;
@@ -138,7 +140,7 @@ kern_return_t mach_copyMem(const void *const src, void *const dst,
 }
 
 const char* bs_lastPathEntry(const char* const path) {
-    if(path == NULL) {
+    if (path == NULL) {
         return NULL;
     }
     const char* last_file = strrchr(path, '/');
@@ -149,11 +151,11 @@ const char* bs_lastPathEntry(const char* const path) {
 int GetThreadStack(thread_t thread, FrameList& frame_list) {
     // 获取线程的ebp 和esp, 用于调用链重构
     _STRUCT_MCONTEXT ctx;
-    if(!thread_get_state_ex(thread, &ctx)) {
+    if (!thread_get_state_ex(thread, &ctx)) {
         return -1;
     }
     const uintptr_t instructionAddress = mach_instructionAddress(&ctx);
-    if(instructionAddress == 0) {
+    if (instructionAddress == 0) {
         return -1;
     }
 
@@ -169,23 +171,23 @@ int GetThreadStack(thread_t thread, FrameList& frame_list) {
     StackFrameEntry frame = {0};
     const uintptr_t frame_ptr = mach_framePointer(&ctx);
 
-    if(frame_ptr == 0 ||
-       mach_copyMem((void *)frame_ptr, &frame, sizeof(frame)) != KERN_SUCCESS) {
+    if (frame_ptr == 0 ||
+       mach_copyMem(static_cast<void*>(frame_ptr), &frame, sizeof(frame)) != KERN_SUCCESS) {
         return -1;
     }
 
-    for(; i < MAX_BACKTRACE; i++) {
+    for (; i < MAX_BACKTRACE; i++) {
       backtrace_buffer[i] = frame.return_address;
-      if(backtrace_buffer[i] == 0 ||
+      if (backtrace_buffer[i] == 0 ||
          frame.previous == 0 ||
          mach_copyMem(frame.previous, &frame,sizeof(frame)) != KERN_SUCCESS) {
           break;
       }
     }
 
-    for (int j=0; j<i; j++) {
+    for (int j=0; j < i; j++) {
         FrameInfo frame;
-        GetFrameEntry(j, backtrace_buffer[j], frame);
+        GetFrameEntry(j, backtrace_buffer[j], &frame);
         frame_list.push_back(frame);
     }
     return 0;
@@ -196,7 +198,7 @@ int GetThreadArray(const ThreadOptions options,
                    const mach_msg_type_number_t
                    thread_count, ThreadStackArray& ls) {
     ThreadIdArray id_ls;
-    for (int i=0; i<thread_count; ++i) {
+    for (int i=0; i < thread_count; ++i) {
         id_ls.push_back(threads[i]);
     }
     return GetThreadInfoById(ls, id_ls, options);
@@ -237,7 +239,7 @@ int GetAllThreadInfo(ThreadStackArray& ls, const ThreadOptions options) {
     mach_msg_type_number_t thread_count = 0;
     const task_t this_task = mach_task_self();
     kern_return_t kr = task_threads(this_task, &threads, &thread_count);
-    if(kr != KERN_SUCCESS) {
+    if (kr != KERN_SUCCESS) {
         return -1;
     }
     GetThreadArray(options, threads, thread_count, ls);
@@ -253,11 +255,11 @@ float GetAppCpu() {
     mach_msg_type_number_t thread_count = 0;
     const task_t this_task = mach_task_self();
     kern_return_t kr = task_threads(this_task, &threads, &thread_count);
-    if(kr != KERN_SUCCESS) {
+    if (kr != KERN_SUCCESS) {
         return -1;
     }
     
-    for (int i=0; i<thread_count; i++) {
+    for (int i=0; i < thread_count; i++) {
         thread_t thread = threads[i];
         float th_cpu = 0;
         mach_msg_type_number_t thread_info_count = THREAD_INFO_MAX;
@@ -274,7 +276,7 @@ float GetAppCpu() {
         
         thread_extended_info_t basic_info_th = (thread_extended_info_t)thinfo;
         if (!(basic_info_th->pth_flags & TH_FLAGS_IDLE)) {
-            th_cpu = basic_info_th->pth_cpu_usage / (float)TH_USAGE_SCALE;
+            th_cpu = basic_info_th->pth_cpu_usage / static_cast<float>(TH_USAGE_SCALE);
             app_cpu += th_cpu*100;
         }
     }
@@ -298,44 +300,47 @@ int GetThreadCpuAndName(const thread_t thread, float& cpu,
 
     thread_extended_info_t basic_info_th = (thread_extended_info_t)thinfo;
     if (!(basic_info_th->pth_flags & TH_FLAGS_IDLE)) {
-        cpu = basic_info_th->pth_cpu_usage / (float)TH_USAGE_SCALE * 100.0;
+        cpu = basic_info_th->pth_cpu_usage / static_cast<float>(TH_USAGE_SCALE) * 100.0;
     }
     thread_name = std::string(basic_info_th->pth_name);
     return 0;
 }
 
 void GetFrameEntry(const int entry_num, const uintptr_t address,
-                   FrameInfo& frame) {
-    frame.index = entry_num;
-    frame.address = address;
+                   FrameInfo* frame) {
+  if (frame == nullptr) {
+    return;
+  }
+    frame->index = entry_num;
+    frame->address = address;
     
     Dl_info dl_info = {0};
     ksdl_dladdr(address, &dl_info);
     
     // set module base
-    frame.module_base = (uintptr_t)dl_info.dli_fbase;
+    frame->module_base = (uintptr_t)dl_info.dli_fbase;
     
     // set module name, use module base as module name if module name is empty
-    frame.module_name = "";
+    frame->module_name = "";
     const char* fname = bs_lastPathEntry(dl_info.dli_fname);
     if (fname == NULL) {
         if (dl_info.dli_fbase != NULL) {
-            frame.module_name = std::to_string((uintptr_t)dl_info.dli_fbase);
+            frame->module_name = std::to_string((uintptr_t)dl_info.dli_fbase);
         }
     } else {
-        frame.module_name = fname;
+        frame->module_name = fname;
     }
     
     // set func_name and offset
     if (dl_info.dli_sname != NULL && dl_info.dli_saddr != NULL) {
-        frame.func_name = dl_info.dli_sname;
-        frame.offset = address - (uintptr_t)dl_info.dli_saddr;
+        frame->func_name = dl_info.dli_sname;
+        frame->offset = address - (uintptr_t)dl_info.dli_saddr;
     }
-    if (frame.func_name == "" || frame.func_name == "<redacted>") {
+    if (frame->func_name == "" || frame->func_name == "<redacted>") {
         char saddrBuff[20];
-        sprintf(saddrBuff, POINTER_FMT, frame.module_base);
-        frame.func_name = saddrBuff;
-        frame.offset = address - frame.module_base;
+        snprintf(saddrBuff, sizeof(saddrBuff), POINTER_FMT, frame->module_base);
+        frame->func_name = saddrBuff;
+        frame->offset = address - frame->module_base;
     }
 }
 

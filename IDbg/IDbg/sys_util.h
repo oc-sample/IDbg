@@ -10,6 +10,7 @@
 #define sys_util_h
 
 #include <string>
+#include "build_config.h"
 
 #ifdef OS_IOS
 #import <mach/machine.h>

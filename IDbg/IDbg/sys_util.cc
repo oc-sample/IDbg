@@ -6,6 +6,7 @@
 //
 
 #include "sys_util.h"
+#include <pthread.h>
 
 void SetThreadName(const std::string& name) {
   if (name.empty()) {

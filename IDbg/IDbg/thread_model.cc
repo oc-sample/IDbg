@@ -1,5 +1,6 @@
 //
 // Created by mjzheng on 2021/3/18.
+// Copyright (c) 2021 zheng jun ming. All rights reserved.
 //
 
 #include "thread_model.h"
@@ -79,7 +80,7 @@ void ThreadModel::Run() {
       break;
     }
   }
-  LOG("leave....");
+  LOG("leave");
   return;
 }
 

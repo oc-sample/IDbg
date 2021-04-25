@@ -87,7 +87,7 @@ float GetSysCpu() {
     cpuinfo.cpu_nice = host_load.cpu_ticks[3] - lastcpuinfo.cpu_nice;
     memcpy(&lastcpuinfo, &host_load, sizeof(lastcpuinfo));
   }
-  return 100.0*((float)(cpuinfo.cpu_user + cpuinfo.cpu_system) / (float)(cpuinfo.cpu_user + cpuinfo.cpu_system + cpuinfo.cpu_idle + cpuinfo.cpu_nice));
+  return 100.0*(static_cast<float>(cpuinfo.cpu_user + cpuinfo.cpu_system) / static_cast<float>(cpuinfo.cpu_user + cpuinfo.cpu_system + cpuinfo.cpu_idle + cpuinfo.cpu_nice));
 }
 
 typedef struct StackFrameEntry {
@@ -159,7 +159,7 @@ int GetThreadStack(thread_t thread, FrameList& frame_list) {
   StackFrameEntry frame = {0};
   const uintptr_t frame_ptr = mach_framePointer(&ctx);
 
-  if (frame_ptr == 0 || mach_copyMem((void*)frame_ptr, &frame, sizeof(frame)) != KERN_SUCCESS) {
+  if (frame_ptr == 0 || mach_copyMem(reinterpret_cast<void*>(frame_ptr), &frame, sizeof(frame)) != KERN_SUCCESS) {
     return -1;
   }
 

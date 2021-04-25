@@ -89,7 +89,4 @@ int ThreadModel::Sleep(int64_t interval) {
   return quited_ ? 1 : 0;
 }
 
-}
-
-
-
+}  // namespace IDbg

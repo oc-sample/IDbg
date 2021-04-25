@@ -23,9 +23,9 @@ enum DumpOptions : uint32_t {
     kDefault = kHeader | kStack | kImage,
 };
 
-std::string GenerateMiniDump(DumpOptions options = DumpOptions::kDefault);
+std::string GenerateMiniDump(DumpOptions options);
 
-void SaveToFile(std::string& data);
+void SaveToFile(const std::string& data);
 
 void CreateFileDirectories();
 

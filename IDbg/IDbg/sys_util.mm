@@ -187,7 +187,7 @@ std::string UuidToSting(const uint8_t* bytes) {
     return "";
 }
 
-void SaveToFile(std::string& data) {
+void SaveToFile(const std::string& data) {
     NSString* pData = [NSString stringWithUTF8String:data.c_str()];
     NSString* tmpPath = NSTemporaryDirectory();
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];

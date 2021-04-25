@@ -26,7 +26,6 @@ elseif(WIN32 OR ANDROID)
   list(FILTER idbg_source EXCLUDE REGEX "mini_dump_file.h")
   list(FILTER idbg_source EXCLUDE REGEX "ks_dynamic_linker.c")
   list(FILTER idbg_source EXCLUDE REGEX "ks_dynamic_linker.h")
-  list(FILTER idbg_source EXCLUDE REGEX "sys_util.h")
 endif()
      
 add_library(IDbg STATIC ${idbg_source})

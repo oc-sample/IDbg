@@ -12,13 +12,13 @@
 #include <string>
 #include "build_config.h"
 
-#ifdef OS_IOS
+#if defined(OS_IOS) || defined(OS_OSX)
 #import <mach/machine.h>
 #endif
 
 namespace IDbg {
 
-#ifdef OS_IOS
+#if defined(OS_IOS) || defined(OS_OSX)
 std::string StringWithUUID();
 
 std::string GetIDFA();

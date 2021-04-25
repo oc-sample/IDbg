@@ -58,9 +58,11 @@
 
 namespace IDbg {
 
-void GetFrameEntry(const int entry_num, const uintptr_t address, FrameInfo* frame);
+void GetFrameEntry(const int entry_num, const uintptr_t address,
+                   FrameInfo* frame);
 
-int GetThreadCpuAndName(const thread_t thread, float* cpu, std::string* thread_name);
+int GetThreadCpuAndName(const thread_t thread, float* cpu,
+                        std::string* thread_name);
 
 typedef struct ana_cpu_load_info {
   natural_t cpu_user;
@@ -77,7 +79,8 @@ float GetSysCpu() {
   host_cpu_load_info_data_t host_load;
   host_port = mach_host_self();
   host_size = sizeof(host_cpu_load_info_data_t) / sizeof(integer_t);
-  int ret = host_statistics(host_port, HOST_CPU_LOAD_INFO, (host_info_t)&host_load, &host_size);
+  int ret = host_statistics(host_port, HOST_CPU_LOAD_INFO,
+                            (host_info_t)&host_load, &host_size);
   if (KERN_SUCCESS != ret) {
     return -1;
   } else {
@@ -87,7 +90,10 @@ float GetSysCpu() {
     cpuinfo.cpu_nice = host_load.cpu_ticks[3] - lastcpuinfo.cpu_nice;
     memcpy(&lastcpuinfo, &host_load, sizeof(lastcpuinfo));
   }
-  return 100.0*(static_cast<float>(cpuinfo.cpu_user + cpuinfo.cpu_system) / static_cast<float>(cpuinfo.cpu_user + cpuinfo.cpu_system + cpuinfo.cpu_idle + cpuinfo.cpu_nice));
+  float cpu_usage = cpuinfo.cpu_user + cpuinfo.cpu_system;
+  float cpu_total = cpuinfo.cpu_user + cpuinfo.cpu_system +
+                    cpuinfo.cpu_idle + cpuinfo.cpu_nice;
+  return 100.0 * cpu_usage / cpu_total;
 }
 
 typedef struct StackFrameEntry {
@@ -98,7 +104,9 @@ typedef struct StackFrameEntry {
 #pragma -mark HandleMachineContext
 bool thread_get_state_ex(thread_t thread, _STRUCT_MCONTEXT *machineContext) {
   mach_msg_type_number_t state_count = THREAD_STATE_COUNT;
-  kern_return_t kr = thread_get_state(thread, THREAD_STATE, (thread_state_t)&machineContext->__ss, &state_count);
+  kern_return_t kr = thread_get_state(thread, THREAD_STATE,
+                                      (thread_state_t)&machineContext->__ss,
+                                      &state_count);
   return (kr == KERN_SUCCESS);
 }
 
@@ -122,9 +130,12 @@ uintptr_t mach_stackPointer(mcontext_t const machine_context) {
   return machine_context->__ss.STACK_POINTER;
 }
 
-kern_return_t mach_copyMem(const void *const src, void *const dst, const size_t numBytes) {
+kern_return_t mach_copyMem(const void *const src, void *const dst,
+                           const size_t numBytes) {
     vm_size_t bytes_copied = 0;
-    return vm_read_overwrite(mach_task_self(), (vm_address_t)src, (vm_size_t)numBytes, (vm_address_t)dst, &bytes_copied);
+    return vm_read_overwrite(mach_task_self(), (vm_address_t)src,
+                             (vm_size_t)numBytes, (vm_address_t)dst,
+                             &bytes_copied);
 }
 
 const char* bs_lastPathEntry(const char* const path) {
@@ -159,13 +170,20 @@ int GetThreadStack(thread_t thread, FrameList* frame_list) {
   StackFrameEntry frame = {0};
   const uintptr_t frame_ptr = mach_framePointer(&ctx);
 
-  if (frame_ptr == 0 || mach_copyMem(reinterpret_cast<void*>(frame_ptr), &frame, sizeof(frame)) != KERN_SUCCESS) {
+  if (frame_ptr == 0) {
+    return -1;
+  }
+
+  auto ret = mach_copyMem(reinterpret_cast<void*>(frame_ptr), &frame,
+                          sizeof(frame));
+  if (ret != KERN_SUCCESS) {
     return -1;
   }
 
   for (; i < MAX_BACKTRACE; i++) {
     backtrace_buffer[i] = frame.return_address;
-    if (backtrace_buffer[i] == 0 || frame.previous == 0 || mach_copyMem(frame.previous, &frame, sizeof(frame)) != KERN_SUCCESS) {
+    if (backtrace_buffer[i] == 0 || frame.previous == 0 ||
+        mach_copyMem(frame.previous, &frame, sizeof(frame)) != KERN_SUCCESS) {
         break;
     }
   }
@@ -178,7 +196,10 @@ int GetThreadStack(thread_t thread, FrameList* frame_list) {
   return 0;
 }
 
-int GetThreadArray(const ThreadOptions options, const thread_act_array_t threads, const mach_msg_type_number_t thread_count, ThreadStackArray* ls) {
+int GetThreadArray(const ThreadOptions options,
+                   const thread_act_array_t threads,
+                   const mach_msg_type_number_t
+                   thread_count, ThreadStackArray* ls) {
   ThreadIdArray id_ls;
   for (int i=0; i < thread_count; ++i) {
     id_ls.push_back(threads[i]);
@@ -186,7 +207,8 @@ int GetThreadArray(const ThreadOptions options, const thread_act_array_t threads
   return GetThreadInfoById(id_ls, options, ls);
 }
 
-int GetThreadInfoById(const ThreadIdArray& id_ls, const ThreadOptions options, ThreadStackArray* ls) {
+int GetThreadInfoById(const ThreadIdArray& id_ls, const ThreadOptions options,
+                      ThreadStackArray* ls) {
   ls->clear();
   if ((options&ThreadOptions::kFrames) == ThreadOptions::kFrames) {
     for (auto& thread : id_ls) {
@@ -222,7 +244,8 @@ int GetAllThreadInfo(const ThreadOptions options, ThreadStackArray* ls) {
     return -1;
   }
   GetThreadArray(options, threads, thread_count, ls);
-  kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
+  kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads,
+                     thread_count * sizeof(thread_t));
   assert(kr == KERN_SUCCESS);
   return 0;
 }
@@ -242,9 +265,11 @@ float GetAppCpu() {
     float th_cpu = 0;
     mach_msg_type_number_t thread_info_count = THREAD_INFO_MAX;
     thread_info_data_t thinfo;
-    kern_return_t kr = thread_info(thread, THREAD_EXTENDED_INFO, (thread_info_t)thinfo, &thread_info_count);
+    kern_return_t kr = thread_info(thread, THREAD_EXTENDED_INFO,
+                                   (thread_info_t)thinfo, &thread_info_count);
     if (kr != KERN_SUCCESS) {
-      kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
+      kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads,
+                         thread_count * sizeof(thread_t));
       assert(kr == KERN_SUCCESS);
       return -1;
     }
@@ -255,17 +280,20 @@ float GetAppCpu() {
       app_cpu += th_cpu*100;
     }
   }
-  kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads, thread_count * sizeof(thread_t));
+  kr = vm_deallocate(mach_task_self(), (vm_offset_t)threads,
+                     thread_count * sizeof(thread_t));
   assert(kr == KERN_SUCCESS);
   return app_cpu;
 }
 
-int GetThreadCpuAndName(const thread_t thread, float* cpu, std::string* thread_name) {
+int GetThreadCpuAndName(const thread_t thread, float* cpu,
+                        std::string* thread_name) {
   *cpu = 0;
   *thread_name = "";
   mach_msg_type_number_t thread_info_count = THREAD_INFO_MAX;
   thread_info_data_t thinfo;
-  kern_return_t kr = thread_info(thread, THREAD_EXTENDED_INFO, (thread_info_t)thinfo, &thread_info_count);
+  kern_return_t kr = thread_info(thread, THREAD_EXTENDED_INFO,
+                                 (thread_info_t)thinfo, &thread_info_count);
   if (kr != KERN_SUCCESS) {
     return -1;
   }

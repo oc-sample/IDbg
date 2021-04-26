@@ -24,7 +24,7 @@
 }
 
 - (IBAction)onClickButton:(id)sender {
-  std::string file = IDbg::GenerateMiniDump();
+  std::string file = IDbg::GenerateMiniDump(IDbg::kDefault);
   NSLog(@"on start %@", [NSString stringWithUTF8String:file.c_str()]);
 }
 

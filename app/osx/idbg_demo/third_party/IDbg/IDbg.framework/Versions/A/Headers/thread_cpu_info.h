@@ -6,8 +6,8 @@
 //  Copyright © 2019年 mjzheng. All rights reserved.
 //
 
-#ifndef THREAD_INFO_H
-#define THREAD_INFO_H
+#ifndef IDBG_IDBG_THREAD_CPU_INFO_H_
+#define IDBG_IDBG_THREAD_CPU_INFO_H_
 
 #include <vector>
 #include <string>
@@ -16,34 +16,34 @@
 namespace IDbg {
 
 struct FrameInfo {
-    int index;
-    std::string module_name;
-    uintptr_t module_base;
-    uintptr_t address;
-    uintptr_t offset;
-    std::string func_name;
+  int index;
+  std::string module_name;
+  uintptr_t module_base;
+  uintptr_t address;
+  uintptr_t offset;
+  std::string func_name;
 };
 
 typedef std::vector<FrameInfo> FrameList;
 
 struct ThreadStack {
-    thread_t th;
-    float cpu;
-    std::string name;
-    FrameList frames;
+  thread_t th;
+  float cpu;
+  std::string name;
+  FrameList frames;
 };
 
 enum class ThreadOptions : uint32_t {
-    kBasic = 1 << 0, // 0000 0001
-    kFrames = 1 << 1,
+  kBasic = 1 << 0, // 0000 0001
+  kFrames = 1 << 1,
 };
 
 constexpr ThreadOptions operator|(ThreadOptions a, ThreadOptions b) {
-    return static_cast<ThreadOptions>(static_cast<int>(a) | static_cast<int>(b));
+  return static_cast<ThreadOptions>(static_cast<int>(a) | static_cast<int>(b));
 }
 
 constexpr ThreadOptions operator&(ThreadOptions a, ThreadOptions b) {
-    return static_cast<ThreadOptions>(static_cast<int>(a) & static_cast<int>(b));
+  return static_cast<ThreadOptions>(static_cast<int>(a) & static_cast<int>(b));
 }
 
 typedef std::vector<ThreadStack> ThreadStackArray;
@@ -53,15 +53,13 @@ float GetSysCpu();
 
 float GetAppCpu();
 
-int GetThreadInfoById(ThreadStackArray& ls, const ThreadIdArray& id_ls,
-                      const ThreadOptions options = ThreadOptions::kBasic);
+int GetThreadInfoById(const ThreadIdArray& id_ls, const ThreadOptions options, ThreadStackArray* ls);
 
-int GetAllThreadInfo(ThreadStackArray& ls,
-                     const ThreadOptions options = ThreadOptions::kBasic);
+int GetAllThreadInfo(const ThreadOptions options, ThreadStackArray* ls);
 
 int GetCpuCore();
 
 } // namesapce IDbg
 
-#endif
+#endif  // IDBG_IDBG_THREAD_CPU_INFO_H_
 

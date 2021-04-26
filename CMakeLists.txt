@@ -4,4 +4,4 @@ project(IDbg)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(IDbg)
-add_subdirectory(app/ios/idbg_demo)
+#add_subdirectory(app/ios/idbg_demo)

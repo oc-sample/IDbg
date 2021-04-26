@@ -1,4 +1,0 @@
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/ALL_BUILD.dir
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/ZERO_CHECK.dir
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/CMakeFiles/IDbgAuto.dir
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/CMakeFiles/IDbg.dir

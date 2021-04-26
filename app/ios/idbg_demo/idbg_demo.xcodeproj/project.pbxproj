@@ -16,6 +16,8 @@
 		115056532636DE5B000E39FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 115056522636DE5B000E39FE /* main.m */; };
 		1150565D2636DE5C000E39FE /* idbg_demoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1150565C2636DE5C000E39FE /* idbg_demoTests.m */; };
 		115056682636DE5C000E39FE /* idbg_demoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115056672636DE5C000E39FE /* idbg_demoUITests.m */; };
+		1150567A2636DEE1000E39FE /* Heartbeat.mm in Sources */ = {isa = PBXBuildFile; fileRef = 115056782636DEE1000E39FE /* Heartbeat.mm */; };
+		115056802636DF32000E39FE /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1150567F2636DF32000E39FE /* IDbg.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,9 @@
 		115056632636DE5C000E39FE /* idbg_demoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = idbg_demoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		115056672636DE5C000E39FE /* idbg_demoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = idbg_demoUITests.m; sourceTree = "<group>"; };
 		115056692636DE5C000E39FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		115056782636DEE1000E39FE /* Heartbeat.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Heartbeat.mm; sourceTree = "<group>"; };
+		115056792636DEE1000E39FE /* Heartbeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heartbeat.h; sourceTree = "<group>"; };
+		1150567F2636DF32000E39FE /* IDbg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDbg.framework; path = third_party/IDbg/IDbg.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				115056802636DF32000E39FE /* IDbg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +94,7 @@
 				1150565B2636DE5C000E39FE /* idbg_demoTests */,
 				115056662636DE5C000E39FE /* idbg_demoUITests */,
 				1150563E2636DE59000E39FE /* Products */,
+				1150567E2636DF32000E39FE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +111,8 @@
 		1150563F2636DE59000E39FE /* idbg_demo */ = {
 			isa = PBXGroup;
 			children = (
+				115056792636DEE1000E39FE /* Heartbeat.h */,
+				115056782636DEE1000E39FE /* Heartbeat.mm */,
 				115056402636DE59000E39FE /* AppDelegate.h */,
 				115056412636DE59000E39FE /* AppDelegate.m */,
 				115056432636DE59000E39FE /* SceneDelegate.h */,
@@ -135,6 +144,14 @@
 				115056692636DE5C000E39FE /* Info.plist */,
 			);
 			path = idbg_demoUITests;
+			sourceTree = "<group>";
+		};
+		1150567E2636DF32000E39FE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1150567F2636DF32000E39FE /* IDbg.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				115056482636DE59000E39FE /* ViewController.m in Sources */,
+				1150567A2636DEE1000E39FE /* Heartbeat.mm in Sources */,
 				115056422636DE59000E39FE /* AppDelegate.m in Sources */,
 				115056532636DE5B000E39FE /* main.m in Sources */,
 				115056452636DE59000E39FE /* SceneDelegate.m in Sources */,
@@ -359,6 +377,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -375,7 +394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -418,6 +437,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -428,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -443,6 +463,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C948DA9P6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/third_party/IDbg",
+				);
 				INFOPLIST_FILE = idbg_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -461,6 +485,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C948DA9P6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/third_party/IDbg",
+				);
 				INFOPLIST_FILE = idbg_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

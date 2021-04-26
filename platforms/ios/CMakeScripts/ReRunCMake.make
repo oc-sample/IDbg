@@ -7,10 +7,10 @@ spaceplus:= $(empty)\ $(empty)
 
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/CMakeLists.txt))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeFiles/3.18.4/CMakeCCompiler.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeFiles/3.18.4/CMakeCXXCompiler.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeFiles/3.18.4/CMakeSystem.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/3.18.4/CMakeCCompiler.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/3.18.4/CMakeCXXCompiler.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/3.18.4/CMakeSystem.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /usr/local/Cellar/cmake/3.18.4/share/cmake/Modules/CMakeCCompiler.cmake.in))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /usr/local/Cellar/cmake/3.18.4/share/cmake/Modules/CMakeCCompilerABI.c))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /usr/local/Cellar/cmake/3.18.4/share/cmake/Modules/CMakeCInformation.cmake))
@@ -100,5 +100,5 @@ TARGETS += $(subst $(space),$(spaceplus),$(wildcard /usr/local/Cellar/cmake/3.18
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /usr/local/Cellar/cmake/3.18.4/share/cmake/Modules/Platform/Darwin.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /usr/local/Cellar/cmake/3.18.4/share/cmake/Modules/Platform/UnixPaths.cmake))
 
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeFiles/cmake.check_cache: $(TARGETS)
-	/usr/local/Cellar/cmake/3.18.4/bin/cmake -H/Users/mjzheng/Documents/mj_git/oc-sample/IDbg -B/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios
+/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/cmake.check_cache: $(TARGETS)
+	/usr/local/Cellar/cmake/3.18.4/bin/cmake -H/Users/mjzheng/Documents/mj_git/oc-sample/IDbg -B/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios

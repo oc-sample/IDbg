@@ -8,23 +8,23 @@ default:
 # link.  This forces Xcode to relink the targets from scratch.  It
 # does not seem to check these dependencies itself.
 PostBuild.IDbg.Debug:
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/Debug${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
-	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/Debug${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
+/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/Debug${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
+	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/Debug${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
 
 
 PostBuild.IDbg.Release:
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/Release${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
-	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/Release${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
+/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/Release${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
+	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/Release${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
 
 
 PostBuild.IDbg.MinSizeRel:
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/MinSizeRel${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
-	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/MinSizeRel${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
+/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/MinSizeRel${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
+	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/MinSizeRel${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
 
 
 PostBuild.IDbg.RelWithDebInfo:
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/RelWithDebInfo${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
-	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/RelWithDebInfo${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
+/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/RelWithDebInfo${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg:
+	/bin/rm -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/RelWithDebInfo${EFFECTIVE_PLATFORM_NAME}/IDbg.framework/IDbg
 
 
 

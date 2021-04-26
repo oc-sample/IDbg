@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/cmake_install.cmake")
+  include("/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/IDbg/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

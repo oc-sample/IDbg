@@ -2,9 +2,9 @@
 # Custom rules for ZERO_CHECK
 .SUFFIXES: 
 all: \
-	/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeFiles/ZERO_CHECK
+	/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/ZERO_CHECK
 
 
-/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeFiles/ZERO_CHECK: 
+/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeFiles/ZERO_CHECK: 
 	echo ""
-	make -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeScripts/ReRunCMake.make
+	make -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms/ios/CMakeScripts/ReRunCMake.make

@@ -1,0 +1,901 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		575CCB600DD24317AF2D4A03 /* IDbgAuto */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CC684BFB38C1410AACC5E9F4 /* Build configuration list for PBXAggregateTarget "IDbgAuto" */;
+			buildPhases = (
+				9346F0AF75A14B478E51E9D9 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				CCAD5957AEDB489685F6270C /* PBXTargetDependency */,
+			);
+			name = IDbgAuto;
+			productName = IDbgAuto;
+		};
+		74E04CB6ECD1454CAD594FFC /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A0CE3718C8B642DCA0E449EF /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				E93FB4AD106A4A95923D5398 /* CMake Rules */,
+			);
+			dependencies = (
+				43AA0302C7804C588D220D9F /* PBXTargetDependency */,
+				25B498F274E34EC3A8DD0FDB /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		862F921849194D089CCACEE8 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CB114905C72C43FAAEC15222 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				57682B678D914897B178C6B9 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0A3F509F9DC048389EA91B84 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.c */ = {isa = PBXBuildFile; fileRef = B4FE62B7311E4D2DAC3DA43D /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.c */; };
+		164BD259733F4928BF05B063 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/build_config.h */ = {isa = PBXBuildFile; fileRef = 769C3693071740D1B5EFC1FA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/build_config.h */; };
+		1E1C8E4C49034EDD8E9E9C2E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.cc */ = {isa = PBXBuildFile; fileRef = 90966E8F0E0543259AC3165B /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.cc */; };
+		43827D2A136144928028F7A5 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.h */ = {isa = PBXBuildFile; fileRef = 25E03E8126A347FE8042E6C1 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.h */; settings = {ATTRIBUTES = (Public); }; };
+		4BD6F34EFD7C46178BCBEBCF /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = 0A6726CDDEFF423D8633F306 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist */; };
+		4DE1A83CE5074364B2AD2508 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/IDbg.h */ = {isa = PBXBuildFile; fileRef = 8E870EC0182648048AACB426 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/IDbg.h */; };
+		512D0C878F0F412097220718 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.h */ = {isa = PBXBuildFile; fileRef = 1E3D2F02522C461398314274 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.h */; };
+		565F4C5CBDB7427B82984D32 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.cc */ = {isa = PBXBuildFile; fileRef = B459A7C6578B4FB4952C9983 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.cc */; };
+		6CE3432B2B1D4D998D0741C6 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.cc */ = {isa = PBXBuildFile; fileRef = 689C7E599D3546E8BC3DB15B /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.cc */; };
+		94D30644A176496190E234F9 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.h */ = {isa = PBXBuildFile; fileRef = 0F4D1C4C6944472DAEF072BA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.h */; };
+		B27A0BD729424F868380F3F3 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.h */ = {isa = PBXBuildFile; fileRef = 0765300F6C3F4ECC87F3E08E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.h */; settings = {ATTRIBUTES = (Public); }; };
+		D76F1EACA0734B128EDE0700 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.cc */ = {isa = PBXBuildFile; fileRef = 7F4B402F802740C182D5243F /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.cc */; };
+		EDBB700E1E2547D0870074A7 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.mm */ = {isa = PBXBuildFile; fileRef = A425CC2014274671A09BEE9E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.mm */; };
+		F5239D6434A94B71AE4CA932 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 63973E9B7C894BDF9C6BE9DE /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt */; };
+		F669AC35D4374E349D230FEA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.h */ = {isa = PBXBuildFile; fileRef = 75AB04DB785F4F1DACD6AD3E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.h */; settings = {ATTRIBUTES = (Public); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		00DBEDDDE6984DC596480121 /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		2D0A0133BA3843C19F485CED /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		AF2C3113A83C457EB38C7803 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		EAAA5CDEF5FE4EB0A54A83EE /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		0FD5663554A54233B7047E88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66C3B3519ACE4F148CCDE776 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 862F921849194D089CCACEE8;
+			remoteInfo = ZERO_CHECK;
+		};
+		11A0E0587D624E88A59217EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66C3B3519ACE4F148CCDE776 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 862F921849194D089CCACEE8;
+			remoteInfo = ZERO_CHECK;
+		};
+		4C443B28EC3649B7BBFC2D45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66C3B3519ACE4F148CCDE776 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 862F921849194D089CCACEE8;
+			remoteInfo = ZERO_CHECK;
+		};
+		A816ECEFD0884206822C6F48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66C3B3519ACE4F148CCDE776 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBAD09A2A4394974A0087292;
+			remoteInfo = IDbg;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0765300F6C3F4ECC87F3E08E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = thread_cpu_info.h; path = IDbg/thread_cpu_info.h; sourceTree = SOURCE_ROOT; };
+		0A6726CDDEFF423D8633F306 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist; sourceTree = SOURCE_ROOT; };
+		0F4D1C4C6944472DAEF072BA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = sys_util.h; path = IDbg/sys_util.h; sourceTree = SOURCE_ROOT; };
+		1E3D2F02522C461398314274 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ks_dynamic_linker.h; path = IDbg/ks_dynamic_linker.h; sourceTree = SOURCE_ROOT; };
+		25E03E8126A347FE8042E6C1 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = thread_model.h; path = IDbg/thread_model.h; sourceTree = SOURCE_ROOT; };
+		63973E9B7C894BDF9C6BE9DE /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = IDbg/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		689C7E599D3546E8BC3DB15B /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = thread_model.cc; path = IDbg/thread_model.cc; sourceTree = SOURCE_ROOT; };
+		6DCC1D9DE68A44A39747636E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		75AB04DB785F4F1DACD6AD3E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = mini_dump_file.h; path = IDbg/mini_dump_file.h; sourceTree = SOURCE_ROOT; };
+		769C3693071740D1B5EFC1FA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/build_config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = build_config.h; path = IDbg/build_config.h; sourceTree = SOURCE_ROOT; };
+		7F4B402F802740C182D5243F /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = sys_util.cc; path = IDbg/sys_util.cc; sourceTree = SOURCE_ROOT; };
+		8E870EC0182648048AACB426 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/IDbg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IDbg.h; path = IDbg/IDbg.h; sourceTree = SOURCE_ROOT; };
+		90966E8F0E0543259AC3165B /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = mini_dump_file.cc; path = IDbg/mini_dump_file.cc; sourceTree = SOURCE_ROOT; };
+		96882D9E3CDE4F58B60AD732 /* IDbg */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IDbg.framework/IDbg; sourceTree = BUILT_PRODUCTS_DIR; };
+		A425CC2014274671A09BEE9E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = sys_util.mm; path = IDbg/sys_util.mm; sourceTree = SOURCE_ROOT; };
+		B459A7C6578B4FB4952C9983 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = thread_cpu_info.cc; path = IDbg/thread_cpu_info.cc; sourceTree = SOURCE_ROOT; };
+		B4FE62B7311E4D2DAC3DA43D /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = ks_dynamic_linker.c; path = IDbg/ks_dynamic_linker.c; sourceTree = SOURCE_ROOT; };
+		F8F6B8C0C96C40D399E4BE96 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = IDbg/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1AC1B919F3BF4FB0A480B0CB /* IDbg */ = {
+			isa = PBXGroup;
+			children = (
+				E50FD05FD7D7487BB6C120F9 /* Header Files */,
+				23560C1849AA433985911292 /* Source Files */,
+				24BF263CFD924F77B93580ED /* Resources */,
+				63973E9B7C894BDF9C6BE9DE /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt */,
+			);
+			name = IDbg;
+			sourceTree = "<group>";
+		};
+		23560C1849AA433985911292 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4FE62B7311E4D2DAC3DA43D /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.c */,
+				90966E8F0E0543259AC3165B /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.cc */,
+				7F4B402F802740C182D5243F /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.cc */,
+				A425CC2014274671A09BEE9E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.mm */,
+				B459A7C6578B4FB4952C9983 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.cc */,
+				689C7E599D3546E8BC3DB15B /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.cc */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		24BF263CFD924F77B93580ED /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0A6726CDDEFF423D8633F306 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		5831080F3E564A0CA4CDB794 /* IDbgAuto */ = {
+			isa = PBXGroup;
+			children = (
+				F8F6B8C0C96C40D399E4BE96 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/CMakeLists.txt */,
+			);
+			name = IDbgAuto;
+			sourceTree = "<group>";
+		};
+		70934D1D011347F18255F7F6 = {
+			isa = PBXGroup;
+			children = (
+				F42612A004464B61ACA7BCEF /* ALL_BUILD */,
+				5831080F3E564A0CA4CDB794 /* IDbgAuto */,
+				1AC1B919F3BF4FB0A480B0CB /* IDbg */,
+				C875EF7F46634AA5952FA009 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7348B024CDF54CE790958DFF /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		C875EF7F46634AA5952FA009 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96882D9E3CDE4F58B60AD732 /* IDbg */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E50FD05FD7D7487BB6C120F9 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				8E870EC0182648048AACB426 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/IDbg.h */,
+				769C3693071740D1B5EFC1FA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/build_config.h */,
+				1E3D2F02522C461398314274 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.h */,
+				75AB04DB785F4F1DACD6AD3E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.h */,
+				0F4D1C4C6944472DAEF072BA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.h */,
+				0765300F6C3F4ECC87F3E08E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.h */,
+				25E03E8126A347FE8042E6C1 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		F42612A004464B61ACA7BCEF /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				7348B024CDF54CE790958DFF /* CMake Rules */,
+				6DCC1D9DE68A44A39747636E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		50001629FE1140ABA3971F4F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DE1A83CE5074364B2AD2508 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/IDbg.h */,
+				164BD259733F4928BF05B063 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/build_config.h */,
+				512D0C878F0F412097220718 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.h */,
+				F669AC35D4374E349D230FEA /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.h */,
+				94D30644A176496190E234F9 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.h */,
+				B27A0BD729424F868380F3F3 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.h */,
+				43827D2A136144928028F7A5 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.h */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EBAD09A2A4394974A0087292 /* IDbg */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C747FC4B8DFD4B81A77C5FD2 /* Build configuration list for PBXNativeTarget "IDbg" */;
+			buildPhases = (
+				50001629FE1140ABA3971F4F /* Headers */,
+				71F96E42BABB410F83217B39 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				58500EA5CC184B899787D879 /* PBXTargetDependency */,
+			);
+			name = IDbg;
+			productName = IDbg;
+			productReference = 96882D9E3CDE4F58B60AD732 /* IDbg */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		66C3B3519ACE4F148CCDE776 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = BAF944C1113347A2BB76D5ED /* Build configuration list for PBXProject "IDbg" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				AF2C3113A83C457EB38C7803 /* Debug */,
+				EAAA5CDEF5FE4EB0A54A83EE /* Release */,
+				2D0A0133BA3843C19F485CED /* MinSizeRel */,
+				00DBEDDDE6984DC596480121 /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = 70934D1D011347F18255F7F6;
+			projectDirPath = ../../;
+			projectRoot = "";
+			targets = (
+				74E04CB6ECD1454CAD594FFC /* ALL_BUILD */,
+				EBAD09A2A4394974A0087292 /* IDbg */,
+				575CCB600DD24317AF2D4A03 /* IDbgAuto */,
+				862F921849194D089CCACEE8 /* ZERO_CHECK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		053E1B6BAF9B49ABA0A4F0B7 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		55F1DE69308742EBB05FEC0B = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		57682B678D914897B178C6B9 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		9346F0AF75A14B478E51E9D9 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeScripts/IDbgAuto_postBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		E93FB4AD106A4A95923D5398 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios -f /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		F4DE2332E3BB4966889B508C = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		71F96E42BABB410F83217B39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A3F509F9DC048389EA91B84 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/ks_dynamic_linker.c */,
+				1E1C8E4C49034EDD8E9E9C2E /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/mini_dump_file.cc */,
+				D76F1EACA0734B128EDE0700 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.cc */,
+				EDBB700E1E2547D0870074A7 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/sys_util.mm */,
+				565F4C5CBDB7427B82984D32 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_cpu_info.cc */,
+				6CE3432B2B1D4D998D0741C6 /* /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/thread_model.cc */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		25B498F274E34EC3A8DD0FDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 862F921849194D089CCACEE8 /* ZERO_CHECK */;
+			targetProxy = 0FD5663554A54233B7047E88 /* PBXContainerItemProxy */;
+		};
+		43AA0302C7804C588D220D9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EBAD09A2A4394974A0087292 /* IDbg */;
+			targetProxy = A816ECEFD0884206822C6F48 /* PBXContainerItemProxy */;
+		};
+		58500EA5CC184B899787D879 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 862F921849194D089CCACEE8 /* ZERO_CHECK */;
+			targetProxy = 4C443B28EC3649B7BBFC2D45 /* PBXContainerItemProxy */;
+		};
+		CCAD5957AEDB489685F6270C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 862F921849194D089CCACEE8 /* ZERO_CHECK */;
+			targetProxy = 11A0E0587D624E88A59217EC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0B4EF37694194097B694AA44 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		16269899246C4BB093810FC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		391302A11B574AFEB6FF68D9 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		4001B32B44954BFFBCE5B4E1 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = "";
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/build";
+			};
+			name = MinSizeRel;
+		};
+		49569B2348A14273BB2ADD13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = "";
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/build";
+			};
+			name = Debug;
+		};
+		799CCFA36B6F4EFDB731BDA9 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = "";
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/build";
+			};
+			name = RelWithDebInfo;
+		};
+		910A75BD04014B4D95168D26 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbgAuto;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		9CF2CAF477874ADDAD96920C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = "";
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/build";
+			};
+			name = Release;
+		};
+		A8F0976D8C5248909601EBE6 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/.");
+				INFOPLIST_FILE = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist";
+				INSTALL_PATH = "";
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = "       -DNDEBUG ";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG '-std=gnu++14' ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbg;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		B310A3C3120E4A7F903FDA46 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		BAF6EBC15AD84E50AB85C8D1 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		C8B2ECED207D450FBE1CFB05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/.");
+				INFOPLIST_FILE = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist";
+				INSTALL_PATH = "";
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = "    -DNDEBUG ";
+				OTHER_CPLUSPLUSFLAGS = "-DNDEBUG     -ffast-math '-std=gnu++14' ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbg;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		D8F135542D83411DB189E36B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbgAuto;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		DFAE5BD28A1A444689003144 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/.");
+				INFOPLIST_FILE = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist";
+				INSTALL_PATH = "";
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = "   ";
+				OTHER_CPLUSPLUSFLAGS = "   '-std=gnu++14' ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbg;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		E008424AF96F4541AC31CE5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbgAuto;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		E1320647580E4AA8B3249872 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		E3A01B08BBFC499489C62600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		E7E0855D36424B7688EC93C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		F695A6E386724B51937CE90E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbgAuto;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		FB7B9B40A51443A381B2A5DC /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/.");
+				INFOPLIST_FILE = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg/CMakeFiles/IDbg.dir/Info.plist";
+				INSTALL_PATH = "";
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = "    -DNDEBUG ";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=gnu++14' ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = IDbg;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/platforms_project/ios/IDbg";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A0CE3718C8B642DCA0E449EF /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3A01B08BBFC499489C62600 /* Debug */,
+				E1320647580E4AA8B3249872 /* Release */,
+				0B4EF37694194097B694AA44 /* MinSizeRel */,
+				B310A3C3120E4A7F903FDA46 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BAF944C1113347A2BB76D5ED /* Build configuration list for PBXProject "IDbg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49569B2348A14273BB2ADD13 /* Debug */,
+				9CF2CAF477874ADDAD96920C /* Release */,
+				4001B32B44954BFFBCE5B4E1 /* MinSizeRel */,
+				799CCFA36B6F4EFDB731BDA9 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C747FC4B8DFD4B81A77C5FD2 /* Build configuration list for PBXNativeTarget "IDbg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFAE5BD28A1A444689003144 /* Debug */,
+				C8B2ECED207D450FBE1CFB05 /* Release */,
+				FB7B9B40A51443A381B2A5DC /* MinSizeRel */,
+				A8F0976D8C5248909601EBE6 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CB114905C72C43FAAEC15222 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7E0855D36424B7688EC93C9 /* Debug */,
+				16269899246C4BB093810FC7 /* Release */,
+				BAF6EBC15AD84E50AB85C8D1 /* MinSizeRel */,
+				391302A11B574AFEB6FF68D9 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CC684BFB38C1410AACC5E9F4 /* Build configuration list for PBXAggregateTarget "IDbgAuto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F695A6E386724B51937CE90E /* Debug */,
+				E008424AF96F4541AC31CE5A /* Release */,
+				910A75BD04014B4D95168D26 /* MinSizeRel */,
+				D8F135542D83411DB189E36B /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 66C3B3519ACE4F148CCDE776 /* Project object */;
+}

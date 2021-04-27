@@ -52,7 +52,6 @@ int GetProcessId();
 std::string UuidToSting(const uint8_t* bytes);
 
 #endif
-
 void SetThreadName(const std::string& name);
 }
 

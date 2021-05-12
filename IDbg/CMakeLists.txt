@@ -1,46 +1,97 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required (VERSION 3.2)
+project (IDbg VERSION 1.0)
 
-project(IDbg)
+# specify the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_CXX_STANDARD 14)
+MESSAGE( STATUS "CMAKE_CXX_FLAGS: " ${CMAKE_CXX_FLAGS} )
+configure_file(version_config.h.in version_config.h)
 
-include_directories(.)
+# Includes
+include_directories(${PROJECT_SOURCE_DIR})
+
+message(STATUS "project source dir " ${PROJECT_SOURCE_DIR})
+message(STATUS "project binary dir " ${PROJECT_BINARY_DIR})
+message(STATUS "cmake current dir" ${CMAKE_CURRENT_SOURCE_DIR})
 
 file(GLOB
-     idbg_source
-     "*.h"
-     "*.cc"
-     "*.c")
-     
-set(HEADER_FILES
-thread_model.h
-)
-     
+        SOURCE_FILES
+        "*.cc"
+        "*.c")
+
+set(PUBLIC_HEADER
+        thread_model.h)
+
 if (IOS OR OSX)
-list(APPEND idbg_source sys_util.mm)
-list(APPEND HEADER_FILES thread_cpu_info.h mini_dump_file.h)
+  list(APPEND SOURCE_FILES sys_util.mm)
+  list(APPEND PUBLIC_HEADER thread_cpu_info.h mini_dump_file.h)
 elseif(WIN32 OR ANDROID)
-  list(FILTER idbg_source EXCLUDE REGEX "thread_cpu_info.cc")
-  list(FILTER idbg_source EXCLUDE REGEX "thread_cpu_info.h")
-  list(FILTER idbg_source EXCLUDE REGEX "mini_dump_file.cc")
-  list(FILTER idbg_source EXCLUDE REGEX "mini_dump_file.h")
-  list(FILTER idbg_source EXCLUDE REGEX "ks_dynamic_linker.c")
-  list(FILTER idbg_source EXCLUDE REGEX "ks_dynamic_linker.h")
+  list(FILTER SOURCE_FILES EXCLUDE REGEX "thread_cpu_info.cc")
+  list(FILTER SOURCE_FILES EXCLUDE REGEX "thread_cpu_info.h")
+  list(FILTER SOURCE_FILES EXCLUDE REGEX "mini_dump_file.cc")
+  list(FILTER SOURCE_FILES EXCLUDE REGEX "mini_dump_file.h")
+  list(FILTER SOURCE_FILES EXCLUDE REGEX "ks_dynamic_linker.c")
+  list(FILTER SOURCE_FILES EXCLUDE REGEX "ks_dynamic_linker.h")
 endif()
-     
-add_library(IDbg STATIC ${idbg_source})
-        
-        
-set_target_properties(IDbg PROPERTIES FRAMEWORK TRUE
-PUBLIC_HEADER "${HEADER_FILES}"
-XCODE_ATTRIBUTE_SKIP_INSTALL "YES"
-)
+
+# Library
+add_library (${PROJECT_NAME} ${SOURCE_FILES} ${PUBLIC_HEADER})
+
+target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+
+if(BUILD_SHARED_LIBS)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC IS_BUILDING_SHARED)
+  message(STATUS "Building shared version...")
+else()
+  message(STATUS "Building static version...")
+endif()
 
 if (IOS)
-ADD_CUSTOM_TARGET(IDbgAuto
-)
-ADD_CUSTOM_COMMAND(
-          TARGET IDbgAuto
-          COMMAND /bin/bash /${CMAKE_SOURCE_DIR}/merge_frame.sh
-)
+  message(STATUS "build ios poroject")
+  set_target_properties(${PROJECT_NAME} PROPERTIES FRAMEWORK TRUE
+          PUBLIC_HEADER "${PUBLIC_HEADER}"
+          XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
+          XCODE_ATTRIBUTE_SKIP_INSTALL "YES"
+          #ios.toolchain.cmake haven't this abilityg
+          XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64"
+          XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH[variant=Debug] "YES"
+          MACOSX_FRAMEWORK_IDENTIFIER "com.mj.${PROJECT_NAME}"
+          XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES"
+          XCODE_ATTRIBUTE_DEVELOPMENT_TEAM ${DEVELOPMENT_TEAM_ID}
+          )
+
+  set(PROJECT_AUTO ${PROJECT_NAME}-auto)
+  ADD_CUSTOM_TARGET(${PROJECT_AUTO})
+  ADD_CUSTOM_COMMAND(TARGET ${PROJECT_AUTO} COMMAND /bin/bash /${CMAKE_SOURCE_DIR}/tools/merge_frame.sh)
+ELSE(OSX)
+  message(STATUS "build OSX poroject")
+  set_target_properties(${PROJECT_NAME} PROPERTIES FRAMEWORK TRUE
+          PUBLIC_HEADER "${PUBLIC_HEADER}"
+          XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
+          XCODE_ATTRIBUTE_SKIP_INSTALL "YES"
+          #ios.toolchain.cmake haven't this abilityg
+          #XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64"
+          XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH[variant=Debug] "YES"
+          MACOSX_FRAMEWORK_IDENTIFIER "com.mj.${PROJECT_NAME}"
+          XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES"
+          XCODE_ATTRIBUTE_DEVELOPMENT_TEAM ${DEVELOPMENT_TEAM_ID}
+          )
 endif()
+
+#if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+#  if (IOS)
+#    set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../platform/ios CACHE PATH "Install path" FORCE)
+#  else(MACOS)
+#    set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../platform/osx CACHE PATH "Install path" FORCE)
+#  endif ()
+#endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+#
+#message(STATUS "install prefix .." ${CMAKE_INSTALL_PREFIX})
+#
+#install(TARGETS ${PROJECT_NAME}
+#        LIBRARY DESTINATION lib
+#        FRAMEWORK DESTINATION framework
+#        ARCHIVE DESTINATION lib/static)
+#
+#install (FILES ${PUBLIC_HEADER} DESTINATION include)

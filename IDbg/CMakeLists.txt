@@ -48,6 +48,7 @@ else()
 endif()
 
 if (IOS)
+  target_link_libraries(${PROJECT_NAME} "-framework Foundation -framework UIKit")
   message(STATUS "build ios poroject")
   set_target_properties(${PROJECT_NAME} PROPERTIES FRAMEWORK TRUE
           PUBLIC_HEADER "${PUBLIC_HEADER}"

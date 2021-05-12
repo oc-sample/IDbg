@@ -3,6 +3,7 @@ build/*
 xcuserdata
 .idea/*
 project/*
+cmake-build-debug/*
 
 
 

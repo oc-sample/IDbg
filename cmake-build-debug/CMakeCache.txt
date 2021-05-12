@@ -160,7 +160,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=idbg_demo
+CMAKE_PROJECT_NAME:STATIC=cross_idbg
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.0
@@ -249,10 +249,22 @@ IDbg_SOURCE_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
 
 //Value Computed by CMake
+cross_BINARY_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug
+
+//Value Computed by CMake
+cross_SOURCE_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg
+
+//Value Computed by CMake
 cross_demo_BINARY_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug
 
 //Value Computed by CMake
 cross_demo_SOURCE_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg
+
+//Value Computed by CMake
+cross_idbg_BINARY_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug
+
+//Value Computed by CMake
+cross_idbg_SOURCE_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg
 
 //Value Computed by CMake
 idbg_demo_BINARY_DIR:STATIC=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug

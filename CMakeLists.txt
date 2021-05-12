@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 set(DEVELOPMENT_TEAM_ID "ACE4T95FK7")
-project(idbg_demo)
+project(cross_idbg)
 add_subdirectory(IDbg)
 #add_subdirectory(app/ios/idbg_demo)

@@ -110,10 +110,10 @@ static void ReportThreadInfo(const ThreadCpuInfo& thread) {
   // basic
   event_properties["th_module"] = thread.module;
   event_properties["th_name"] = thread.name;
-  event_properties["th_cpu_min"] =  std::to_string(thread.cpu_min);
-  event_properties["th_cpu_max"] =  std::to_string(thread.cpu_max);
-  event_properties["th_cpu_avg"] =  std::to_string(cpu_avg);
-  event_properties["th_cpu_valid_vag"] =  std::to_string(cpu_valid_avg);
+  event_properties["th_cpu_min"] = std::to_string(thread.cpu_min);
+  event_properties["th_cpu_max"] = std::to_string(thread.cpu_max);
+  event_properties["th_cpu_avg"] = std::to_string(cpu_avg);
+  event_properties["th_cpu_valid_vag"] = std::to_string(cpu_valid_avg);
   event_properties["th_count"] = std::to_string(thread.count);
   event_properties["th_valid_count"] = std::to_string(thread.valid_count);
   event_properties["th_total"] = std::to_string(thread.total);

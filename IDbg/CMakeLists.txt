@@ -26,7 +26,8 @@ if (IOS OR MACOS)
           sys_util.h
           ks_dynamic_linker.h
           build_config.h
-          thread_monitor.h)
+          thread_monitor.h
+          cpu_usage_monitor_config.h)
 
   set(SOURCE_FILES
           ks_dynamic_linker.c
@@ -36,7 +37,8 @@ if (IOS OR MACOS)
           thread_cpu_info.cc
           thread_model.cc
           heartbeat.mm
-          thread_monitor.cc)
+          thread_monitor.cc
+          cpu_usage_monitor_apple.cc)
 elseif(WIN32 OR ANDROID)
   set(PUBLIC_HEADER
           thread_model.h)

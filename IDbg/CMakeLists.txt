@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 3.16)
 project (IDbg VERSION 1.0)
 
 # specify the C++ standard
@@ -23,9 +23,17 @@ file(GLOB
 set(PUBLIC_HEADER
         thread_model.h)
 
-if (IOS OR OSX)
+if (MACOS)
+  message(STATUS "in osx platform")
+elseif(IOS)
+  message(STATUS "in ios platform")
+endif()
+
+
+if (IOS OR MACOS)
   list(APPEND SOURCE_FILES sys_util.mm)
   list(APPEND PUBLIC_HEADER thread_cpu_info.h mini_dump_file.h)
+  list(APPEND PRIVATE_HEADER sys_util.h ks_dynamic_linker.h build_config.h)
 elseif(WIN32 OR ANDROID)
   list(FILTER SOURCE_FILES EXCLUDE REGEX "thread_cpu_info.cc")
   list(FILTER SOURCE_FILES EXCLUDE REGEX "thread_cpu_info.h")
@@ -36,7 +44,7 @@ elseif(WIN32 OR ANDROID)
 endif()
 
 # Library
-add_library (${PROJECT_NAME} ${SOURCE_FILES} ${PUBLIC_HEADER})
+add_library (${PROJECT_NAME} ${SOURCE_FILES} ${PUBLIC_HEADER} ${PRIVATE_HEADER})
 
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -1,30 +1,10 @@
 /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/mjzheng/Documents/mj_git/oc-sample/IDbg
--- The C compiler identification is AppleClang 12.0.0.12000032
--- The CXX compiler identification is AppleClang 12.0.0.12000032
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- CMAKE_CXX_FLAGS: 
-CMake Error: File /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg/version_config.h.in does not exist.
-CMake Error at IDbg/CMakeLists.txt:9 (configure_file):
-  configure_file Problem configuring file
-
-
 -- project source dir /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg
 -- project binary dir /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug/IDbg
 -- cmake current dir/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg
 -- Building static version...
 -- build OSX poroject
-CMake Error at IDbg/CMakeLists.txt:69 (set_target_properties):
-  set_target_properties called with incorrect number of arguments.
-
-
--- Configuring incomplete, errors occurred!
-See also "/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug

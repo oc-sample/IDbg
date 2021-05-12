@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc IDbg.framework/Versions/A/IDbg CMakeFiles/IDbg.dir/ks_dynamic_linker.c.o CMakeFiles/IDbg.dir/mini_dump_file.cc.o CMakeFiles/IDbg.dir/sys_util.cc.o CMakeFiles/IDbg.dir/thread_cpu_info.cc.o CMakeFiles/IDbg.dir/thread_model.cc.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib IDbg.framework/Versions/A/IDbg

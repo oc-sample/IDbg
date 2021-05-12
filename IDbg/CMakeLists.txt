@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.16)
 project (IDbg VERSION 1.0)
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 MESSAGE( STATUS "CMAKE_CXX_FLAGS: " ${CMAKE_CXX_FLAGS} )
@@ -19,12 +19,14 @@ if (IOS OR MACOS)
   set(PUBLIC_HEADER
           thread_model.h
           thread_cpu_info.h
-          mini_dump_file.h)
+          mini_dump_file.h
+          heartbeat.h)
 
   set (PRIVATE_HEADER
           sys_util.h
           ks_dynamic_linker.h
-          build_config.h)
+          build_config.h
+          thread_monitor.h)
 
   set(SOURCE_FILES
           ks_dynamic_linker.c
@@ -32,7 +34,9 @@ if (IOS OR MACOS)
           sys_util.cc
           sys_util.mm
           thread_cpu_info.cc
-          thread_model.cc)
+          thread_model.cc
+          heartbeat.mm
+          thread_monitor.cc)
 elseif(WIN32 OR ANDROID)
   set(PUBLIC_HEADER
           thread_model.h)
@@ -69,6 +73,7 @@ if (IOS)
           MACOSX_FRAMEWORK_IDENTIFIER "com.mj.${PROJECT_NAME}"
           XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES"
           XCODE_ATTRIBUTE_DEVELOPMENT_TEAM ${DEVELOPMENT_TEAM_ID}
+          XCODE_ATTRIBUTE_PROVISIONING_PROFILE_SPECIFIER ${PROVISIONING_PROFILE_NAME}
           )
 
   set(PROJECT_AUTO ${PROJECT_NAME}-auto)

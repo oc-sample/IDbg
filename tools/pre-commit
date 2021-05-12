@@ -23,7 +23,7 @@ exec 1>&2
 
 echo "start check"
 
-cpplint=$PWD/cpplint.py
+cpplint=$PWD/tools/cpplint.py
 echo $cpplint
 sum=0
 filters='-whitespace/line_length,-build/include'

@@ -27,7 +27,8 @@ if (IOS OR MACOS)
           ks_dynamic_linker.h
           build_config.h
           thread_monitor.h
-          cpu_usage_monitor_config.h)
+          cpu_usage_monitor_config.h
+          cpu_usage_monitor.h)
 
   set(SOURCE_FILES
           ks_dynamic_linker.c

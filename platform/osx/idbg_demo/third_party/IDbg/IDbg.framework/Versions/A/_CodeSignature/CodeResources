@@ -6,17 +6,13 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		VAaeNoGLDFb7i2gZiLWSMkLning=
+		hAt+NbQRAILS5+uF+vDUDmE0DzU=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
 		<key>Headers/mini_dump_file.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Si3sKXSRVK5WhwQF0kfwcv4uxts=
-			</data>
 			<key>hash2</key>
 			<data>
 			CoJ+BP5Vfd2rfyB4tqDtpt6FYQWazW8TqLAaqToH74w=
@@ -24,10 +20,6 @@
 		</dict>
 		<key>Headers/thread_cpu_info.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			T4A+lRPeKWxGkQMWL63TD7svwuE=
-			</data>
 			<key>hash2</key>
 			<data>
 			Tgtiwd5NUWw3Lo3AOf2iadsqJL6Oaoz0eR73tDH5k9g=
@@ -35,10 +27,6 @@
 		</dict>
 		<key>Headers/thread_model.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			XIQhLvjj1Eh1bDuF8qJXhnNoyT0=
-			</data>
 			<key>hash2</key>
 			<data>
 			Kwp0rcFs3egwCeeZHN0shvJNhNMpHF9Llgpp1kk0uvk=
@@ -46,13 +34,9 @@
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			VAaeNoGLDFb7i2gZiLWSMkLning=
-			</data>
 			<key>hash2</key>
 			<data>
-			ByR9MlXi1ufx0g+7+X6GaW7t1CMGuxKmtuB1my/mekg=
+			pG+SFmSmwhFytflgr7lQhIE/Vj1t03HzYfk3+XpLvZw=
 			</data>
 		</dict>
 	</dict>

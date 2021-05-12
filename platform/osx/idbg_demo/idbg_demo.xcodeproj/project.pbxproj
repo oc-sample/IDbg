@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11A65035264BD4CF00DBD5BC /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A6BCC2263669F900138F16 /* IDbg.framework */; };
+		11A65036264BD4CF00DBD5BC /* IDbg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11A6BCC2263669F900138F16 /* IDbg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11A6BC902636691100138F16 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A6BC8F2636691100138F16 /* AppDelegate.m */; };
 		11A6BC932636691100138F16 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 11A6BC922636691100138F16 /* ViewController.mm */; };
 		11A6BC952636691300138F16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A6BC942636691300138F16 /* Assets.xcassets */; };
@@ -14,7 +16,6 @@
 		11A6BC9B2636691300138F16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A6BC9A2636691300138F16 /* main.m */; };
 		11A6BCA62636691300138F16 /* idbg_demoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A6BCA52636691300138F16 /* idbg_demoTests.m */; };
 		11A6BCB12636691300138F16 /* idbg_demoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A6BCB02636691300138F16 /* idbg_demoUITests.m */; };
-		11A6BCC3263669F900138F16 /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A6BCC2263669F900138F16 /* IDbg.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,20 @@
 			remoteInfo = idbg_demo;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11A65037264BD4CF00DBD5BC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				11A65036264BD4CF00DBD5BC /* IDbg.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11A6BC8B2636691100138F16 /* idbg_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = idbg_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11A6BCC3263669F900138F16 /* IDbg.framework in Frameworks */,
+				11A65035264BD4CF00DBD5BC /* IDbg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +168,7 @@
 				11A6BC872636691100138F16 /* Sources */,
 				11A6BC882636691100138F16 /* Frameworks */,
 				11A6BC892636691100138F16 /* Resources */,
+				11A65037264BD4CF00DBD5BC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

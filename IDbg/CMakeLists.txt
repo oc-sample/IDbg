@@ -15,32 +15,33 @@ message(STATUS "project source dir " ${PROJECT_SOURCE_DIR})
 message(STATUS "project binary dir " ${PROJECT_BINARY_DIR})
 message(STATUS "cmake current dir" ${CMAKE_CURRENT_SOURCE_DIR})
 
-file(GLOB
-        SOURCE_FILES
-        "*.cc"
-        "*.c")
-
-set(PUBLIC_HEADER
-        thread_model.h)
-
-if (MACOS)
-  message(STATUS "in osx platform")
-elseif(IOS)
-  message(STATUS "in ios platform")
-endif()
-
-
 if (IOS OR MACOS)
-  list(APPEND SOURCE_FILES sys_util.mm)
-  list(APPEND PUBLIC_HEADER thread_cpu_info.h mini_dump_file.h)
-  list(APPEND PRIVATE_HEADER sys_util.h ks_dynamic_linker.h build_config.h)
+  set(PUBLIC_HEADER
+          thread_model.h
+          thread_cpu_info.h
+          mini_dump_file.h)
+
+  set (PRIVATE_HEADER
+          sys_util.h
+          ks_dynamic_linker.h
+          build_config.h)
+
+  set(SOURCE_FILES
+          ks_dynamic_linker.c
+          mini_dump_file.cc
+          sys_util.cc
+          sys_util.mm
+          thread_cpu_info.cc
+          thread_model.cc)
 elseif(WIN32 OR ANDROID)
-  list(FILTER SOURCE_FILES EXCLUDE REGEX "thread_cpu_info.cc")
-  list(FILTER SOURCE_FILES EXCLUDE REGEX "thread_cpu_info.h")
-  list(FILTER SOURCE_FILES EXCLUDE REGEX "mini_dump_file.cc")
-  list(FILTER SOURCE_FILES EXCLUDE REGEX "mini_dump_file.h")
-  list(FILTER SOURCE_FILES EXCLUDE REGEX "ks_dynamic_linker.c")
-  list(FILTER SOURCE_FILES EXCLUDE REGEX "ks_dynamic_linker.h")
+  set(PUBLIC_HEADER
+          thread_model.h)
+
+  set (PRIVATE_HEADER
+          build_config.h)
+
+  set(SOURCE_FILES
+          thread_model.cc)
 endif()
 
 # Library

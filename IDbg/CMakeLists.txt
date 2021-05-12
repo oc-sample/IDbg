@@ -10,36 +10,47 @@ configure_file(version_config.h.in version_config.h)
 
 # Includes
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/common)
 
 message(STATUS "project source dir " ${PROJECT_SOURCE_DIR})
 message(STATUS "project binary dir " ${PROJECT_BINARY_DIR})
 message(STATUS "cmake current dir" ${CMAKE_CURRENT_SOURCE_DIR})
 
+set(TOP_HEADER
+        build_config.h)
+
 if (IOS OR MACOS)
+  set(COMMON_HEADER
+          common/thread_model.h
+          common/thread_cpu_info.h
+          common/mini_dump_file.h
+          common/ks_dynamic_linker.h
+          common/sys_util.h)
+
+  set(COMMON_SOURCE
+          common/ks_dynamic_linker.c
+          common/mini_dump_file.cc
+          common/sys_util.cc
+          common/sys_util.mm
+          common/thread_cpu_info.cc
+          common/thread_model.cc)
+
+  set(MONITOR_HEADER
+          monitor/config_center.h
+          monitor/heartbeat.h
+          monitor/high_cpu_monitor.h
+          monitor/thread_monitor.h)
+
+  set(MONITOR_SOURCE
+          monitor/heartbeat.mm
+          monitor/high_cpu_monitor.cc
+          monitor/thread_monitor.cc)
+
   set(PUBLIC_HEADER
-          thread_model.h
-          thread_cpu_info.h
-          mini_dump_file.h
-          heartbeat.h)
+          common/thread_cpu_info.h
+          common/mini_dump_file.h
+          common/thread_model.h)
 
-  set (PRIVATE_HEADER
-          sys_util.h
-          ks_dynamic_linker.h
-          build_config.h
-          thread_monitor.h
-          config_center.h
-          high_cpu_monitor.h)
-
-  set(SOURCE_FILES
-          ks_dynamic_linker.c
-          mini_dump_file.cc
-          sys_util.cc
-          sys_util.mm
-          thread_cpu_info.cc
-          thread_model.cc
-          heartbeat.mm
-          thread_monitor.cc
-          high_cpu_monitor.cc)
 elseif(WIN32 OR ANDROID)
   set(PUBLIC_HEADER
           thread_model.h)
@@ -52,7 +63,17 @@ elseif(WIN32 OR ANDROID)
 endif()
 
 # Library
-add_library (${PROJECT_NAME} ${SOURCE_FILES} ${PUBLIC_HEADER} ${PRIVATE_HEADER})
+add_library (${PROJECT_NAME}
+        ${TOP_HEADER}
+        ${COMMON_HEADER}
+        ${COMMON_SOURCE}
+        ${MONITOR_HEADER}
+        ${MONITOR_SOURCE})
+
+source_group("common/Header Files" FILES ${COMMON_HEADER})
+source_group("common/Source Files" FILES ${COMMON_SOURCE})
+source_group("monitor/Header Files" FILES ${MONITOR_HEADER})
+source_group("monitor/Source Files" FILES ${MONITOR_SOURCE})
 
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 

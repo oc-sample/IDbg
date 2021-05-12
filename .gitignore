@@ -1,6 +1,7 @@
 Products/*
 build/*
 xcuserdata
+.idea/*
 
 
 

@@ -163,8 +163,7 @@ IDbg/IDbg.framework/Versions/A/IDbg: IDbg/CMakeFiles/IDbg.dir/thread_cpu_info.cc
 IDbg/IDbg.framework/Versions/A/IDbg: IDbg/CMakeFiles/IDbg.dir/thread_model.cc.o
 IDbg/IDbg.framework/Versions/A/IDbg: IDbg/CMakeFiles/IDbg.dir/build.make
 IDbg/IDbg.framework/Versions/A/IDbg: IDbg/CMakeFiles/IDbg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library IDbg.framework/IDbg"
-	cd /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug/IDbg && $(CMAKE_COMMAND) -P CMakeFiles/IDbg.dir/cmake_clean_target.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX shared library IDbg.framework/IDbg"
 	cd /Users/mjzheng/Documents/mj_git/oc-sample/IDbg/cmake-build-debug/IDbg && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/IDbg.dir/link.txt --verbose=$(VERBOSE)
 
 IDbg/IDbg.framework/IDbg: IDbg/IDbg.framework/Versions/A/IDbg

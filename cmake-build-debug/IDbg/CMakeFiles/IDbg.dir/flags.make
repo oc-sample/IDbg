@@ -3,15 +3,15 @@
 
 # compile C with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
 # compile CXX with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
-C_DEFINES = 
+C_DEFINES = -DIDbg_EXPORTS -DIS_BUILDING_SHARED
 
 C_INCLUDES = -I/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg
 
-C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15
+C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -fPIC
 
-CXX_DEFINES = 
+CXX_DEFINES = -DIDbg_EXPORTS -DIS_BUILDING_SHARED
 
 CXX_INCLUDES = -I/Users/mjzheng/Documents/mj_git/oc-sample/IDbg/IDbg
 
-CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -std=gnu++11
+CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -fPIC -std=gnu++11
 

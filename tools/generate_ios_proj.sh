@@ -2,7 +2,7 @@
 
 current_dir=$(cd "$(dirname "$0")";pwd)
 
-#echo ${current_dir}
+echo ${current_dir}
 
 #project_name=$(basename ${current_dir})
 #echo ${project_name}

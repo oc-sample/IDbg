@@ -6,7 +6,7 @@
 //  Copyright © 2021年 mjzheng. All rights reserved.
 //
 
-#include "thread_monitor.h"
+#include "thread_cpu_monitor.h"
 #include <string>
 #include <unordered_map>
 #include <map>
@@ -14,6 +14,7 @@
 #include <memory>
 #include <float.h>
 #include "thread_cpu_info.h"
+#include "config_center.h"
 
 namespace IDbg {
 
@@ -157,6 +158,10 @@ class ThreadMonitorImpl : public ThreadMonitor {
   ThreadCpuInfoArray threads_cpu_info_;
 };
 
+std::unique_ptr<ThreadMonitor> CreateThreadMonitor() {
+  return std::make_unique<ThreadMonitorImpl>();
+}
+
 
 static const char* business_module[] = {"xnn", "wemeet_base", "wemeet_sdk_internal", "caulk", "WeMeetApp", "ImSDK", "xcast"};
 
@@ -169,7 +174,7 @@ ThreadMonitorImpl::~ThreadMonitorImpl() {
 }
 
 void ThreadMonitorImpl::Start() {
-  if (!config_->is_monitor_) {
+  if (!config_->is_monitor) {
     return;
   }
   threads_cpu_info_.clear();
@@ -178,7 +183,7 @@ void ThreadMonitorImpl::Start() {
 void ThreadMonitorImpl::Stop() {
   for (auto& item : threads_cpu_info_) {
     ReportThreadInfo(item.second);
-    if (config_->is_report_range_) {
+    if (config_->is_report_range) {
       ReportThreadRangeInfo(item.second);
     }
   }

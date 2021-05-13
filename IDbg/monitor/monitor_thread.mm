@@ -6,20 +6,24 @@
 //  Copyright © 2020年 mjzheng. All rights reserved.
 //
 
-#import "heartbeat.h"
+#import "monitor_thread.h"
+#import "thread_cpu_monitor.h"
+#include <memory>
 
-@interface Heartbeat()
+@interface MonitorThread() {
+  std::unique_ptr<IDbg::ThreadMonitor> thread_cpu_monitor_;
+}
 @property(nonatomic, strong)NSThread* thread;
 @property(nonatomic, strong)NSTimer* timer;
 
 @end
 
-@implementation Heartbeat
+@implementation MonitorThread
 
 - (instancetype)init {
   self = [super init];
   if (self) {
-    
+    thread_cpu_monitor_ = IDbg::CreateThreadMonitor();
   }
   return self;
 }
@@ -32,6 +36,9 @@
     [self.thread start];
     NSLog(@"start new thread ");
   }
+  if (nullptr != thread_cpu_monitor_) {
+    thread_cpu_monitor_->Start();
+  }
 }
 
 - (void)stop{
@@ -40,6 +47,10 @@
     [self.thread cancel];
     [self performSelector:@selector(onStop) onThread:self.thread withObject:nil waitUntilDone:YES];
     _thread = nil;
+  }
+  
+  if (nullptr != thread_cpu_monitor_) {
+    thread_cpu_monitor_->Stop();
   }
 }
 

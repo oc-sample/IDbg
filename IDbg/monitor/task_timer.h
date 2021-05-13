@@ -1,5 +1,5 @@
 //
-//  Heartbeat.h
+//  TaskTimer.h
 //  iPhone_1
 //
 //  Created by mjzheng on 2020/10/12.
@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MonitorThread : NSObject
+@interface TaskTimer : NSObject
 
-- (void)start;
+@property(nonatomic, strong)NSTimer* timer;
 
-- (void)stop;
+-(void)startTimer;
+
+-(void)stopTimer;
 
 @end
 

@@ -9,6 +9,8 @@
 #ifndef IDBG_THREAD_MONITOR_H_
 #define IDBG_THREAD_MONITOR_H_
 
+#include <memory>
+
 namespace IDbg {
 class ThreadMonitor {
  public:
@@ -17,6 +19,9 @@ class ThreadMonitor {
   virtual void Start() = 0;
   virtual void Stop() = 0;
 };
+
+std::unique_ptr<ThreadMonitor> CreateThreadMonitor();
+
 }  // namespace IDbg
 
 #endif  // IDBG_THREAD_MONITOR_H_

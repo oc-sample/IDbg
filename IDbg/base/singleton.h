@@ -6,10 +6,7 @@
 #define ALGORITHM_SINGLETON_H
 
 #include <mutex>
-#include <iostream>
 #include <thread>
-
-using namespace std;
 
 class Singleton {
 private:
@@ -46,21 +43,17 @@ Singleton* Singleton::m_singleton = nullptr;
 std::mutex Singleton::m_mutex;
 
 void TestSingleton() {
-    Singleton* p1 = Singleton::GetInstance();
-    Singleton* p2 = Singleton::GetInstance();
-    if (p1 == p2) {
-        std::cout << "same" << std::endl;
-    }
+  Singleton* p1 = Singleton::GetInstance();
+  Singleton* p2 = Singleton::GetInstance();
+  if (p1 == p2) {
+    std::cout << "same" << std::endl;
+  }
 
-    Singleton* p3 = Singleton::GetInstance2();
-    Singleton* p4 = Singleton::GetInstance2();
-    if (p3 == p4) {
-        std::cout << "same" << std::endl;
-    }
-
-//TestThread();
-//TestSmartPointer();
-
+  Singleton* p3 = Singleton::GetInstance2();
+  Singleton* p4 = Singleton::GetInstance2();
+  if (p3 == p4) {
+    std::cout << "same" << std::endl;
+  }
 }
 
 

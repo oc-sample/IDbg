@@ -10,7 +10,8 @@ configure_file(version_config.h.in version_config.h)
 
 # Includes
 include_directories(${PROJECT_SOURCE_DIR})
-include_directories(${PROJECT_SOURCE_DIR}/common)
+include_directories(${PROJECT_SOURCE_DIR}/base)
+include_directories(${PROJECT_SOURCE_DIR}/core)
 
 message(STATUS "project source dir " ${PROJECT_SOURCE_DIR})
 message(STATUS "project binary dir " ${PROJECT_BINARY_DIR})
@@ -20,8 +21,13 @@ set(TOP_HEADER
         build_config.h)
 
 if (IOS OR MACOS)
+  set(BASE_HEADER
+          base/thread_model.h)
+
+  set(BASE_SOURCE
+          base/thread_model.cc)
+
   set(CORE_HEADER
-          core/thread_model.h
           core/thread_cpu_info.h
           core/mini_dump_file.h
           core/ks_dynamic_linker.h
@@ -32,8 +38,7 @@ if (IOS OR MACOS)
           core/mini_dump_file.cc
           core/sys_util.cc
           core/sys_util.mm
-          core/thread_cpu_info.cc
-          core/thread_model.cc)
+          core/thread_cpu_info.cc)
 
   set(MONITOR_HEADER
           monitor/config_center.h
@@ -49,7 +54,7 @@ if (IOS OR MACOS)
   set(PUBLIC_HEADER
           core/thread_cpu_info.h
           core/mini_dump_file.h
-          core/thread_model.h)
+          base/thread_model.h)
 
 elseif(WIN32 OR ANDROID)
   set(PUBLIC_HEADER
@@ -65,11 +70,15 @@ endif()
 # Library
 add_library (${PROJECT_NAME}
         ${TOP_HEADER}
+        ${BASE_HEADER}
+        ${BASE_SOURCE}
         ${CORE_HEADER}
         ${CORE_SOURCE}
         ${MONITOR_HEADER}
         ${MONITOR_SOURCE})
 
+source_group("base/Header Files" FILES ${BASE_HEADER})
+source_group("base/Source Files" FILES ${BASE_SOURCE})
 source_group("core/Header Files" FILES ${CORE_HEADER})
 source_group("core/Source Files" FILES ${CORE_SOURCE})
 source_group("monitor/Header Files" FILES ${MONITOR_HEADER})

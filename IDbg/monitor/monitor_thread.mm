@@ -7,12 +7,12 @@
 //
 
 #import "monitor_thread.h"
-#import "thread_cpu_monitor_timer.h"
+#import "monitor_timer.h"
 
 @interface MonitorThread()<NSPortDelegate>
 @property(nonatomic, strong)NSThread* thread;
 @property(nonatomic, strong)NSPort* port;
-@property(nonatomic, strong)ThreadCpuMonitorTimer* timer;
+@property(nonatomic, strong)MonitorTimer* timer;
 
 @end
 
@@ -45,7 +45,7 @@
 - (void)run {
   NSLog(@"before run");
   
-  self.timer = [[ThreadCpuMonitorTimer alloc] init];
+  self.timer = [[MonitorTimer alloc] init];
   [self.timer start];
   
   BOOL done = NO;

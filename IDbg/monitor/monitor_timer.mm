@@ -6,17 +6,17 @@
 //  Copyright © 2020年 mjzheng. All rights reserved.
 //
 
-#import "high_cpu_monitor_timer.h"
-#include "high_cpu_monitor.h"
+#import "monitor_timer.h"
+#import "monitor_interface.h"
 #include <memory>
 
-@interface HighCpuMonitorTimer() {
-  std::unique_ptr<IDbg::CpuUsageMonitor> monitor_;
+@interface MonitorTimer() {
+  std::unique_ptr<IDbg::MonitorInterface> monitor_;
 }
 @property(nonatomic, strong)NSTimer* timer;
 @end
 
-@implementation HighCpuMonitorTimer
+@implementation MonitorTimer
 
 - (instancetype)init {
   self = [super init];

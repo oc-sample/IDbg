@@ -7,6 +7,7 @@
 #define IDBG_HIGH_CPU_MONITOR_H_
 
 #include <stdint.h>
+#include <memory>
 
 namespace IDbg {
 class MonitorInterface {

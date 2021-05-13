@@ -6,7 +6,7 @@
 //  Copyright © 2021年 mjzheng. All rights reserved.
 //
 
-#include "thread_cpu_monitor.h"
+#include "monitor_interface.h"
 #include <string>
 #include <unordered_map>
 #include <map>
@@ -145,7 +145,7 @@ static void ReportThreadRangeInfo(const ThreadCpuInfo& thread) {
   }
 }
 
-class ThreadMonitorImpl : public ThreadMonitor {
+class ThreadMonitorImpl : public MonitorInterface {
  public:
   ThreadMonitorImpl();
 
@@ -164,11 +164,6 @@ class ThreadMonitorImpl : public ThreadMonitor {
  private:
   ThreadCpuInfoArray threads_cpu_info_;
 };
-
-std::unique_ptr<ThreadMonitor> CreateThreadMonitor() {
-  return std::make_unique<ThreadMonitorImpl>();
-}
-
 
 static const char* business_module[] = {"xnn", "wemeet_base", "wemeet_sdk_internal", "caulk", "WeMeetApp", "ImSDK", "xcast"};
 

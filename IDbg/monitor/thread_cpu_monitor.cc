@@ -165,6 +165,10 @@ class ThreadMonitorImpl : public MonitorInterface {
   ThreadCpuInfoArray threads_cpu_info_;
 };
 
+std::unique_ptr<MonitorInterface> CreateThreadCpuMonitor() {
+  std::make_unique<ThreadMonitorImpl>();
+}
+
 static const char* business_module[] = {"xnn", "wemeet_base", "wemeet_sdk_internal", "caulk", "WeMeetApp", "ImSDK", "xcast"};
 
 ThreadMonitorImpl::ThreadMonitorImpl()

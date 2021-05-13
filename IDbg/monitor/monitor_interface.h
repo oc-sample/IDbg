@@ -19,7 +19,14 @@ public:
     virtual void OnTimer() = 0;
 };
 
-std::unique_ptr<MonitorInterface> CreateMonitor();
+enum class MonitorType : uint32_t {
+  kHighCpu = 1,
+  kThreadCpu = 2,
+};
+
+std::unique_ptr<MonitorInterface> CreateHighCpuMonitor();
+
+std::unique_ptr<MonitorInterface> CreateThreadCpuMonitor();
 
 }  // namespace IDbg
 

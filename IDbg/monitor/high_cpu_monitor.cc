@@ -21,7 +21,7 @@ using UploadStackDelegate = std::function<void(const std::string& json_data)>;
 
 class CpuUsageMonitorApple : public MonitorInterface {
 public:
-  explicit CpuUsageMonitorApple(UploadStackDelegate delegate);
+  explicit CpuUsageMonitorApple();
   
   virtual ~CpuUsageMonitorApple();
   
@@ -59,10 +59,12 @@ private:
   int cpu_core_;
 };
 
+std::unique_ptr<MonitorInterface> CreateHighCpuMonitor() {
+  return std::make_unique<CpuUsageMonitorApple>();
+}
 
-CpuUsageMonitorApple::CpuUsageMonitorApple(UploadStackDelegate delegate) {
+CpuUsageMonitorApple::CpuUsageMonitorApple() {
   config_ = std::make_unique<HighCpuConfig>();
-  upload_ = delegate;
   cpu_core_ = IDbg::GetCpuCore();
 }
 

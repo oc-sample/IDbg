@@ -8,11 +8,13 @@
 
 #import "monitor_thread.h"
 #import "monitor_timer.h"
+#import "monitor_interface.h"
 
 @interface MonitorThread()<NSPortDelegate>
 @property(nonatomic, strong)NSThread* thread;
 @property(nonatomic, strong)NSPort* port;
-@property(nonatomic, strong)MonitorTimer* timer;
+@property(nonatomic, strong)MonitorTimer* highCpuMonitorTimer;
+@property(nonatomic, strong)MonitorTimer* threadCpuMonitorTimer;
 
 @end
 
@@ -45,8 +47,11 @@
 - (void)run {
   NSLog(@"before run");
   
-  self.timer = [[MonitorTimer alloc] init];
-  [self.timer start];
+  self.highCpuMonitorTimer = [[MonitorTimer alloc] initWithMonitorType:IDbg::MonitorType::kHighCpu];
+  [self.highCpuMonitorTimer start];
+  
+  self.threadCpuMonitorTimer = [[MonitorTimer alloc] initWithMonitorType:IDbg::MonitorType::kThreadCpu];
+  [self.threadCpuMonitorTimer start];
   
   BOOL done = NO;
   do {
@@ -68,7 +73,8 @@
 - (void)onStop {
   NSLog(@"real stop thread");
   CFRunLoopStop(CFRunLoopGetCurrent());
-  [self.timer stop];
+  [self.highCpuMonitorTimer stop];
+  [self.threadCpuMonitorTimer stop];
   NSLog(@"end stop thread");
 }
 

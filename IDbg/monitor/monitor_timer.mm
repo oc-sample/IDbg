@@ -18,15 +18,19 @@
 
 @implementation MonitorTimer
 
-- (instancetype)init {
+- (instancetype)initWithMonitorType:(IDbg::MonitorType) monitorType {
   self = [super init];
+  if (self != nil) {
+    if (monitorType == IDbg::MonitorType::kHighCpu) {
+      monitor_ = IDbg::CreateHighCpuMonitor();
+    } else if (monitorType == IDbg::MonitorType::kThreadCpu) {
+      monitor_ = IDbg::CreateThreadCpuMonitor();
+    }
+  }
   return self;
 }
 
 -(void)start {
-  if (nullptr == monitor_) {
-    //monitor_ = IDbg::CreateThreadMonitor();
-  }
   if (nullptr != monitor_) {
     if (monitor_->Start() != 0) {
       NSLog(@"thread monitor is disable");

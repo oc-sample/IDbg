@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "monitor_interface.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MonitorTimer : NSObject
+
+- (instancetype)initWithMonitorType:(IDbg::MonitorType) monitorType;
 
 -(void)start;
 

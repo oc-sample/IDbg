@@ -3,7 +3,7 @@
 //  Copyright © 2021年 mjzheng. All rights reserved.
 //
 
-#include "high_cpu_monitor.h"
+#include "monitor_interface.h"
 #include "thread_cpu_info.h"
 #include "config_center.h"
 
@@ -19,20 +19,20 @@ namespace IDbg {
 
 using UploadStackDelegate = std::function<void(const std::string& json_data)>;
 
-class CpuUsageMonitorApple : public CpuUsageMonitor {
+class CpuUsageMonitorApple : public MonitorInterface {
 public:
   explicit CpuUsageMonitorApple(UploadStackDelegate delegate);
   
   virtual ~CpuUsageMonitorApple();
   
 public: // in timer thread
-  void Run(uint64_t self_tiny_id, uint64_t meeting_id) override;
+  int Start() override;
   
   void Stop() override;
+
+  void OnTimer() override;
   
 private: // in work thread
-  void OnTimer();
-  
   int SampleFrequencyControl(uint64_t current_time);
   
   int SampleConditionControl(uint64_t current_time);
@@ -40,10 +40,6 @@ private: // in work thread
   void SampleStack(uint64_t current_time);
   
   void DumpStackMulti(const IDbg::ThreadIdArray& thread_list);
-  
-private:
-  uint64_t self_tiny_id_ = 0;
-  uint64_t meeting_id_ = 0;
   
 private:
   int cur_sample_count_ = 0;
@@ -74,14 +70,9 @@ CpuUsageMonitorApple::~CpuUsageMonitorApple() {
   Stop();
 }
 
-void CpuUsageMonitorApple::Run(uint64_t self_tiny_id, uint64_t meeting_id) {
-//  if (!config_->IsEnable(self_tiny_id)) {
-//    return;
-//  }
-  // call when join room
-  self_tiny_id_ = self_tiny_id;
-  meeting_id_ = meeting_id;
+int CpuUsageMonitorApple::Start() {
   cur_sample_count_ = 0;
+  return 0;
 }
 
 void CpuUsageMonitorApple::Stop() {

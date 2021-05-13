@@ -47,13 +47,15 @@ if (IOS OR MACOS)
           monitor/monitor_thread.h
           monitor/high_cpu_monitor.h
           monitor/thread_cpu_monitor.h
-          monitor/thread_cpu_monitor_timer.h)
+          monitor/thread_cpu_monitor_timer.h
+          monitor/high_cpu_monitor_timer.h)
 
   set(MONITOR_SOURCE
           monitor/monitor_thread.mm
           monitor/high_cpu_monitor.cc
           monitor/thread_cpu_monitor.cc
-          monitor/thread_cpu_monitor_timer.mm)
+          monitor/thread_cpu_monitor_timer.mm
+          monitor/high_cpu_monitor_timer.mm)
 
   set(PUBLIC_HEADER
           core/thread_cpu_info.h

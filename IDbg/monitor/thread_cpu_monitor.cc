@@ -125,21 +125,9 @@ static void ReportThreadInfo(const ThreadCpuInfo& thread) {
   }
   std::string range_str = ss.str();
   
-  
-//  log_info << "mj thread info "
-//           << " min[" << thread.cpu_min << "]"
-//           << " count[" << thread.count << "]"
-//           << " valid_count[" << thread.valid_count << "]"
-//           << " total[" << thread.total << "]"
-//           << " avg[" << event_properties["th_cpu_avg"] << "]"
-//           << " valid_avg[" << event_properties["th_cpu_valid_vag"] << "]"
-//           << " max[" << thread.cpu_max << "]"
-//           << " id[" << thread.th << "]"
-//           << " module[" << thread.module << "]"
-//           << " name[" << thread.name << "]"
-//           << " range[" << ss.str().c_str() << "]";
-  
-  LOG("mj thread info min[%2f] avg[%2f]", thread.cpu_min, cpu_avg);
+  LOG("mj thread info min[%2f] count[%d] valid[%d] avg[%.2f] valid avg[%.2f] max[%.2f] module[%s] name[%s] rang[%s]", thread.cpu_min,
+      thread.count, thread.valid_count, cpu_avg, cpu_valid_avg, thread.cpu_max,
+      thread.module.c_str(), thread.name.c_str(), ss.str().c_str());
 }
 
 static void ReportThreadRangeInfo(const ThreadCpuInfo& thread) {

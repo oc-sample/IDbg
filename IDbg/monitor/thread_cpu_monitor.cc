@@ -95,8 +95,8 @@ struct ThreadCpuInfo {
 typedef std::unordered_map<uint64_t, ThreadCpuInfo> ThreadCpuInfoArray;
 
 static void ReportThreadInfo(const ThreadCpuInfo& thread) {
-  if (thread.valid_count == 0 || thread.name == "") {
-    LOG("filter report thread info ");
+  if (thread.valid_count == 0) {
+    //LOG("filter report thread info ");
     return;
   }
 
@@ -213,7 +213,7 @@ void ThreadMonitorImpl::Stop() {
 static void UpdateThreadCpuInfo(const IDbg::ThreadStack& sample, ThreadCpuInfo* info) {
   ++info->count;
   auto& cpu = sample.cpu;
-  LOG("update thread cpu info");
+  //LOG("update thread cpu info");
   if (cpu > FLT_EPSILON) {
     info->total += cpu;
     ++info->valid_count;

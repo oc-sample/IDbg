@@ -97,7 +97,7 @@ static int captureVideoFPS;
     float nowTime = CMTimeGetSeconds(hostTime);
     if(nowTime - lastTime >= 1)
     {
-        NSLog(@"capture fps %d", count);
+        //NSLog(@"capture fps %d", count);
         captureVideoFPS = count;
         lastTime = nowTime;
         count = 0;
@@ -148,7 +148,7 @@ char*  XXStringForOSType(OSType type) {
     
    char* ft = XXStringForOSType(result);
     
-    NSLog(@"%u %d %d %s", count, width, height, ft);
+    //NSLog(@"%u %d %d %s", count, width, height, ft);
     
     [self calculatorCaptureFPS];
     //NSLog(@"----- sampleBuffer ----- %@", sampleBuffer);

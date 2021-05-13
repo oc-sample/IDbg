@@ -7,16 +7,20 @@
 
 #import "ViewController.h"
 #import "IDbg/monitor_thread.h"
+#import "av/LiveVideoCapture.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) MonitorThread* hb;
+@property(nonatomic, strong) LiveVideoCapture* videoCaputre;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.videoCaputre = [[LiveVideoCapture alloc] init];
+  [self.videoCaputre initAVCaptureSession:self.videoView];
   // Do any additional setup after loading the view.
 }
 
@@ -35,6 +39,14 @@
 
 - (IBAction)onStop:(id)sender {
   [self stopHeartbeat];
+}
+
+- (IBAction)onStartVideo:(id)sender {
+  [self.videoCaputre start];
+}
+
+- (IBAction)onStopVideo:(id)sender {
+  [self.videoCaputre stop];
 }
 
 @end

@@ -15,6 +15,7 @@
 #include <float.h>
 #include "thread_cpu_info.h"
 #include "config_center.h"
+#include "common_def.h"
 
 namespace IDbg {
 
@@ -95,6 +96,7 @@ typedef std::unordered_map<uint64_t, ThreadCpuInfo> ThreadCpuInfoArray;
 
 static void ReportThreadInfo(const ThreadCpuInfo& thread) {
   if (thread.valid_count == 0 || thread.name == "") {
+    LOG("filter report thread info ");
     return;
   }
 
@@ -122,6 +124,22 @@ static void ReportThreadInfo(const ThreadCpuInfo& thread) {
     ss << r.count << " ";
   }
   std::string range_str = ss.str();
+  
+  
+//  log_info << "mj thread info "
+//           << " min[" << thread.cpu_min << "]"
+//           << " count[" << thread.count << "]"
+//           << " valid_count[" << thread.valid_count << "]"
+//           << " total[" << thread.total << "]"
+//           << " avg[" << event_properties["th_cpu_avg"] << "]"
+//           << " valid_avg[" << event_properties["th_cpu_valid_vag"] << "]"
+//           << " max[" << thread.cpu_max << "]"
+//           << " id[" << thread.th << "]"
+//           << " module[" << thread.module << "]"
+//           << " name[" << thread.name << "]"
+//           << " range[" << ss.str().c_str() << "]";
+  
+  LOG("mj thread info min[%2f] avg[%2f]", thread.cpu_min, cpu_avg);
 }
 
 static void ReportThreadRangeInfo(const ThreadCpuInfo& thread) {
@@ -146,7 +164,7 @@ class ThreadMonitorImpl : public ThreadMonitor {
   ~ThreadMonitorImpl();
 
  public:
-  void Start() override;
+  int Start() override;
 
   void Stop() override;
   
@@ -174,11 +192,12 @@ ThreadMonitorImpl::~ThreadMonitorImpl() {
   Stop();
 }
 
-void ThreadMonitorImpl::Start() {
+int ThreadMonitorImpl::Start() {
   if (!config_->is_monitor) {
-    return;
+    return 1;
   }
   threads_cpu_info_.clear();
+  return 0;
 }
 
 void ThreadMonitorImpl::Stop() {
@@ -194,6 +213,7 @@ void ThreadMonitorImpl::Stop() {
 static void UpdateThreadCpuInfo(const IDbg::ThreadStack& sample, ThreadCpuInfo* info) {
   ++info->count;
   auto& cpu = sample.cpu;
+  LOG("update thread cpu info");
   if (cpu > FLT_EPSILON) {
     info->total += cpu;
     ++info->valid_count;

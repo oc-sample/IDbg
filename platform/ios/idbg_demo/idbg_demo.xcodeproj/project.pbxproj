@@ -17,6 +17,9 @@
 		1150565D2636DE5C000E39FE /* idbg_demoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1150565C2636DE5C000E39FE /* idbg_demoTests.m */; };
 		115056682636DE5C000E39FE /* idbg_demoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115056672636DE5C000E39FE /* idbg_demoUITests.m */; };
 		1150567A2636DEE1000E39FE /* Heartbeat.mm in Sources */ = {isa = PBXBuildFile; fileRef = 115056782636DEE1000E39FE /* Heartbeat.mm */; };
+		11A3A18F264D3C8F00260702 /* LiveVideoCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 11A3A18D264D3C8F00260702 /* LiveVideoCapture.mm */; };
+		11A3A193264D3F5600260702 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A3A192264D3F5600260702 /* AVFoundation.framework */; };
+		11A3A197264D3F9700260702 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A3A196264D3F9700260702 /* CoreMedia.framework */; };
 		11FDD616264BCC0600FC44B4 /* IDbg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1150567F2636DF32000E39FE /* IDbg.framework */; };
 		11FDD617264BCC0600FC44B4 /* IDbg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1150567F2636DF32000E39FE /* IDbg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -74,6 +77,10 @@
 		115056782636DEE1000E39FE /* Heartbeat.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Heartbeat.mm; sourceTree = "<group>"; };
 		115056792636DEE1000E39FE /* Heartbeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heartbeat.h; sourceTree = "<group>"; };
 		1150567F2636DF32000E39FE /* IDbg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDbg.framework; path = third_party/IDbg/IDbg.framework; sourceTree = "<group>"; };
+		11A3A18D264D3C8F00260702 /* LiveVideoCapture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LiveVideoCapture.mm; path = av/LiveVideoCapture.mm; sourceTree = "<group>"; };
+		11A3A18E264D3C8F00260702 /* LiveVideoCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveVideoCapture.h; path = av/LiveVideoCapture.h; sourceTree = "<group>"; };
+		11A3A192264D3F5600260702 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		11A3A196264D3F9700260702 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A3A197264D3F9700260702 /* CoreMedia.framework in Frameworks */,
+				11A3A193264D3F5600260702 /* AVFoundation.framework in Frameworks */,
 				11FDD616264BCC0600FC44B4 /* IDbg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +135,7 @@
 		1150563F2636DE59000E39FE /* idbg_demo */ = {
 			isa = PBXGroup;
 			children = (
+				11A3A18C264D3C8500260702 /* av */,
 				115056792636DEE1000E39FE /* Heartbeat.h */,
 				115056782636DEE1000E39FE /* Heartbeat.mm */,
 				115056402636DE59000E39FE /* AppDelegate.h */,
@@ -164,9 +174,20 @@
 		1150567E2636DF32000E39FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11A3A196264D3F9700260702 /* CoreMedia.framework */,
+				11A3A192264D3F5600260702 /* AVFoundation.framework */,
 				1150567F2636DF32000E39FE /* IDbg.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		11A3A18C264D3C8500260702 /* av */ = {
+			isa = PBXGroup;
+			children = (
+				11A3A18E264D3C8F00260702 /* LiveVideoCapture.h */,
+				11A3A18D264D3C8F00260702 /* LiveVideoCapture.mm */,
+			);
+			name = av;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A3A18F264D3C8F00260702 /* LiveVideoCapture.mm in Sources */,
 				115056482636DE59000E39FE /* ViewController.m in Sources */,
 				1150567A2636DEE1000E39FE /* Heartbeat.mm in Sources */,
 				115056422636DE59000E39FE /* AppDelegate.m in Sources */,

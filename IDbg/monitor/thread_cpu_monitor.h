@@ -16,7 +16,7 @@ class ThreadMonitor {
  public:
   virtual ~ThreadMonitor() = default;
  public:
-  virtual void Start() = 0;
+  virtual int Start() = 0;
   virtual void Stop() = 0;
   virtual void OnTimer() = 0;
 };

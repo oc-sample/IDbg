@@ -10,13 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TaskTimer : NSObject
+@interface ThreadCpuMonitorTimer : NSObject
 
-@property(nonatomic, strong)NSTimer* timer;
+-(void)start;
 
--(void)startTimer;
-
--(void)stopTimer;
+-(void)stop;
 
 @end
 

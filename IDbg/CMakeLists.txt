@@ -18,11 +18,13 @@ message(STATUS "project binary dir " ${PROJECT_BINARY_DIR})
 message(STATUS "cmake current dir" ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(TOP_HEADER
-        build_config.h)
+        build_config.h
+        common_def.h)
 
 if (IOS OR MACOS)
   set(BASE_HEADER
-          base/thread_model.h)
+          base/thread_model.h
+          base/singleton.h)
 
   set(BASE_SOURCE
           base/thread_model.cc)

@@ -54,7 +54,7 @@ private:
   uint64_t sys_cpu_begin_time_ = 0;
   
 private:
-  std::unique_ptr<CpuMonitorConfig> config_;
+  std::unique_ptr<HighCpuConfig> config_;
   UploadStackDelegate upload_;
   
 private:
@@ -65,7 +65,7 @@ private:
 
 
 CpuUsageMonitorApple::CpuUsageMonitorApple(UploadStackDelegate delegate) {
-  config_ = std::make_unique<CpuMonitorConfig>();
+  config_ = std::make_unique<HighCpuConfig>();
   upload_ = delegate;
   cpu_core_ = IDbg::GetCpuCore();
 }
@@ -88,11 +88,11 @@ void CpuUsageMonitorApple::Stop() {
 }
 
 int CpuUsageMonitorApple::SampleFrequencyControl(uint64_t current_time) {
-  if (cur_sample_count_ >= config_->max_sample_count_) {
+  if (cur_sample_count_ >= config_->max_sample_count) {
     return 1;
   }
   
-  if (current_time - last_sample_time_ < config_->sample_interval_ms_) {
+  if (current_time - last_sample_time_ < config_->sample_interval_ms) {
     return 2;
   }
   return 0;
@@ -117,8 +117,8 @@ int CpuUsageMonitorApple::SampleConditionControl(uint64_t current_time) {
     }
     return 0;
   };
-  if (condition_control(config_->app_condition_, app_cpu_, current_time, app_cpu_begin_time_) != 0 &&
-      condition_control(config_->sys_condition_, sys_cpu_, current_time, sys_cpu_begin_time_) != 0) {
+  if (condition_control(config_->app_condition, app_cpu_, current_time, app_cpu_begin_time_) != 0 &&
+      condition_control(config_->sys_condition, sys_cpu_, current_time, sys_cpu_begin_time_) != 0) {
     return 1;
   }
   return 0;
@@ -151,9 +151,9 @@ void CpuUsageMonitorApple::SampleStack(uint64_t current_time) {
   });
   
   ThreadIdArray thread_list;
-  for (size_t i = 0; i < config_->dump_thread_number_ && i < cpu_info.size(); ++i) {
+  for (size_t i = 0; i < config_->dump_thread_number && i < cpu_info.size(); ++i) {
     auto& info = cpu_info[i];
-    if (info.cpu < config_->thread_cpu_threshold_) {
+    if (info.cpu < config_->thread_cpu_threshold) {
       break;
     }
       thread_list.push_back(info.th);
@@ -167,7 +167,7 @@ void CpuUsageMonitorApple::SampleStack(uint64_t current_time) {
 
 void CpuUsageMonitorApple::DumpStackMulti(const IDbg::ThreadIdArray& thread_list) {
   std::vector<ThreadStackArray> time_slices;
-  for (int i=0; i < config_->dump_count_; ++i) {
+  for (int i=0; i < config_->dump_count; ++i) {
     ThreadStackArray ls;
     GetThreadInfoById(thread_list, ThreadOptions::kFrames, &ls);
     std::sort(ls.begin(), ls.end(), [](const IDbg::ThreadStack& v1, const IDbg::ThreadStack& v2) {

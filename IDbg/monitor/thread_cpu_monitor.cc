@@ -17,12 +17,6 @@
 
 namespace IDbg {
 
-struct ThreadMonitorConfig {
-  bool is_monitor_ = true;
-  bool is_report_range_ = false;
-  uint64_t interval_ = 2000;
-};
-
 constexpr static int kRangeGroup = 51;
 
 struct CpuRangeInfo {

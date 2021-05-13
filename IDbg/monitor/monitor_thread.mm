@@ -7,10 +7,9 @@
 //
 
 #import "heartbeat.h"
-#import "mini_dump_file.h"
 
 @interface Heartbeat()
-@property(nonatomic, strong) NSThread* thread;
+@property(nonatomic, strong)NSThread* thread;
 @property(nonatomic, strong)NSTimer* timer;
 
 @end
@@ -83,12 +82,6 @@
 }
 
 - (void)onTimer{
-//  std::string file = IDbg::GenerateMiniDump(IDbg::kDefault);
-//
-//  IDbg::CreateFileDirectories();
-//
-//  IDbg::SaveToFile(file);
-//  NSLog(@"%@", [NSString stringWithUTF8String:file.c_str()]);
 }
 
 @end

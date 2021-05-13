@@ -19,24 +19,31 @@ struct CpuConditionConfig {
   std::string cpu_type;
 };
 
-struct CpuMonitorConfig {
-  bool enable_ = true;
-  int64_t modulus_base_ = 1;
+struct HighCpuConfig {
+  bool enable = true;
+  int64_t modulus_base = 1;
   
-  CpuConditionConfig app_condition_ = {10000, 45, 90, "app"};
-  CpuConditionConfig sys_condition_ = {10000, 85, 99, "sys"};
-  float thread_cpu_threshold_ = 1;
+  CpuConditionConfig app_condition = {10000, 45, 90, "app"};
+  CpuConditionConfig sys_condition = {10000, 85, 99, "sys"};
+  float thread_cpu_threshold = 1;
   
-  int64_t dump_count_ = 3;
-  int64_t dump_interval_ms_ = 500;
-  int64_t dump_thread_number_ = 3;
+  int64_t dump_count = 3;
+  int64_t dump_interval_ms = 500;
+  int64_t dump_thread_number = 3;
   
-  int64_t max_sample_count_ = 1;
-  int64_t sample_interval_ms_ = 60000;
-  int64_t detect_interval_ms_ = 2000;
+  int64_t max_sample_count = 1;
+  int64_t sample_interval_ms = 60000;
+  int64_t detect_interval_ms = 2000;
   
-  std::map<std::string, int> block_thread_list_;
+  std::map<std::string, int> block_thread_list;
 };
+
+struct ThreadMonitorConfig {
+  bool is_monitor = true;
+  bool is_report_range = false;
+  uint64_t interval = 2000;
+};
+
 
 }  // namespace IDBG_CONFIG_CENTER_H_
 

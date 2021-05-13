@@ -21,19 +21,19 @@ set(TOP_HEADER
 
 if (IOS OR MACOS)
   set(CORE_HEADER
-          common/thread_model.h
-          common/thread_cpu_info.h
-          common/mini_dump_file.h
-          common/ks_dynamic_linker.h
-          common/sys_util.h)
+          core/thread_model.h
+          core/thread_cpu_info.h
+          core/mini_dump_file.h
+          core/ks_dynamic_linker.h
+          core/sys_util.h)
 
   set(CORE_SOURCE
-          common/ks_dynamic_linker.c
-          common/mini_dump_file.cc
-          common/sys_util.cc
-          common/sys_util.mm
-          common/thread_cpu_info.cc
-          common/thread_model.cc)
+          core/ks_dynamic_linker.c
+          core/mini_dump_file.cc
+          core/sys_util.cc
+          core/sys_util.mm
+          core/thread_cpu_info.cc
+          core/thread_model.cc)
 
   set(MONITOR_HEADER
           monitor/config_center.h
@@ -47,9 +47,9 @@ if (IOS OR MACOS)
           monitor/thread_monitor.cc)
 
   set(PUBLIC_HEADER
-          common/thread_cpu_info.h
-          common/mini_dump_file.h
-          common/thread_model.h)
+          core/thread_cpu_info.h
+          core/mini_dump_file.h
+          core/thread_model.h)
 
 elseif(WIN32 OR ANDROID)
   set(PUBLIC_HEADER
@@ -70,8 +70,8 @@ add_library (${PROJECT_NAME}
         ${MONITOR_HEADER}
         ${MONITOR_SOURCE})
 
-source_group("CORE/Header Files" FILES ${COMMON_HEADER})
-source_group("CORE/Source Files" FILES ${COMMON_SOURCE})
+source_group("core/Header Files" FILES ${CORE_HEADER})
+source_group("core/Source Files" FILES ${CORE_SOURCE})
 source_group("monitor/Header Files" FILES ${MONITOR_HEADER})
 source_group("monitor/Source Files" FILES ${MONITOR_SOURCE})
 

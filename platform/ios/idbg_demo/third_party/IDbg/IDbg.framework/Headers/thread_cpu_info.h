@@ -3,11 +3,11 @@
 //  AppleMiniDumpApp
 //
 //  Created by mjzheng on 2019/6/28.
-//  Copyright © 2019年 mjzheng. All rights reserved.
+//  Copyright © 2020年 mjzheng. All rights reserved.
 //
 
-#ifndef IDBG_IDBG_THREAD_CPU_INFO_H_
-#define IDBG_IDBG_THREAD_CPU_INFO_H_
+#ifndef IDBG_THREAD_CPU_INFO_H_
+#define IDBG_THREAD_CPU_INFO_H_
 
 #include <vector>
 #include <string>
@@ -34,7 +34,7 @@ struct ThreadStack {
 };
 
 enum class ThreadOptions : uint32_t {
-  kBasic = 1 << 0, // 0000 0001
+  kBasic = 1 << 0,  // 0000 0001
   kFrames = 1 << 1,
 };
 
@@ -59,7 +59,7 @@ int GetAllThreadInfo(const ThreadOptions options, ThreadStackArray* ls);
 
 int GetCpuCore();
 
-} // namesapce IDbg
+}  // namespace IDbg
 
-#endif  // IDBG_IDBG_THREAD_CPU_INFO_H_
+#endif  // IDBG_THREAD_CPU_INFO_H_
 

@@ -6,11 +6,11 @@
 //
 
 #import "ViewController.h"
-#import "Heartbeat.h"
+#import "IDbg/monitor_thread.h"
 
 @interface ViewController ()
 
-@property (nonatomic, strong) Heartbeat* hb;
+@property (nonatomic, strong) MonitorThread* hb;
 @end
 
 @implementation ViewController
@@ -25,7 +25,7 @@
 }
 
 - (void)startHeartbeat{
-  self.hb = [[Heartbeat alloc] init];
+  self.hb = [[MonitorThread alloc] init];
   [self.hb start];
 }
 

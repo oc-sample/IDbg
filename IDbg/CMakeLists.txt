@@ -58,7 +58,8 @@ if (IOS OR MACOS)
   set(PUBLIC_HEADER
           core/thread_cpu_info.h
           core/mini_dump_file.h
-          base/thread_model.h)
+          base/thread_model.h
+          monitor/monitor_thread.h)
 
 elseif(WIN32 OR ANDROID)
   set(PUBLIC_HEADER

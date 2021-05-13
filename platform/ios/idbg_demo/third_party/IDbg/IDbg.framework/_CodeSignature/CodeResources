@@ -8,13 +8,17 @@
 		<data>
 		Si3sKXSRVK5WhwQF0kfwcv4uxts=
 		</data>
+		<key>Headers/monitor_thread.h</key>
+		<data>
+		tunortSB4IYxBY3AJXzjzbRvkAI=
+		</data>
 		<key>Headers/thread_cpu_info.h</key>
 		<data>
-		T4A+lRPeKWxGkQMWL63TD7svwuE=
+		BngJhJiB7T+YFe3OIZ9t+bpjkAs=
 		</data>
 		<key>Headers/thread_model.h</key>
 		<data>
-		XIQhLvjj1Eh1bDuF8qJXhnNoyT0=
+		9vHOwoPrgGeI0OIM3rh4XVGAMgA=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -34,26 +38,37 @@
 			CoJ+BP5Vfd2rfyB4tqDtpt6FYQWazW8TqLAaqToH74w=
 			</data>
 		</dict>
+		<key>Headers/monitor_thread.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tunortSB4IYxBY3AJXzjzbRvkAI=
+			</data>
+			<key>hash2</key>
+			<data>
+			WcO0E4eBJQqMms/kpebKcwgAsv3gSlR/Z1Mt9w7tOoM=
+			</data>
+		</dict>
 		<key>Headers/thread_cpu_info.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			T4A+lRPeKWxGkQMWL63TD7svwuE=
+			BngJhJiB7T+YFe3OIZ9t+bpjkAs=
 			</data>
 			<key>hash2</key>
 			<data>
-			Tgtiwd5NUWw3Lo3AOf2iadsqJL6Oaoz0eR73tDH5k9g=
+			kwuia+qZ4QempjFuKgdhExEPNytwHH4ntiJ667X56WQ=
 			</data>
 		</dict>
 		<key>Headers/thread_model.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XIQhLvjj1Eh1bDuF8qJXhnNoyT0=
+			9vHOwoPrgGeI0OIM3rh4XVGAMgA=
 			</data>
 			<key>hash2</key>
 			<data>
-			Kwp0rcFs3egwCeeZHN0shvJNhNMpHF9Llgpp1kk0uvk=
+			BZ6OhnYgXqn6AsE2h/TQvY+qP6OgVtMW34FuH/IMQxs=
 			</data>
 		</dict>
 	</dict>

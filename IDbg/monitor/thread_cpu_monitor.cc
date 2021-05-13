@@ -149,8 +149,9 @@ class ThreadMonitorImpl : public ThreadMonitor {
   void Start() override;
 
   void Stop() override;
- private:  // in work thread
-  void OnTimer();
+  
+  void OnTimer() override;
+  
  private:
   std::unique_ptr<ThreadMonitorConfig> config_;
 

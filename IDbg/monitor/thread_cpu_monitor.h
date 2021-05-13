@@ -18,6 +18,7 @@ class ThreadMonitor {
  public:
   virtual void Start() = 0;
   virtual void Stop() = 0;
+  virtual void OnTimer() = 0;
 };
 
 std::unique_ptr<ThreadMonitor> CreateThreadMonitor();

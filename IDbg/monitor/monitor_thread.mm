@@ -7,14 +7,13 @@
 //
 
 #import "monitor_thread.h"
-#import "thread_cpu_monitor.h"
-#include <memory>
+#import "task_timer.h"
 
-@interface MonitorThread() {
-  std::unique_ptr<IDbg::ThreadMonitor> thread_cpu_monitor_;
-}
+
+@interface MonitorThread()<NSPortDelegate>
 @property(nonatomic, strong)NSThread* thread;
-@property(nonatomic, strong)NSTimer* timer;
+@property(nonatomic, strong)NSPort* port;
+@property(nonatomic, strong)TaskTimer* timer;
 
 @end
 
@@ -22,9 +21,6 @@
 
 - (instancetype)init {
   self = [super init];
-  if (self) {
-    thread_cpu_monitor_ = IDbg::CreateThreadMonitor();
-  }
   return self;
 }
 
@@ -36,9 +32,6 @@
     [self.thread start];
     NSLog(@"start new thread ");
   }
-  if (nullptr != thread_cpu_monitor_) {
-    thread_cpu_monitor_->Start();
-  }
 }
 
 - (void)stop{
@@ -48,15 +41,14 @@
     [self performSelector:@selector(onStop) onThread:self.thread withObject:nil waitUntilDone:YES];
     _thread = nil;
   }
-  
-  if (nullptr != thread_cpu_monitor_) {
-    thread_cpu_monitor_->Stop();
-  }
 }
 
 - (void)run {
   NSLog(@"before run");
-  [self startTimer];
+  
+  self.timer = [[TaskTimer alloc] init];
+  [self.timer startTimer];
+  
   BOOL done = NO;
   do {
     CFRunLoopRunResult result = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 10, YES);
@@ -76,23 +68,18 @@
 
 - (void)onStop {
   NSLog(@"real stop thread");
-  [self stopTimer];
   CFRunLoopStop(CFRunLoopGetCurrent());
+  [self.timer stopTimer];
   NSLog(@"end stop thread");
 }
 
-- (void)startTimer {
-  self.timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
-  [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes]; // 一直有效
-    //[[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode]; // 默认mode
+-(void)addAutoSource {
+    self.port = [NSMachPort port];
+    [self.port setDelegate:self];
+    [[NSRunLoop currentRunLoop] addPort:self.port forMode:NSDefaultRunLoopMode];
 }
 
-- (void)stopTimer {
-  [self.timer invalidate];
-  _timer = nil;
-}
-
-- (void)onTimer{
+- (void)handlePortMessage:(NSPortMessage *)message {
 }
 
 @end

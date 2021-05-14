@@ -1,0 +1,1 @@
+copy pre-commit ..\.git\hookspre-commit

@@ -1,15 +1,18 @@
 //
 // Created by mjzheng on 2021/3/18.
+//  Copyright © 2021年 mjzheng. All rights reserved.
 //
 
 #ifndef IDBG_IDBG_THREAD_MODEL_H_
 #define IDBG_IDBG_THREAD_MODEL_H_
 
 #include <thread>
-#include <queue>
-#include <string>
 #include <mutex>
 #include <condition_variable>
+
+#include <queue>
+#include <string>
+
 #include <memory>
 
 namespace IDbg {

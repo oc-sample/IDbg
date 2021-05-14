@@ -1,1 +1,1 @@
-copy pre-commit ..\.git\hookspre-commit
+copy pre-commit ..\.git\hooks\pre-commit

@@ -159,9 +159,6 @@ class ThreadMonitorImpl : public MonitorInterface {
   void Stop() override;
   
   void OnTimer() override;
-  
- private:
-  std::unique_ptr<ThreadMonitorConfig> config_;
 
  private:
   ThreadCpuInfoArray threads_cpu_info_;
@@ -174,7 +171,7 @@ std::unique_ptr<MonitorInterface> CreateThreadCpuMonitor() {
 static const char* business_module[] = {"xnn", "wemeet_base", "wemeet_sdk_internal", "caulk", "WeMeetApp", "ImSDK", "xcast"};
 
 ThreadMonitorImpl::ThreadMonitorImpl()
-    : config_(std::make_unique<ThreadMonitorConfig>()) {
+    : config_(std::make_unique<ThreadCpuConfig>()) {
 }
 
 ThreadMonitorImpl::~ThreadMonitorImpl() {

@@ -61,14 +61,12 @@ if (IOS OR MACOS)
           monitor/monitor_thread.h)
 
 elseif(WIN32 OR ANDROID)
-  set(PUBLIC_HEADER
-          thread_model.h)
+  set(BASE_HEADER
+          base/thread_model.h
+          base/singleton.h)
 
-  set (PRIVATE_HEADER
-          build_config.h)
-
-  set(SOURCE_FILES
-          thread_model.cc)
+  set(BASE_SOURCE
+          base/thread_model.cc)
 endif()
 
 # Library

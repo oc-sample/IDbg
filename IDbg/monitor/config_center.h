@@ -9,6 +9,8 @@
 
 #include <map>
 #include <string>
+#include <memory>
+#include "singleton.h"
 
 namespace IDbg {
 
@@ -20,8 +22,7 @@ struct CpuConditionConfig {
 };
 
 struct HighCpuConfig {
-  bool enable = true;
-  int64_t modulus_base = 1;
+  bool is_monitor = true;
   
   CpuConditionConfig app_condition = {10000, 45, 90, "app"};
   CpuConditionConfig sys_condition = {10000, 85, 99, "sys"};
@@ -38,10 +39,21 @@ struct HighCpuConfig {
   std::map<std::string, int> block_thread_list;
 };
 
-struct ThreadMonitorConfig {
+struct ThreadCpuConfig {
   bool is_monitor = true;
-  bool is_report_range = false;
   uint64_t interval = 2000;
+  bool is_report_range = false;
+};
+
+class MonitorConfigCenter : public Singleton<MonitorConfigCenter> {
+  friend class Singleton<MonitorConfigCenter>;
+public:
+  std::unique_ptr<ThreadCpuConfig> thread_cpu_config_;
+  
+private:
+  MonitorConfigCenter() = default;
+  
+  ~MonitorConfigCenter() = default;
 };
 
 

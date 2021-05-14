@@ -170,8 +170,7 @@ std::unique_ptr<MonitorInterface> CreateThreadCpuMonitor() {
 
 static const char* business_module[] = {"xnn", "wemeet_base", "wemeet_sdk_internal", "caulk", "WeMeetApp", "ImSDK", "xcast"};
 
-ThreadMonitorImpl::ThreadMonitorImpl()
-    : config_(std::make_unique<ThreadCpuConfig>()) {
+ThreadMonitorImpl::ThreadMonitorImpl() {
 }
 
 ThreadMonitorImpl::~ThreadMonitorImpl() {
@@ -179,9 +178,6 @@ ThreadMonitorImpl::~ThreadMonitorImpl() {
 }
 
 int ThreadMonitorImpl::Start() {
-  if (!config_->is_monitor) {
-    return 1;
-  }
   threads_cpu_info_.clear();
   return 0;
 }
@@ -189,9 +185,7 @@ int ThreadMonitorImpl::Start() {
 void ThreadMonitorImpl::Stop() {
   for (auto& item : threads_cpu_info_) {
     ReportThreadInfo(item.second);
-    if (config_->is_report_range) {
-      ReportThreadRangeInfo(item.second);
-    }
+    ReportThreadRangeInfo(item.second);
   }
   threads_cpu_info_.clear();
 }

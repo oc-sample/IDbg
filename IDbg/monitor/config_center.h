@@ -49,6 +49,7 @@ class MonitorConfigCenter : public Singleton<MonitorConfigCenter> {
   friend class Singleton<MonitorConfigCenter>;
 public:
   std::unique_ptr<ThreadCpuConfig> thread_cpu_config_;
+  std::unique_ptr<HighCpuConfig> high_cpu_config_;
   
 private:
   MonitorConfigCenter() = default;

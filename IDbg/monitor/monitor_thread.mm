@@ -47,10 +47,15 @@
 - (void)run {
   NSLog(@"before run");
   
-  self.highCpuMonitorTimer = [[MonitorTimer alloc] initWithMonitorType:IDbg::MonitorType::kHighCpu];
-  [self.highCpuMonitorTimer start];
+  auto& high_cpu_config = IDbg::MonitorConfigCenter::Instance()->high_cpu_config_;
   
-  if (IDbg::MonitorConfigCenter::Instance()->thread_cpu_config_->is_monitor) {
+  if (high_cpu_config != nullptr && high_cpu_config->is_monitor) {
+    self.highCpuMonitorTimer = [[MonitorTimer alloc] initWithMonitorType:IDbg::MonitorType::kHighCpu];
+    [self.highCpuMonitorTimer start];
+  }
+  
+  auto& thread_cpu_config = IDbg::MonitorConfigCenter::Instance()->thread_cpu_config_;
+  if (thread_cpu_config != nullptr && thread_cpu_config->is_monitor) {
     self.threadCpuMonitorTimer = [[MonitorTimer alloc] initWithMonitorType:IDbg::MonitorType::kThreadCpu];
     [self.threadCpuMonitorTimer start];
   }

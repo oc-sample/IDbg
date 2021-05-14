@@ -354,4 +354,49 @@ int GetCpuCore() {
   return cpu_count;
 }
 
+static bool IsBusinessModule(std::string module, const char** module_list, size_t sz) {
+  for (auto i=0; i<sz; ++i) {
+    if (0 == strcmp(module.c_str(), module_list[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void GetThreadModuleName(ThreadStack& thread, const char** business_module) {
+  std::string module_name{"unknown"};
+  bool bfound = false;
+  auto sz = sizeof(business_module) / sizeof(char*);
+  if (thread.frames.empty()) {
+    GetThreadStack(thread.th, &thread.frames);
+  }
+  auto iter = thread.frames.rbegin();
+  for (; iter != thread.frames.rend(); ++iter) {
+    if (IsBusinessModule(iter->module_name, business_module, sz)) {
+      bfound = true;
+      module_name = iter->module_name;
+      break;
+    }
+  }
+  if (module_name == "unknown") {
+    if (thread.frames.size() >=2) {
+      module_name = thread.frames[thread.frames.size()-2].module_name;
+    }
+  }
+  thread.module = module_name;
+}
+
+//void GetCacheModuleName(ThreadStack& thread) {
+//  static std::map<thread_t, std::string> cache_module;
+//  auto iter = cache_module.find(thread.th);
+//  if (iter != cache_module.end()) {
+//    thread.module = iter->second;
+//  } else {
+//    if (thread.frames.empty()) {
+//      GetThreadStack(thread.th, thread.frames);
+//    }
+//    thread.module = GetThreadModuleName(thread);
+//    cache_module.insert(std::make_pair(thread.th, thread.module));
+//  }
+//}
 }  // namespace IDbg

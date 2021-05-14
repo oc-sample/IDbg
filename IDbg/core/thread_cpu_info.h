@@ -30,6 +30,7 @@ struct ThreadStack {
   thread_t th;
   float cpu;
   std::string name;
+  std::string module;
   FrameList frames;
 };
 
@@ -59,6 +60,7 @@ int GetAllThreadInfo(const ThreadOptions options, ThreadStackArray* ls);
 
 int GetCpuCore();
 
+void GetThreadModuleName(ThreadStack& thread, const char** business_module);
 }  // namespace IDbg
 
 #endif  // IDBG_THREAD_CPU_INFO_H_

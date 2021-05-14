@@ -24,22 +24,22 @@ set(TOP_HEADER
 if (IOS OR MACOS)
   set(BASE_HEADER
           base/thread_model.h
-          base/singleton.h)
+          base/singleton.h
+          base/sys_util.h)
 
   set(BASE_SOURCE
-          base/thread_model.cc)
+          base/thread_model.cc
+          base/sys_util.cc
+          base/sys_util.mm)
 
   set(CORE_HEADER
           core/thread_cpu_info.h
           core/mini_dump_file.h
-          core/ks_dynamic_linker.h
-          core/sys_util.h)
+          core/ks_dynamic_linker.h)
 
   set(CORE_SOURCE
           core/ks_dynamic_linker.c
           core/mini_dump_file.cc
-          core/sys_util.cc
-          core/sys_util.mm
           core/thread_cpu_info.cc)
 
   set(MONITOR_HEADER
@@ -63,10 +63,12 @@ if (IOS OR MACOS)
 elseif(WIN32 OR ANDROID)
   set(BASE_HEADER
           base/thread_model.h
-          base/singleton.h)
+          base/singleton.h
+          base/sys_util.h)
 
   set(BASE_SOURCE
-          base/thread_model.cc)
+          base/thread_model.cc
+          base/sys_util.cc)
 endif()
 
 # Library

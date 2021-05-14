@@ -38,7 +38,7 @@
     }
   }
   self.timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
-  [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes]; // 一直有效
+  [[NSRunLoop currentRunLoop] addTimer:sel  f.timer forMode:NSRunLoopCommonModes]; // 一直有效
   //[[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode]; // 默认mode
 }
 

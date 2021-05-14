@@ -17,7 +17,7 @@ ThreadModel::ThreadModel(const std::string& thread_name)
 
 ThreadModel::~ThreadModel() {
   StopThread();
-  LOG("destroy");
+  LOG("destroy...");
 }
 
 int ThreadModel::PushTask(std::function<void()> func) {

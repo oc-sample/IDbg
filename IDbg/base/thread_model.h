@@ -7,10 +7,12 @@
 #define IDBG_IDBG_THREAD_MODEL_H_
 
 #include <thread>
-#include <queue>
-#include <string>
 #include <mutex>
 #include <condition_variable>
+
+#include <queue>
+#include <string>
+
 #include <memory>
 
 namespace IDbg {

@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.16)
+cmake_minimum_required (VERSION 3.10)
 project (IDbg VERSION 1.0)
 
 # specify the C++ standard
@@ -117,7 +117,7 @@ if (IOS)
   set(PROJECT_AUTO ${PROJECT_NAME}-auto)
   ADD_CUSTOM_TARGET(${PROJECT_AUTO})
   ADD_CUSTOM_COMMAND(TARGET ${PROJECT_AUTO} COMMAND /bin/bash /${CMAKE_SOURCE_DIR}/tools/merge_frame.sh)
-ELSE(OSX)
+elseif(MACOS)
   message(STATUS "build OSX poroject")
   set_target_properties(${PROJECT_NAME} PROPERTIES FRAMEWORK TRUE
           PUBLIC_HEADER "${PUBLIC_HEADER}"

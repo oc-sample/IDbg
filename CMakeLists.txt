@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.10)
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 if (IOS OR MACOS)
     set(DEVELOPMENT_TEAM_ID "ACE4T95FK7")

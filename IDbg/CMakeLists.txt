@@ -22,6 +22,9 @@ set(TOP_HEADER
         common_def.h)
 
 if (IOS OR MACOS)
+  set(DEVELOPMENT_TEAM_ID "ACE4T95FK7")
+  set(PROVISIONING_PROFILE_NAME, "mj")
+  message(STATUS "set ios file")
   set(BASE_HEADER
           base/thread_model.h
           base/singleton.h

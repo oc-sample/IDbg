@@ -20,3 +20,6 @@
 2. .\generate_vs_proj.bat
 3. 打开project/windows/cross_idbg.sln, 编译idbg
 4. 打开platform/windows/idbg_demo.sln, 编译idgb_demo
+
+# android 平台的构建
+1. 直接打开platform/android/idbg_demo

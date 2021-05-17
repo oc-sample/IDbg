@@ -130,6 +130,14 @@ elseif(MACOS)
           XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES"
           XCODE_ATTRIBUTE_DEVELOPMENT_TEAM ${DEVELOPMENT_TEAM_ID}
           )
+elseif(ANDROID)
+  find_library( # Sets the name of the path variable.
+          log-lib
+
+          # Specifies the name of the NDK library that
+          # you want CMake to locate.
+          log )
+  target_link_libraries(${PROJECT_NAME} ${log-lib})
 endif()
 
 #if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)

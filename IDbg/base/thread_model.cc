@@ -5,8 +5,8 @@
 
 #include "thread_model.h"
 #include "sys_util.h"
+#include "common_def.h"
 
-#define LOG(...)
 
 namespace IDbg {
 ThreadModel::ThreadModel(const std::string& thread_name)

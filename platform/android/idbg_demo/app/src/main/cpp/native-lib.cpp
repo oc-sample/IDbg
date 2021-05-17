@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include "thread_model.h"
+#include <android/log.h>
 
 void StartThread() {
     //IDbg::SetThreadName("main");
@@ -18,5 +19,6 @@ Java_com_example_idbg_1demo_MainActivity_stringFromJNI(
         jobject /* this */) {
     std::string hello = "Hello from C++";
     StartThread();
+    __android_log_print(ANDROID_LOG_DEBUG, "jni", "my name is zhengjunming");
     return env->NewStringUTF(hello.c_str());
 }

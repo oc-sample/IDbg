@@ -94,7 +94,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>H:\mj_git\IDbg\platform\windows\idbg_demo\third_party\IDbg\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>IDbg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>IDbg.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

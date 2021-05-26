@@ -23,11 +23,13 @@
 #endif
 
 #if defined(OS_WIN)
-#ifdef IDBG_EXPORTS
-#define IDBG_API __declspec(dllexport)
+  #ifdef IDBG_EXPORTS
+  #define IDBG_API __declspec(dllexport)
+  #else
+  #define IDBG_API __declspec(dllimport)
+  #endif
 #else
-#define IDBG_API __declspec(dllimport)
-#endif
+  #define IDBG_API 
 #endif
 
 #endif //C11_SAMPLE_BASEDEF_H

@@ -11,6 +11,7 @@
 
 #include <string>
 #include "build_config.h"
+#include "common_def.h"
 
 #if defined(OS_IOS) || defined(OS_OSX)
 #import <mach/machine.h>
@@ -52,7 +53,7 @@ int GetProcessId();
 std::string UuidToSting(const uint8_t* bytes);
 
 #endif
-void SetThreadName(const std::string& name);
+IDBG_API void SetThreadName(const std::string& name);
 }
 
 #endif  // IDBG_IDBG_SYS_UTIL_H_

@@ -95,6 +95,7 @@ target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 
 if(BUILD_SHARED_LIBS)
   target_compile_definitions(${PROJECT_NAME} PUBLIC IS_BUILDING_SHARED)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC IDBG_EXPORTS)
   message(STATUS "Building shared version...")
 else()
   message(STATUS "Building static version...")

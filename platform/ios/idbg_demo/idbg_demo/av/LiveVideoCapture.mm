@@ -74,6 +74,29 @@
     [self.session setSessionPreset:AVCaptureSessionPreset640x480];
     
     [self setFrameRate:videoDevice AndRate:15];
+  
+ // [self getCameraDeviceWithPosition:AVCaptureDevicePositionFront];
+  
+  NSMutableDictionary *formatsDic = [NSMutableDictionary dictionary];
+  
+  AVCaptureDevicePosition position = AVCaptureDevicePositionFront;
+  AVCaptureDevice *captureDevice = [self getCaptureDevicePosition:position];
+  
+  NSArray<AVCaptureDeviceFormat *> *formats = [captureDevice formats];
+  
+  for (AVCaptureDeviceFormat *vFormat in formats) {
+//      CMFormatDescriptionRef formatDescription = vFormat.formatDescription;
+//      NSLog(@"vFormat formatDescription:%@",formatDescription);
+//
+      CMFormatDescriptionRef description = vFormat.formatDescription;
+      CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions(description);
+      NSLog(@"dims width:%d height:%d",dims.width, dims.height);
+      
+      NSString *key = [NSString stringWithFormat:@"%dx%d",dims.width,dims.height];
+      if (![formatsDic objectForKey:key]) {
+          [formatsDic setObject:key forKey:key];
+      }
+  }
 }
 
 -(void) audioInputAndOutput {
@@ -152,10 +175,43 @@ char*  XXStringForOSType(OSType type) {
     
     [self calculatorCaptureFPS];
     //NSLog(@"----- sampleBuffer ----- %@", sampleBuffer);
-    
-    
 }
 
 
+-(AVCaptureDevice *)getCameraDeviceWithPosition:(AVCaptureDevicePosition )position{
+  NSArray *cameras= [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+  for (AVCaptureDevice *camera in cameras) {
+    if ([camera position]==position) {
+      [[camera formats] enumerateObjectsUsingBlock:^(AVCaptureDeviceFormat* obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+      }];
+      return camera;
+     }
+  }
+  return nil;
+}
+
+
+- (AVCaptureDevice *)getCaptureDevicePosition:(AVCaptureDevicePosition)position {
+    NSArray *devices = nil;
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 10.0) {
+        AVCaptureDeviceDiscoverySession *deviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera]
+                                                                                                                         mediaType:AVMediaTypeVideo
+                                                                                                                          position:position];
+        devices = deviceDiscoverySession.devices;
+    } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+#pragma clang diagnostic pop
+    }
+    
+    for (AVCaptureDevice *device in devices) {
+        if (device.position == position) {
+            return device;
+        }
+    }
+    return NULL;
+}
 
 @end

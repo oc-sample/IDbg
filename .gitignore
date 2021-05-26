@@ -4,3 +4,6 @@ xcuserdata
 .idea/*
 project/*
 cmake-build-debug/*
+platform/windows/.vs/*
+platform/windows/Debug/*
+platform/windows/idbg_demo/Debug/*

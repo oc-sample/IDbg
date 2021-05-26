@@ -14,10 +14,11 @@
 #include <string>
 
 #include <memory>
+#include "common_def.h"
 
 namespace IDbg {
 
-class ThreadModel {
+class IDBG_API ThreadModel {
  public:
   explicit ThreadModel(const std::string& thread_name);
 

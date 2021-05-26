@@ -23,10 +23,14 @@
 #endif
 
 #if defined(OS_WIN)
-  #ifdef IDBG_EXPORTS
-  #define IDBG_API __declspec(dllexport)
+  #ifdef IS_BUILDING_SHARED
+    #ifdef IDBG_EXPORTS
+    #define IDBG_API __declspec(dllexport)
+    #else
+    #define IDBG_API __declspec(dllimport)
+    #endif
   #else
-  #define IDBG_API __declspec(dllimport)
+    #define IDBG_API
   #endif
 #else
   #define IDBG_API 

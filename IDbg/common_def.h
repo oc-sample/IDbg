@@ -6,6 +6,8 @@
 #ifndef C11_SAMPLE_BASEDEF_H
 #define C11_SAMPLE_BASEDEF_H
 
+#include "build_config.h"
+
 #if defined(ANDROID)
 #include <android/log.h>
 #define LOG(...) { \

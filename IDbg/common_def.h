@@ -1,5 +1,6 @@
 //
 // Created by 郑俊明 on 2021/3/20.
+//  Copyright © 2021年 mjzheng. All rights reserved.
 //
 
 #ifndef C11_SAMPLE_BASEDEF_H
@@ -19,6 +20,14 @@
    printf("\n"); \
 }
 
+#endif
+
+#if defined(OS_WIN)
+#ifdef IDBG_EXPORTS
+#define IDBG_API __declspec(dllexport)
+#else
+#define IDBG_API __declspec(dllimport)
+#endif
 #endif
 
 #endif //C11_SAMPLE_BASEDEF_H

@@ -1,0 +1,1 @@
+umdh -pn:idbg_demo.exe -f:1.log

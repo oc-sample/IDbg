@@ -7,3 +7,5 @@ cmake-build-debug/*
 platform/windows/.vs/*
 platform/windows/Debug/*
 platform/windows/idbg_demo/Debug/*
+platform/windows/idbg_demo.VC.VC.opendb
+platform/windows/idbg_demo.VC.db

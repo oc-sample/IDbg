@@ -7,19 +7,8 @@
 #include "third_party/IDbg/include/sys_util.h"
 #include <windows.h>
 
-//#pragma comment ( lib, "third_party/IDbg/lib/IDbg.lib" )
-
-#include <Windows.h> 
-#include <iostream>
-#include <processthreadsapi.h>
-
-
-
-extern void printCallStark(); 
-
 #define COUNT 1
 void func() {
-  //printCallStark();
   for (size_t i = 0; i < COUNT; ++i) {
     int * pInt = (int*)malloc(sizeof(int));
     //free(pInt);
@@ -27,19 +16,29 @@ void func() {
 }
 
 void TestFunc() {
+  int start_flag = 0;
+  std::cout << "input start flag (int type):";
+  std::cin >> start_flag;
+
+  printf("start alloc");
+
   DWORD tStart, tEnd;
 
   tStart = timeGetTime();
   func();
   tEnd = timeGetTime();
   printf("%lu\n", tEnd - tStart);
+
+  printf("finish alloc");
+
+  int finish_flag = 0;
+  std::cout << "input finish flag (int type):";
+  std::cin >> finish_flag;
+
+  //_CrtDumpMemoryLeaks();
 }
 
 int main(int argc, char* argv[]) {
-  //HeapProfilerStart();
-  Sleep(20000);
-
-  printf("start alloc");
   TestFunc();
 
   /*IDbg::ThreadModel th{ "demo_thread" };
@@ -49,12 +48,5 @@ int main(int argc, char* argv[]) {
 
   std::this_thread::sleep_for(std::chrono::seconds(3));*/
 
-  //HeapProfilerStop();
-  //_CrtDumpMemoryLeaks();
-
-  printf("finish alloc");
-
   //IDbg::SetThreadName("main");
-
-  Sleep(20000);
 }
